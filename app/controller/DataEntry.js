@@ -36,8 +36,9 @@ Ext.define('rcm.controller.DataEntry', {
         
         'utama.HoChart','utama.HoSpeedo',
         'utama.HoPie','utama.HoHistori',
-        'utama.GridWO','utama.GridOrderC'
+        'utama.GridWO','utama.GridOrderC',
         
+        'rcm.view.konfig.Nav'
     ],
     
     models: ['DaftarGagal','RunningHour','Hirarki',

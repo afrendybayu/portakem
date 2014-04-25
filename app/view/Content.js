@@ -89,16 +89,33 @@ Ext.define('rcm.view.Content', {
 			id: 'tu_kf',
 			title: 'Konfigurasi',
 			icon: 'modul/icons/config.png',
-			xtype: 'tabpanel',
+			layout: {
+				type: 'border'
+			},
 			items: [{
-				title: 'Hirarki dan Unit',
-				xtype: 'taskNav',
-				id: 'app-runninghour',
-				//iconCls: 'icon-grid',
-				icon: 'modul/icons/application_go.png'
-			},{
-				xtype: 'excelgrid',
-				
+				region: 'west',
+				xtype: 'taskNavK',
+				align: 'stretch',
+				width: 350,
+				minWidth:310,
+				split: true,
+			}, {
+				align: 'stretch',
+				region: 'center',
+				xtype: 'tabpanel',
+				items: [{
+					title: 'Keterangan Hirarki',
+					html: 'Keterangan Hirarki',
+					icon: 'modul/icons/application_go.png'
+				},{
+					title: 'Object Part',
+					html: 'Object Part',
+					icon: 'modul/icons/application_go.png'
+				},{
+					title: 'Failure Mode',
+					html: 'Failure Mode',
+					icon: 'modul/icons/application_go.png'
+				}]
 			}]
 		}];
 		
