@@ -254,13 +254,15 @@ Ext.define('rcm.controller.DataEntry', {
 	},
 
 	onLaunch: function() {
-		this.ubahFieldRH();
+		
         //var RunningStore = this.getRunningHourStore();
         //RunningStore.load({
 		//	callback: this.onRunningLoad,
 		//	scope: this
         //});
         //*/
+        
+		this.ubahFieldRH();
         console.log("ini muncul: onLaunch");
     },
     

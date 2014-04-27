@@ -17,11 +17,11 @@ Ext.define('rcm.view.konfig.Nav', {
 		xtype: 'toolbar',
 		dock: 'bottom',
 		items: [{
-				//iconCls: 'tasks-new-folder',
-				icon: 'modul/icons/new_folder.png',
+				iconCls: 'tasks-new-folder',
+				//icon: 'modul/icons/new_folder.png',
 				tooltip: 'Tambah Hirarki'
 			},{
-				iconCls: 'tasks-delete-list',
+				iconCls: 'tasks-delete-folder',
 				//id: 'delete-list-btn',
 				tooltip: 'Hapus Hirarki'
 			},{
@@ -33,7 +33,7 @@ Ext.define('rcm.view.konfig.Nav', {
 				tooltip: 'Delete Folder'
 		}]
     }],
-	//*/
+	
 	/*
     viewConfig: {
         plugins: {
@@ -67,8 +67,35 @@ Ext.define('rcm.view.konfig.Nav', {
         ];
         
         me.callParent(arguments);
-	}
+        me.on('beforeedit', me.handleBeforeEdit, me);
+	},
+	//*/
 	
+	/*
+	initComponent: function() {
+		Ext.apply(this, {
+			columns: [{
+				xtype: 'treecolumn',
+                dataIndex: 'text',
+                flex: 1,
+                editor: {
+                    xtype: 'textfield',
+                    selectOnFocus: true,
+                    allowOnlyWhitespace: false
+                },
+                //renderer: Ext.bind(me.renderName, me)
+            },{
+                xtype: 'actioncolumn',
+                width: 24,
+                icon: './modul/icons/hapus.png',
+                //iconCls: 'x-hidden',
+                tooltip: 'Delete',
+                //handler: Ext.bind(me.handleDeleteClick, me)
+            }],
+		});
+		this.callParent();
+	}
+	//*/ 
 	/*
     items: [{
 		xtype: 'treecolumn',
@@ -80,4 +107,11 @@ Ext.define('rcm.view.konfig.Nav', {
         }
     }
     //*/
+    
+    handleBeforeEdit: function(editingPlugin, e) {
+		rcmSettings.bongkar = e.record;
+		//alert("id: "+e.record.get('id'));
+        //return e.record.get('id') !== -1;
+    },
+    
 });

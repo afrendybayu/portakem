@@ -1,4 +1,8 @@
 /* Afrendy Bayu, 25Nov2013 */
+
+
+//*/
+
 Ext.define('rcm.view.dataentry.IsiTabForm', {
     extend: 'Ext.form.Panel',
     alias: 'widget.isiFormGagal',
@@ -89,12 +93,15 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 					hideLabel: true
 				},
 				items: [{
-					xtype     : 'datefield',
-					name      : 'datedown',
+					xtype: 'datefield',
+					name: 'datedown',
+					itemId: 'datedown',
 					fieldLabel: 'Tanggal',
 					format: 'd-m-Y',
 					emptyText: 'Pilih Tanggal ... ',
 					margin: '0 5 0 0',
+					vtype: 'daterange',
+					endDateField: 'dateup',
 					maxWidth: 200,
 					allowBlank: false
 				}, {
@@ -158,6 +165,9 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 				items: [{
 						xtype: 'datefield',
 						name: 'dateup',
+						itemId: 'dateup',
+						vtype: 'daterange',
+						startDateField: 'datedown',
 						fieldLabel: 'Tanggal',
 						format: 'd-m-Y',
 						emptyText: 'Pilih Tanggal ... ',
@@ -309,7 +319,28 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 			'plhEventGagalXY'
         );
 	},
-	
+	/*
+	daterange: function(val, field) {
+            var date = field.parseDate(val);
+
+            if (!date) {
+                return false;
+            }
+            if (field.startDateField && (!this.dateRangeMax || (date.getTime() != this.dateRangeMax.getTime()))) {
+                var start = field.up('form').down('#' + field.startDateField);
+                start.setMaxValue(date);
+                start.validate();
+                this.dateRangeMax = date;
+            }
+            else if (field.endDateField && (!this.dateRangeMin || (date.getTime() != this.dateRangeMin.getTime()))) {
+                var end = field.up('form').down('#' + field.endDateField);
+                end.setMinValue(date);
+                end.validate();
+                this.dateRangeMin = date;
+            }
+            return true;
+	},
+	//*/
 	rowFMEAclick: function(grid, td, cellIndex, record, tr, rowIndex){
 		var asa = grid.getStore().getAt(rowIndex);
 		rcmSettings.asa = {row: rowIndex, col: cellIndex};
