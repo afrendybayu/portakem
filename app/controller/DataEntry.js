@@ -261,7 +261,69 @@ Ext.define('rcm.controller.DataEntry', {
 		//	scope: this
         //});
         //*/
-        
+        Ext.apply(Ext.form.field.VTypes, {
+			daterange: function(val, field) {
+				var date = field.parseDate(val);
+
+				if (!date) {
+					return false;
+				}
+				if (field.startDateField && (!this.dateRangeMax || (date.getTime() != this.dateRangeMax.getTime()))) {
+					var start = field.up('form').down('#' + field.startDateField);
+					start.setMaxValue(date);
+					start.validate();
+					this.dateRangeMax = date;
+				}
+				else if (field.endDateField && (!this.dateRangeMin || (date.getTime() != this.dateRangeMin.getTime()))) {
+					var end = field.up('form').down('#' + field.endDateField);
+					end.setMinValue(date);
+					end.validate();
+					this.dateRangeMin = date;
+				}
+				return true;
+			},
+			daterangeText: 'Start date must be less than end date',
+			timerange: function(val, field)	{
+				var time = field.parseDate(val);
+				if(!time){
+					return;
+				}
+				if (field.startTimeField && (!this.timeRangeMax || (time.getTime() != this.timeRangeMax.getTime()))) {
+					var start = field.up('form').down('#' + field.startTimeField);
+					//start.maxValue = time.getHours()+":"+time.getMinutes();
+					//start.maxValue = time;
+					start.validate();
+					this.timeRangeMax = time;
+				} 
+				else if (field.endTimeField && (!this.timeRangeMin || (time.getTime() != this.timeRangeMin.getTime()))) {
+					var endtime = field.up('form').down('#' + field.endTimeField);
+					var sttdate = field.up('form').down('#' + field.startDateField);
+					var enddate = field.up('form').down('#' + field.endDateField);
+					
+					//var sttdate = Ext.getCmp(field.startDateField);
+					//var enddate = Ext.getCmp(field.endDateField);
+					
+					rcmSettings.bongkar = sttdate;
+				   // rcmSettings.asa = enddate.getValue();
+					
+					
+					console.log("start date: "+sttdate.getValue()+", stopdate: "+enddate.getValue());
+					if (sttdate.getValue().getTime() === enddate.getValue().getTime())	{
+						console.log(">>>>>>>>>>>>> waktu SAMA");
+						endtime.setMinValue(time);
+					} else {
+						endtime.setMinValue("00:00");
+					}
+					//console.log("jam: "+time.getHours()+", menit: "+time.getMinutes());
+					//var jam = time.getHours()+":"+time.getMinutes();
+
+					endtime.validate();
+					this.timeRangeMin = time;
+				}
+				return true;
+			},
+			timerangeText: 'Start Time must be less than end time',
+		});
 		this.ubahFieldRH();
         console.log("ini muncul: onLaunch");
     },

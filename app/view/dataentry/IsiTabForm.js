@@ -106,7 +106,12 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 					allowBlank: false
 				}, {
 					xtype: 'timefield',
+					vtype: 'timerange',
 					name: 'timedown',
+					itemId: 'timedown',
+					endTimeField: 'timeup',
+					startDateField: 'datedown',
+					endDateField: 'dateup',
 					emptyText: 'Pilih jam ...',
 					labelAlign: 'top',
 					format: 'H:i',
@@ -177,6 +182,11 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 					}, {
 						xtype: 'timefield',
 						name: 'timeup',
+						itemId: 'timeup',
+						//vtype: 'timerange',
+						startTimeField: 'timedown',
+						startDateField: 'datedown',
+						endDateField: 'dateup',
 						emptyText: 'Pilih jam ...',
 						labelAlign: 'top',
 						format: 'H:i',
