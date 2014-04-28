@@ -657,8 +657,8 @@ Ext.define('rcm.controller.DataEntry', {
 	KalenderClick: function(dt)	{
 		rcmSettings.tgl = dt;
 		var tab=rcmSettings.tab.split("_");
-		//alert("tab: "+tab[0]+", no: "+tab[1]);
-		if ((tab[0].localeCompare("tu")==0) && (tab[1]==0))	{
+		//console.log("tab: "+tab[0]+", no: "+tab[1]);
+		if ((tab[0].localeCompare("tu")==0) && (tab[1].localeCompare("rh")==0))	{
 			var t = new Date(dt);
 			var pt = ''+(t.getYear()-100)+rcm.view.Util.Upad(t.getMonth()+1)+rcm.view.Util.Upad(t.getDate())+'';
 			this.ubahFieldRH();

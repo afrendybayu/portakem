@@ -18,7 +18,7 @@ Ext.define('rcm.view.Tanggalan', {
 		me.listeners= {
 			'select': {
 				fn: function(dp, dt){
-					//console.log("Tanggalan.js select");
+					//console.log("Tanggalan.js select: "+dt);
 					this.fireEvent('klikKalender', dt);
 				},
 				scope: this
