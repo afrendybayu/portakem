@@ -682,6 +682,7 @@ Ext.define('rcm.controller.DataEntry', {
 	
 	hideFormGagal: function() {
 		this.getTaskFormGagal().close();
+		this.getRunningHourStore().reload();
 	},
 	
 	KalenderClick: function(dt)	{

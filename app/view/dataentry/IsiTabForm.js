@@ -7,14 +7,15 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 	require: [
 		'Ext.form.TextField',
 		'Ext.grid.Panel',
-		
 	],
 	
 	fieldDefaults: {
             msgTarget: 'side',
             //invalidCls: '' //unset the invalidCls so individual fields do not get styled as invalid
 	},
-
+	plugins: {
+		ptype: 'datatip'
+	},
 	listeners: {
 		fieldvaliditychange: function() {
 			this.updateErrorState(Ext.getCmp('idtfevent').getSubmitValue());
@@ -92,6 +93,25 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
                 id: 'cancel-task-fg-btn',
 				icon: 'modul/icons/cross.gif',
 				margin: '0 10 0 0'
+			/*
+			}, {
+				xtype: 'button',
+                text: 'Hapus',
+                width: 70,
+                id: 'clear-task-fg-btn',
+				//icon: 'modul/icons/cross.gif',
+				margin: '0 10 0 10',
+				//handler: this.hapusIsi
+				handler: function()	{
+					//alert("hapus");
+					Ext.getCmp('idtfevent').setValue('');
+					Ext.getCmp('timedown').setValue('');
+					Ext.getCmp('dateup').setValue('');
+					Ext.getCmp('timeup').setValue('');
+					var enddate = field.up('form').down('#datedown');
+					
+				}
+			//*/
             }, {
                 xtype: 'button',
                 //formBind: true,
@@ -178,6 +198,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 					valueField: 'id',
 					multiSelect: true,
 					queryMode: 'local',
+					combineErrors: true,
 					store: 'PM',
 					maxWidth: 405,
 					allowBlank: false
@@ -424,8 +445,8 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 				name: 'exe',
 				id: 'idexe',
 				allowBlank: false,
-				tooltip: 'Tulis jenengmu',
-				//afterLabelTextTpl: required,
+				tooltip: 'Masukkan pelaksana pekerjaan',
+				minLength: 2,
 				//combineErrors: true,
 				defaults: {
 					flex: 1,
@@ -442,6 +463,10 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 			'plhAksiGagal',
 			'plhEventGagalXY'
         );
+	},
+	
+	hapusIsi: function()	{
+		alert("hapus");
 	},
 	
 	updateErrorState: function(a) {		
