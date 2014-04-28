@@ -11,11 +11,12 @@ Ext.define('rcm.view.dataentry.FormGagal', {
 	closeAction: 'hide',
 	//modal: true,
 	//width: 500,
-	y:0,
+	x:100,
+	y:42,
 	//height: 500,
 	minWidth: 500,
 	layout: 'fit',
-
+	/*
 	dockedItems: [{
 		xtype: 'container',
 		dock: 'bottom',
@@ -48,7 +49,8 @@ Ext.define('rcm.view.dataentry.FormGagal', {
 				}
 		}]
 	}],
-
+	//*/
+	
 	initComponent: function() {
 		var me=this;
 		/*

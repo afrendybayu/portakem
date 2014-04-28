@@ -1,8 +1,5 @@
 /* Afrendy Bayu, 25Nov2013 */
 
-
-//*/
-
 Ext.define('rcm.view.dataentry.IsiTabForm', {
     extend: 'Ext.form.Panel',
     alias: 'widget.isiFormGagal',
@@ -11,6 +8,108 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 		'Ext.form.TextField',
 		'Ext.grid.Panel'
 	],
+	
+	fieldDefaults: {
+            //labelWidth: 110,
+            //labelAlign: 'left',
+            msgTarget: 'tfevent',
+            //invalidCls: '' //unset the invalidCls so individual fields do not get styled as invalid
+	},
+	listeners: {
+		fieldvaliditychange: function() {
+			this.updateErrorState("a");
+			console.log("masuk fieldvaliditychange");
+		},
+		fielderrorchange: function() {
+			this.updateErrorState("b");
+			console.log("masuk fielderrorchange");
+		}
+	},
+	
+	dockedItems: [{
+		cls: Ext.baseCSSPrefix + 'dd-drop-ok',
+            xtype: 'container',
+            dock: 'bottom',
+            layout: {
+                type: 'hbox',
+                align: 'middle'
+            },
+            padding: '5 5 0 0',
+
+            items: [{
+                xtype: 'component',
+                id: 'formErrorState',
+                invalidCls: Ext.baseCSSPrefix + 'form-invalid-icon',
+                validCls: Ext.baseCSSPrefix + 'dd-drop-icon',
+                baseCls: 'form-error-state',
+                flex: 1,
+                validText: 'Form is valid',
+                invalidText: 'Form has errors',
+                tipTpl: Ext.create('Ext.XTemplate', '<ul class="' + Ext.plainListCls + '"><tpl for="."><li><span class="field-name">{name}</span>: <span class="error">{error}</span></li></tpl></ul>'),
+
+                getTip: function() {
+                    var tip = this.tip;
+                    if (!tip) {
+                        tip = this.tip = Ext.widget('tooltip', {
+                            target: this.el,
+                            title: 'Error Details:',
+                            minWidth: 200,
+                            autoHide: false,
+                            anchor: 'top',
+                            mouseOffset: [-11, -2],
+                            closable: true,
+                            constrainPosition: false,
+                            cls: 'errors-tip'
+                        });
+                        tip.show();
+                    }
+                    return tip;
+                },
+
+                setErrors: function(errors) {
+                    var me = this,
+                        tip = me.getTip();
+
+                    errors = Ext.Array.from(errors);
+
+                    // Update CSS class and tooltip content
+                    if (errors.length) {
+                        me.addCls(me.invalidCls);
+                        me.removeCls(me.validCls);
+                        me.update(me.invalidText);
+                        tip.setDisabled(false);
+                        tip.update(me.tipTpl.apply(errors));
+                    } else {
+                        me.addCls(me.validCls);
+                        me.removeCls(me.invalidCls);
+                        me.update(me.validText);
+                        tip.setDisabled(true);
+                        tip.hide();
+                    }
+                }
+            }, {
+				xtype: 'button',
+                text: 'Batal',
+                width: 80,
+                id: 'cancel-task-fg-btn',
+				icon: 'modul/icons/cross.gif',
+				margin: '0 10 0 0'
+            }, {
+                xtype: 'button',
+                //formBind: true,
+                id:'save-task-fg-btn',
+                icon: 'modul/icons/savedisk.png',
+                disabled: true,
+                text: 'Submit Registration',
+                width: 140,
+                handler: function() {
+					var ev = Ext.getCmp('idtfevent').getValue();
+                    if (ev && ev>0)	{
+						
+					}
+                }
+            }]
+	}],
 
 	initComponent: function() {
 		var me=this,ed=Ext.create('Ext.grid.plugin.CellEditing',{ clicksToEdit: 1	});
@@ -33,6 +132,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 					editable:       false,
 					emptyText:      'Pilih Tipe Kejadian ... ',
 					name:           'tfevent',
+					id: 'idtfevent',
 					displayField:   'name',
 					//defaultMargins: {top: 0, right: 5, bottom: 0, left: 0},
 					valueField:     'value',
@@ -69,18 +169,20 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 				items: [{
 					xtype:          'combo',
 					mode:           'local',
-					triggerAction:  'all',
+					//triggerAction:  'all',
 					forceSelection: true,
-					editable:       false,
-					fieldLabel:     'Penyebab',
-					emptyText:      'Pilih Tipe PM ... ',
-					name:           'tipepm',
+					editable: false,
+					fieldLabel: 'Penyebab',
+					emptyText: 'Pilih Tipe PM ... ',
+					name: 'tipepm',
+					id: 'tipepm',
 					displayField:   'nama',
 					valueField:     'id',
 					multiSelect: true,
 					queryMode: 'local',
 					store: 'PM',
 					maxWidth: 405,
+					allowBlank: false
 				}]
 			},{			// 2 Unit Stop
 				xtype: 'fieldcontainer',
@@ -95,7 +197,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 				items: [{
 					xtype: 'datefield',
 					name: 'datedown',
-					itemId: 'datedown',
+					id: 'datedown',
 					fieldLabel: 'Tanggal',
 					format: 'd-m-Y',
 					emptyText: 'Pilih Tanggal ... ',
@@ -108,7 +210,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 					xtype: 'timefield',
 					vtype: 'timerange',
 					name: 'timedown',
-					itemId: 'timedown',
+					id: 'timedown',
 					endTimeField: 'timeup',
 					startDateField: 'datedown',
 					endDateField: 'dateup',
@@ -116,7 +218,8 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 					labelAlign: 'top',
 					format: 'H:i',
 					maxWidth: 200,
-					anchor: '100%'
+					anchor: '100%',
+					allowBlank: false
 				}]
 			},{			// 3 Mulai Tindakan
 				xtype: 'fieldcontainer',
@@ -131,8 +234,9 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 					hideLabel: true
 				},
 				items: [{
-					xtype     : 'datefield',
-					name      : 'datemulai',
+					xtype : 'datefield',
+					name : 'datemulai',
+					id : 'datemulai',
 					fieldLabel: 'Tanggal',
 					format: 'd-m-Y',
 					emptyText: 'Pilih Tanggal ... ',
@@ -141,6 +245,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 				},{
 					xtype: 'timefield',
 					name: 'timemulai',
+					id: 'timemulai',
 					emptyText: 'Pilih jam ...',
 					labelAlign: 'top',
 					format: 'H:i',
@@ -170,7 +275,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 				items: [{
 						xtype: 'datefield',
 						name: 'dateup',
-						itemId: 'dateup',
+						id: 'dateup',
 						vtype: 'daterange',
 						startDateField: 'datedown',
 						fieldLabel: 'Tanggal',
@@ -182,7 +287,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 					}, {
 						xtype: 'timefield',
 						name: 'timeup',
-						itemId: 'timeup',
+						id: 'timeup',
 						//vtype: 'timerange',
 						startTimeField: 'timedown',
 						startDateField: 'datedown',
@@ -191,7 +296,8 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 						labelAlign: 'top',
 						format: 'H:i',
 						maxWidth: 200,
-						anchor: '100%'
+						anchor: '100%',
+						allowBlank: false
 				}]
 			},{			// 5 Selesai Tindakan
 				xtype: 'fieldcontainer',
@@ -205,8 +311,9 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 					hideLabel: true
 				},
 				items: [{
-					xtype     : 'datefield',
-					name      : 'dateselesai',
+					xtype : 'datefield',
+					name : 'dateselesai',
+					id : 'dateselesai',
 					fieldLabel: 'Tanggal',
 					format: 'd-m-Y',
 					emptyText: 'Pilih Tanggal ... ',
@@ -215,6 +322,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 				}, {
 					xtype: 'timefield',
 					name: 'timeselesai',
+					id: 'timeselesai',
 					emptyText: 'Pilih jam ...',
 					labelAlign: 'top',
 					format: 'H:i',
@@ -303,6 +411,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 			},{			// 8 KetEditor	
 				xtype: 'htmleditor',
 				name: 'tfket',
+				id: 'idtfket',
 				fieldLabel: 'Keterangan',
 				height: 80,
 				//anchor: '100%'
@@ -312,6 +421,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 				fieldLabel: 'Pelaksana',
 				msgTarget: 'side',
 				name: 'exe',
+				id: 'idexe',
 				//combineErrors: true,
 				defaults: {
 					flex: 1,
@@ -329,28 +439,50 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 			'plhEventGagalXY'
         );
 	},
-	/*
-	daterange: function(val, field) {
-            var date = field.parseDate(val);
+	
+	updateErrorState: function(a) {		
+		var me = this, errorCmp, fields, errors;
+		var ev = Ext.getCmp('idtfevent').getValue(),
+			dd = Ext.getCmp('datedown').getValue(),
+			td = Ext.getCmp('timedown').getValue(),
+			du = Ext.getCmp('dateup').getValue(),
+			tu = Ext.getCmp('timeup').getValue();
+		console.log("ev: "+ev+", dd: "+dd+", td: "+td+", du"+du+", tu: "+tu);
+		if (ev && ev==1)	{
+			if (dd && td && du && tu)	{
+				Ext.getCmp('save-task-fg-btn').enable();
+			} else {
+				Ext.getCmp('save-task-fg-btn').disable();
+			}
+		} else {
+			Ext.getCmp('save-task-fg-btn').disable();
+		}
+		/*
+		fields = me.getForm().getFields();
+		fields.each(function(field) {
+		});
+		//*/
+		
+		console.log(a);
+            //if (me.hasBeenDirty || me.getForm().isDirty()) { //prevents showing global error when form first loads
+				//errorCmp = me.down('#formErrorState');
+				//errorCmp.setErrors("tes dulu");
 
-            if (!date) {
-                return false;
-            }
-            if (field.startDateField && (!this.dateRangeMax || (date.getTime() != this.dateRangeMax.getTime()))) {
-                var start = field.up('form').down('#' + field.startDateField);
-                start.setMaxValue(date);
-                start.validate();
-                this.dateRangeMax = date;
-            }
-            else if (field.endDateField && (!this.dateRangeMin || (date.getTime() != this.dateRangeMin.getTime()))) {
-                var end = field.up('form').down('#' + field.endDateField);
-                end.setMinValue(date);
-                end.validate();
-                this.dateRangeMin = date;
-            }
-            return true;
+                /*
+                errorCmp = me.down('#formErrorState');
+                fields = me.getForm().getFields();
+                errors = [];
+                fields.each(function(field) {
+                    Ext.Array.forEach(field.getErrors(), function(error) {
+                        errors.push({name: field.getFieldLabel(), error: error});
+                    });
+                });
+                errorCmp.setErrors(errors);
+                me.hasBeenDirty = true;
+                //*/
+            //}
 	},
-	//*/
+	
 	rowFMEAclick: function(grid, td, cellIndex, record, tr, rowIndex){
 		var asa = grid.getStore().getAt(rowIndex);
 		rcmSettings.asa = {row: rowIndex, col: cellIndex};

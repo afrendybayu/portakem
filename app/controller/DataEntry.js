@@ -270,12 +270,15 @@ Ext.define('rcm.controller.DataEntry', {
 				}
 				if (field.startDateField && (!this.dateRangeMax || (date.getTime() != this.dateRangeMax.getTime()))) {
 					var start = field.up('form').down('#' + field.startDateField);
+					console.log("date bawah diubah");
+					
 					start.setMaxValue(date);
 					start.validate();
 					this.dateRangeMax = date;
 				}
 				else if (field.endDateField && (!this.dateRangeMin || (date.getTime() != this.dateRangeMin.getTime()))) {
 					var end = field.up('form').down('#' + field.endDateField);
+					
 					end.setMinValue(date);
 					end.validate();
 					this.dateRangeMin = date;
@@ -312,6 +315,7 @@ Ext.define('rcm.controller.DataEntry', {
 						console.log(">>>>>>>>>>>>> waktu SAMA");
 						endtime.setMinValue(time);
 					} else {
+						console.log(">>>>>>>>>>>>>  beda");
 						endtime.setMinValue("00:00");
 					}
 					//console.log("jam: "+time.getHours()+", menit: "+time.getMinutes());
