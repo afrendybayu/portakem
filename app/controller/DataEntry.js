@@ -270,7 +270,34 @@ Ext.define('rcm.controller.DataEntry', {
 				}
 				if (field.startDateField && (!this.dateRangeMax || (date.getTime() != this.dateRangeMax.getTime()))) {
 					var start = field.up('form').down('#' + field.startDateField);
-					console.log("date bawah diubah");
+					var enddate = field.up('form').down('#' + field.endDateField);
+					var sttime = field.up('form').down('#' + field.startTimeField);
+					var endtime = field.up('form').down('#' + field.endTimeField);
+
+					if (Date.parse(start.getValue()) == Date.parse(enddate.getValue()))	{
+						endtime.setMinValue(sttime.getSubmitValue());
+						//console.log("tgl up SAMA");
+					}
+					else {
+						//console.log("tgl up BEDAAAA, st: "+start.getValue()+", stop: "+enddate.getValue());
+						endtime.setMinValue("00:00");
+					}
+
+					/*
+					if (sttdate.getValue().getTime()==du.getTime())	{
+						//alert("sama waktu");
+						if (td.getTime()>tu.getTime())	{
+							Ext.getCmp('save-task-fg-btn').disable();
+							alert("Input Waktu masih salah !");
+						//} else {
+						//	Ext.getCmp('save-task-fg-btn').enable();
+						}
+					} 
+					//else {
+						//var endtime = field.up('form').down('#' + field.endTimeField);
+						//endtime.setMinValue("00:00");
+					//*/
+					
 					
 					start.setMaxValue(date);
 					start.validate();
@@ -300,27 +327,26 @@ Ext.define('rcm.controller.DataEntry', {
 				} 
 				else if (field.endTimeField && (!this.timeRangeMin || (time.getTime() != this.timeRangeMin.getTime()))) {
 					var endtime = field.up('form').down('#' + field.endTimeField);
+					
 					var sttdate = field.up('form').down('#' + field.startDateField);
 					var enddate = field.up('form').down('#' + field.endDateField);
 					
-					//var sttdate = Ext.getCmp(field.startDateField);
-					//var enddate = Ext.getCmp(field.endDateField);
-					
-					rcmSettings.bongkar = sttdate;
-				   // rcmSettings.asa = enddate.getValue();
-					
-					
+					console.log("parse st: "+Date.parse(sttdate.getValue())+", en: "+Date.parse(enddate.getValue()));
 					console.log("start date: "+sttdate.getValue()+", stopdate: "+enddate.getValue());
-					if (sttdate.getValue().getTime() === enddate.getValue().getTime())	{
+					
+					//*
+					if (Date.parse(sttdate.getValue()) == Date.parse(enddate.getValue()))	{
 						console.log(">>>>>>>>>>>>> waktu SAMA");
 						endtime.setMinValue(time);
-					} else {
+					} 
+					//*
+					else {
 						console.log(">>>>>>>>>>>>>  beda");
 						endtime.setMinValue("00:00");
 					}
 					//console.log("jam: "+time.getHours()+", menit: "+time.getMinutes());
 					//var jam = time.getHours()+":"+time.getMinutes();
-
+					//*/
 					endtime.validate();
 					this.timeRangeMin = time;
 				}
@@ -331,6 +357,8 @@ Ext.define('rcm.controller.DataEntry', {
 		this.ubahFieldRH();
         console.log("ini muncul: onLaunch");
     },
+    
+    
     
     onDaftarGagalLoad: function() {
 		console.log("masuk callback onDaftarGagalLoad");

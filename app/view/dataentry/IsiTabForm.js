@@ -10,19 +10,17 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 	],
 	
 	fieldDefaults: {
-            //labelWidth: 110,
-            //labelAlign: 'left',
             msgTarget: 'tfevent',
             //invalidCls: '' //unset the invalidCls so individual fields do not get styled as invalid
 	},
 	listeners: {
 		fieldvaliditychange: function() {
 			this.updateErrorState("a");
-			console.log("masuk fieldvaliditychange");
+			//console.log("masuk fieldvaliditychange");
 		},
 		fielderrorchange: function() {
-			this.updateErrorState("b");
-			console.log("masuk fielderrorchange");
+			//this.updateErrorState("b");
+			//console.log("masuk fielderrorchange");
 		}
 	},
 	
@@ -34,7 +32,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
                 type: 'hbox',
                 align: 'middle'
             },
-            padding: '5 5 0 0',
+            padding: '5 0 0 0',
 
             items: [{
                 xtype: 'component',
@@ -90,7 +88,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
             }, {
 				xtype: 'button',
                 text: 'Batal',
-                width: 80,
+                width: 70,
                 id: 'cancel-task-fg-btn',
 				icon: 'modul/icons/cross.gif',
 				margin: '0 10 0 0'
@@ -100,7 +98,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
                 id:'save-task-fg-btn',
                 icon: 'modul/icons/savedisk.png',
                 disabled: true,
-                text: 'Submit Registration',
+                text: 'Simpan Data',
                 width: 140,
                 handler: function() {
 					var ev = Ext.getCmp('idtfevent').getValue();
@@ -278,6 +276,9 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 						id: 'dateup',
 						vtype: 'daterange',
 						startDateField: 'datedown',
+						startTimeField: 'timedown',
+						endTimeField: 'timeup',
+						endDateField: 'dateup',
 						fieldLabel: 'Tanggal',
 						format: 'd-m-Y',
 						emptyText: 'Pilih Tanggal ... ',
@@ -447,14 +448,24 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 			td = Ext.getCmp('timedown').getValue(),
 			du = Ext.getCmp('dateup').getValue(),
 			tu = Ext.getCmp('timeup').getValue();
-		console.log("ev: "+ev+", dd: "+dd+", td: "+td+", du"+du+", tu: "+tu);
+		//console.log("ev: "+ev+", dd: "+dd+", td: "+td+", du"+du+", tu: "+tu);
 		if (ev && ev==1)	{
 			if (dd && td && du && tu)	{
 				Ext.getCmp('save-task-fg-btn').enable();
 			} else {
 				Ext.getCmp('save-task-fg-btn').disable();
 			}
-		} else {
+		}
+		else if (ev && ev==2)	{
+			var pm = Ext.getCmp('tipepm').getValue();
+			console.log("pm: "+pm);
+			if (dd && td && du && tu && pm)	{
+				Ext.getCmp('save-task-fg-btn').enable();
+			} else {
+				Ext.getCmp('save-task-fg-btn').disable();
+			}
+		} 
+		else {
 			Ext.getCmp('save-task-fg-btn').disable();
 		}
 		/*
