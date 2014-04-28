@@ -9,6 +9,7 @@ Ext.define('rcm.controller.DataEntry', {
 		'Content',
 		'Tanggalan',
 		'Util',
+		'DataTip',
 
         'dataentry.DaftarGagal',
         'dataentry.ExcelGrid',
@@ -261,6 +262,7 @@ Ext.define('rcm.controller.DataEntry', {
 		//	scope: this
         //});
         //*/
+        Ext.QuickTips.init();
         Ext.apply(Ext.form.field.VTypes, {
 			daterange: function(val, field) {
 				var date = field.parseDate(val);

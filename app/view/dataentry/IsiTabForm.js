@@ -6,21 +6,21 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 	xtype: 'taskIsiFormGagal',
 	require: [
 		'Ext.form.TextField',
-		'Ext.grid.Panel'
+		'Ext.grid.Panel',
+		
 	],
 	
 	fieldDefaults: {
-            msgTarget: 'tfevent',
+            msgTarget: 'side',
             //invalidCls: '' //unset the invalidCls so individual fields do not get styled as invalid
 	},
+
 	listeners: {
 		fieldvaliditychange: function() {
-			this.updateErrorState("a");
-			//console.log("masuk fieldvaliditychange");
+			this.updateErrorState(Ext.getCmp('idtfevent').getSubmitValue());
 		},
 		fielderrorchange: function() {
 			//this.updateErrorState("b");
-			//console.log("masuk fielderrorchange");
 		}
 	},
 	
@@ -133,15 +133,15 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 					id: 'idtfevent',
 					displayField:   'name',
 					//defaultMargins: {top: 0, right: 5, bottom: 0, left: 0},
-					valueField:     'value',
+					valueField: 'value',
 					queryMode: 'local',
 					store:          Ext.create('Ext.data.Store', {
 						fields : ['name', 'value'],
 						data   : [
-							{name : 'Stand By',  value: '1'},
-							{name : 'PM', value: '2'},
-							{name : 'Corrective', value: '3'},
-							{name : 'Breakdown', value: '4'}
+							{name : 'Stand By',  value: 1},
+							{name : 'PM', value: 2},
+							{name : 'Corrective', value: 3},
+							{name : 'Breakdown', value: 4}
 						]
 					}),
 					maxWidth: 405,
@@ -165,8 +165,8 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 					hideLabel: true
 				},
 				items: [{
-					xtype:          'combo',
-					mode:           'local',
+					xtype: 'combo',
+					mode: 'local',
 					//triggerAction:  'all',
 					forceSelection: true,
 					editable: false,
@@ -174,8 +174,8 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 					emptyText: 'Pilih Tipe PM ... ',
 					name: 'tipepm',
 					id: 'tipepm',
-					displayField:   'nama',
-					valueField:     'id',
+					displayField: 'nama',
+					valueField: 'id',
 					multiSelect: true,
 					queryMode: 'local',
 					store: 'PM',
@@ -423,6 +423,9 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 				msgTarget: 'side',
 				name: 'exe',
 				id: 'idexe',
+				allowBlank: false,
+				tooltip: 'Tulis jenengmu',
+				//afterLabelTextTpl: required,
 				//combineErrors: true,
 				defaults: {
 					flex: 1,
@@ -443,23 +446,26 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 	
 	updateErrorState: function(a) {		
 		var me = this, errorCmp, fields, errors;
-		var ev = Ext.getCmp('idtfevent').getValue(),
-			dd = Ext.getCmp('datedown').getValue(),
-			td = Ext.getCmp('timedown').getValue(),
-			du = Ext.getCmp('dateup').getValue(),
-			tu = Ext.getCmp('timeup').getValue();
-		//console.log("ev: "+ev+", dd: "+dd+", td: "+td+", du"+du+", tu: "+tu);
-		if (ev && ev==1)	{
+		var ev = Ext.getCmp('idtfevent').getSubmitValue(),
+			dd = Ext.getCmp('datedown').getSubmitValue(),
+			td = Ext.getCmp('timedown').getSubmitValue(),
+			du = Ext.getCmp('dateup').getSubmitValue(),
+			tu = Ext.getCmp('timeup').getSubmitValue();
+		console.log("ev: "+ev+", dd: "+dd+", td: "+td+", du"+du+", tu: "+tu);
+		//if (ev && ev==1)	{		// standby
+		if (a==1) {
 			if (dd && td && du && tu)	{
 				Ext.getCmp('save-task-fg-btn').enable();
 			} else {
 				Ext.getCmp('save-task-fg-btn').disable();
 			}
 		}
-		else if (ev && ev==2)	{
-			var pm = Ext.getCmp('tipepm').getValue();
+		else if (a==2)	{	// PM
+		//else if (ev && ev==2)	{	// PM
+			var pm = Ext.getCmp('tipepm').getSubmitValue();
+			var ex = Ext.getCmp('idexe').getSubmitValue();
 			console.log("pm: "+pm);
-			if (dd && td && du && tu && pm)	{
+			if (dd && td && du && tu && pm && ex)	{
 				Ext.getCmp('save-task-fg-btn').enable();
 			} else {
 				Ext.getCmp('save-task-fg-btn').disable();
@@ -468,30 +474,6 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 		else {
 			Ext.getCmp('save-task-fg-btn').disable();
 		}
-		/*
-		fields = me.getForm().getFields();
-		fields.each(function(field) {
-		});
-		//*/
-		
-		console.log(a);
-            //if (me.hasBeenDirty || me.getForm().isDirty()) { //prevents showing global error when form first loads
-				//errorCmp = me.down('#formErrorState');
-				//errorCmp.setErrors("tes dulu");
-
-                /*
-                errorCmp = me.down('#formErrorState');
-                fields = me.getForm().getFields();
-                errors = [];
-                fields.each(function(field) {
-                    Ext.Array.forEach(field.getErrors(), function(error) {
-                        errors.push({name: field.getFieldLabel(), error: error});
-                    });
-                });
-                errorCmp.setErrors(errors);
-                me.hasBeenDirty = true;
-                //*/
-            //}
 	},
 	
 	rowFMEAclick: function(grid, td, cellIndex, record, tr, rowIndex){
@@ -530,8 +512,10 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 	
 	pilihEventG: function(n)	{
 		var mx = this.items.items;
+		var ev = Ext.getCmp('idtfevent').getSubmitValue();
+		console.log("masuk pilih Event ev: "+ev);
 		this.fireEvent('plhEventGagalXY', n);
-		if (n=="1")	{
+		if (n==1)	{
 			mx[1].setVisible(false);
 			mx[3].setVisible(false);
 			mx[5].setVisible(false);
@@ -539,7 +523,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 			mx[7].setVisible(false);
 			mx[9].setVisible(false);
 		} 
-		else if (n=="2")	{
+		else if (n==2)	{
 			mx[1].setVisible(true);
 			mx[3].setVisible(true);
 			mx[5].setVisible(true);
@@ -555,5 +539,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 			mx[7].setVisible(true);
 			mx[9].setVisible(true);
 		}
+		console.log("seleksi event: "+n);
+		this.updateErrorState(n);
 	}
 });
