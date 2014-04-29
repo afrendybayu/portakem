@@ -447,7 +447,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 				allowBlank: false,
 				tooltip: 'Masukkan pelaksana pekerjaan',
 				minLength: 2,
-				//combineErrors: true,
+				combineErrors: true,
 				defaults: {
 					flex: 1,
 					hideLabel: true
@@ -476,6 +476,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 			td = Ext.getCmp('timedown').getSubmitValue(),
 			du = Ext.getCmp('dateup').getSubmitValue(),
 			tu = Ext.getCmp('timeup').getSubmitValue();
+		var ex = Ext.getCmp('idexe').getSubmitValue();
 		console.log("ev: "+ev+", dd: "+dd+", td: "+td+", du"+du+", tu: "+tu);
 		//if (ev && ev==1)	{		// standby
 		if (a==1) {
@@ -488,14 +489,22 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 		else if (a==2)	{	// PM
 		//else if (ev && ev==2)	{	// PM
 			var pm = Ext.getCmp('tipepm').getSubmitValue();
-			var ex = Ext.getCmp('idexe').getSubmitValue();
+			
 			console.log("pm: "+pm);
 			if (dd && td && du && tu && pm && ex)	{
 				Ext.getCmp('save-task-fg-btn').enable();
 			} else {
 				Ext.getCmp('save-task-fg-btn').disable();
 			}
-		} 
+		}
+		else if (a==3 || a==4)	{	// CR | BD
+			console.log("ev: "+ev+",pjg: "+ex.length);
+			if (dd && td && du && tu && ex && ex.length>2)	{
+				Ext.getCmp('save-task-fg-btn').enable();
+			} else {
+				Ext.getCmp('save-task-fg-btn').disable();
+			}
+		}
 		else {
 			Ext.getCmp('save-task-fg-btn').disable();
 		}
