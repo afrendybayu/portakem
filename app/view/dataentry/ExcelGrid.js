@@ -7,27 +7,63 @@ Ext.define('rcm.view.dataentry.ExcelGrid', {
 	
 	requires: [
 		'rcm.view.Util',
-		'Ext.grid.plugin.CellEditing',
-		'Ext.grid.feature.Grouping',
-		'Ext.grid.RowNumberer',
 	],
-	
+	features: [{ftype:'grouping',startCollapsed:true,hideGroupedHeader:true}],
+
 	store: 'RunningHour',
     columnLines: true,
-    //frame: true,
+	selType: 'cellmodel',
 
+	columns: {
+		defaults: {
+			draggable: false,
+			resizable: false,
+			hideable: false,
+			groupable: false,
+		},
+		items: rcm.view.Util.UxcolGrid()
+    },
+	
+	initComponent: function() {
+		var me=this, cellEditingPlugin = Ext.create('Ext.grid.plugin.CellEditing', { clicksToEdit: 1 });
+		
+		me.plugins = [cellEditingPlugin];
+		me.bbar = [{
+			text: 'Compressor',
+			icon: 'modul/icons/comp16.png',
+			scope: this,
+			handler: this.CompClick
+		},{
+			text: 'Genset',
+			scope: this,
+			handler: this.GensetClick
+		},{
+			text: 'Pump',
+			scope: this,
+			handler: this.PumpClick
+		}];
+		
+		me.callParent(arguments);
+		me.addEvents(
+			'recordedit'
+        );
+        cellEditingPlugin.on('edit', me.handleCellEdit, this);
+	},
+	/*
 	initComponent: function() {
 		var me=this, ti=rcm.view.Util.UxcolGrid(), // tb=rcm.view.Util.Ublntgl(), tg=rcm.view.Util.Utgl(), 
-            cellEditingPlugin = Ext.create('Ext.grid.plugin.CellEditing', { clicksToEdit: 1 }),
+            cellEditingPlugin = Ext.create('Ext.grid.plugin.CellEditing', { clicksToEdit: 1 });
+
             groupingFeature = Ext.create('Ext.grid.feature.Grouping', {
                 //groupField: 'Lokasi',
 				groupHeaderTpl: '{columnName}: {name} [{rows.length} Unit]',
 				enableGroupingMenu: false,
                 startCollapsed: true
             }); 
-		
-        me.plugins = [cellEditingPlugin];
-        me.features = [groupingFeature];
+			//groupingFeature = {ftype:'grouping',startCollapsed: true,groupHeaderTpl: '{columnName}: {name} [{rows.length} Unit]'};
+			
+        //me.plugins = [cellEditingPlugin];
+        //me.features = [groupingFeature];
         me.selModel = { 
 			selType: 'cellmodel'
 		};
@@ -63,6 +99,7 @@ Ext.define('rcm.view.dataentry.ExcelGrid', {
         );
         cellEditingPlugin.on('edit', me.handleCellEdit, this);
 	},
+	//*/
 	
 	renderer: function(value, metadata, record, rowIndex, colIndex, store) {
 		if (value == "24:00") {

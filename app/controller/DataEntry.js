@@ -39,13 +39,13 @@ Ext.define('rcm.controller.DataEntry', {
         'utama.HoPie','utama.HoHistori',
         'utama.GridWO','utama.GridOrderC',
         
-        'rcm.view.konfig.Nav'
+        'konfig.Nav',
+        'konfig.DropZone'
     ],
     
     models: ['DaftarGagal','RunningHour','Hirarki',
 		'Cause','OPart','Equip','FMode','Event','Aksi','PM',
-		'SapCause','SapDamage','SapOPart',
-		'SapCauseInfo',
+		'SapCause','SapDamage','SapOPart', 'SapCauseInfo',
 		'AvReUnit','AvHome','ReHome','AvGroup','AvSpeedo',
     ],
 
@@ -56,8 +56,7 @@ Ext.define('rcm.controller.DataEntry', {
 		'SapCause','SapDamage','SapOPart',
 		'SapCauseInfo','SapDamageInfo',
 		'AvReUnit','AvHome','ReHome','AvGroup','AvSpeedo','ReSpeedo',
-		'HoTeco','HoMan','HoOrderC',
-		'SapEPO',
+		'HoTeco','HoMan','HoOrderC','SapEPO',
 		'ConMon','ConMonUnit'
 		
     ],
@@ -65,6 +64,9 @@ Ext.define('rcm.controller.DataEntry', {
 	refs: [{
 		ref: 'taskNav',
 		selector: 'taskNav'
+	},{
+		ref: 'taskNavK',
+		selector: 'taskNavK'
 	},{
 		ref: 'taskBlnAv',
 		selector: 'taskBlnAv'
@@ -125,6 +127,12 @@ Ext.define('rcm.controller.DataEntry', {
 			'taskNav': {
 				hirUAvRe: me.hirUnitAvRe,
 			},
+			'taskNavK': {
+				listdrop: me.hirListDrop,
+			},
+			//'taskNavK': {
+			//	listdrop: me.hirListDrop,
+			//},
 			'tAvHome': {
 				AvHomeCl: me.AvHomeClick,
 			},
@@ -210,6 +218,12 @@ Ext.define('rcm.controller.DataEntry', {
 		var jdl2 = rcm.view.Util.Ujdl2(wkt);
 		sp3.items.items[0].setTitle("Availability "+jdl2);
 		sp3.items.items[1].setTitle("Reliability "+jdl2);
+	},
+
+	hirListDrop: function(list, overList, position)	{
+		alert("muncul");
+		//var listsStore = this.getHirarkiStore();
+		//alert("dipindah: "+list.get('id')+", ovList: "+overList.get('id')+", posisi "+position);
 	},
 
 	hirUnitAvRe: function(a)	{

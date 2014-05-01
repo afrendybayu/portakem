@@ -5,7 +5,8 @@ Ext.define('rcm.view.konfig.Nav', {
 	requires: [
         'Ext.grid.plugin.CellEditing',
         'Ext.tree.plugin.TreeViewDragDrop',
-        'Ext.grid.column.Action'
+        'Ext.grid.column.Action',
+        'rcm.view.konfig.DragDrop'
     ],
     
     hideHeaders: true,
@@ -32,17 +33,39 @@ Ext.define('rcm.view.konfig.Nav', {
 				//id: 'delete-folder-btn',
 				tooltip: 'Delete Folder'
 		}]
-    }],
-	
-	/*
+    },{
+		xtype: 'toolbar',
+		dock: 'top',
+		items: [{
+			text: 'Expand All',
+                handler: function(){
+                    this.expandAll();
+                }
+            }, {
+                text: 'Collapse All',
+                handler: function(){
+                    this.collapseAll();
+                }
+		}]
+	}],
+
     viewConfig: {
         plugins: {
-            //ptype: 'tasksdragdrop',
+            //ptype: 'treeviewdragdrop',
+            ptype: 'tasksdragdrop',
             //dragText: 'Drag to reorder',
-            //ddGroup: 'task'
-        }
+            //ddGroup: 'Hirarki'
+        },
+        /*
+        listeners: {       
+			drop: function (node, data, overModel, dropPosition) {         
+				alert('CHANGE');       
+                        },         
+                    }   
+		}
+		//*/
     },
-    //*/
+
     initComponent: function() {
         var me = this;
         me.plugins = [me.cellEditingPlugin = Ext.create('Ext.grid.plugin.CellEditing')];
@@ -65,53 +88,34 @@ Ext.define('rcm.view.konfig.Nav', {
                 //handler: Ext.bind(me.handleDeleteClick, me)
             }
         ];
+        me.addEvents(
+			'listdrop'
+		);
         
         me.callParent(arguments);
         me.on('beforeedit', me.handleBeforeEdit, me);
+        
+        
+        /*
+        view.on('beforedrop', function(node, data, overModel, dropPosition, dropHandlers) {
+			// Defer the handling
+			dropHandlers.wait = true;
+			Ext.MessageBox.confirm('Drop', 'Are you sure', function(btn){
+				if (btn === 'yes') {
+					dropHandlers.processDrop();
+				} else {
+					dropHandlers.cancelDrop();
+				}
+			});
+		});
+		//*/
 	},
 	//*/
-	
-	/*
-	initComponent: function() {
-		Ext.apply(this, {
-			columns: [{
-				xtype: 'treecolumn',
-                dataIndex: 'text',
-                flex: 1,
-                editor: {
-                    xtype: 'textfield',
-                    selectOnFocus: true,
-                    allowOnlyWhitespace: false
-                },
-                //renderer: Ext.bind(me.renderName, me)
-            },{
-                xtype: 'actioncolumn',
-                width: 24,
-                icon: './modul/icons/hapus.png',
-                //iconCls: 'x-hidden',
-                tooltip: 'Delete',
-                //handler: Ext.bind(me.handleDeleteClick, me)
-            }],
-		});
-		this.callParent();
-	}
-	//*/ 
-	/*
-    items: [{
-		xtype: 'treecolumn',
-		dataIndex: 'id',
-	}],
-    listeners: {
-        itemclick: function(s,r) {
-			//this.fireEvent('hirUAvRe', r.data);
-        }
-    }
-    //*/
     
     handleBeforeEdit: function(editingPlugin, e) {
 		rcmSettings.bongkar = e.record;
 		//alert("id: "+e.record.get('id'));
-        //return e.record.get('id') !== -1;
+        return e.record.get('id') !== -1;
     },
     
 });
