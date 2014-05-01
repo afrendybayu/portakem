@@ -53,7 +53,7 @@ Ext.define('rcm.view.konfig.Nav', {
         plugins: {
             //ptype: 'treeviewdragdrop',
             ptype: 'tasksdragdrop',
-            //dragText: 'Drag to reorder',
+            dragText: 'Drag to reorder',
             //ddGroup: 'Hirarki'
         },
         /*
@@ -85,16 +85,16 @@ Ext.define('rcm.view.konfig.Nav', {
                 icon: './modul/icons/hapus.png',
                 //iconCls: 'x-hidden',
                 tooltip: 'Delete',
-                //handler: Ext.bind(me.handleDeleteClick, me)
+                handler: Ext.bind(me.handleDeleteClick, me)
             }
         ];
         me.addEvents(
-			'listdrop'
+			'listdrop','delListDrop'
 		);
         
         me.callParent(arguments);
         me.on('beforeedit', me.handleBeforeEdit, me);
-        
+        me.relayEvents(me.getView(), ['listdrop'])
         
         /*
         view.on('beforedrop', function(node, data, overModel, dropPosition, dropHandlers) {
@@ -117,5 +117,15 @@ Ext.define('rcm.view.konfig.Nav', {
 		//alert("id: "+e.record.get('id'));
         return e.record.get('id') !== -1;
     },
+    
+    handleDeleteClick: function(gridView, rowIndex, colIndex, column, e) {
+        // Fire a "deleteclick" event with all the same args as this handler
+        this.fireEvent('delListDrop', gridView, rowIndex, colIndex, column, e);
+    },
+    
+    refreshView: function() {
+        // refresh the data in the view.  This will trigger the column renderers to run, making sure the task counts are up to date.
+        this.getView().refresh();
+    }
     
 });

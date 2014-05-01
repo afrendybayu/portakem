@@ -11,10 +11,9 @@ Ext.define('rcm.view.konfig.DropZone', {
         var droppedRecord = data.records[0];
 
 		this.callParent(arguments);
-		alert("masuk DropZone handleNodeDrop");
+		//alert("masuk DropZone handleNodeDrop");
 		this.fireViewEvent('listdrop', droppedRecord, overRecord, position);
-		//this.fireEvent('listdrop', droppedRecord, overRecord, position);
-		alert("lagi");
+		//alert("lagi");
 		/*
         if(droppedRecord instanceof SimpleTasks.model.Task) {
             this.cancelExpand();
