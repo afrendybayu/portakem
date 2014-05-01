@@ -1,6 +1,6 @@
 /* AfrendyBayu,3Jan2014 */
 
-Ext.define('rcm.controller.Laporan', {
+Ext.define('rcm.controller.Konfig', {
     extend: 'Ext.app.Controller',
     views: [
 		'konfig.Nav',
@@ -8,7 +8,7 @@ Ext.define('rcm.controller.Laporan', {
     
     models: [
 		'Hirarki'
-	],		// creates getter named 'getDaftarGagalModel'
+	],
 
     stores: [
 		'Hirarki'

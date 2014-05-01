@@ -12,7 +12,7 @@ Ext.define('rcm.view.konfig.Nav', {
     hideHeaders: true,
     //rootVisible: false,
     store: 'Hirarki',
-	title: 'Hirarki',
+	//title: 'Hirarki',
 	
 	//*
 	dockedItems: [{
@@ -65,7 +65,6 @@ Ext.define('rcm.view.konfig.Nav', {
                     selectOnFocus: true,
                     allowOnlyWhitespace: false
                 },
-                //renderer: Ext.bind(me.renderName, me)
             },{
                 xtype: 'actioncolumn',
                 width: 24,
@@ -76,6 +75,9 @@ Ext.define('rcm.view.konfig.Nav', {
             }
         ];
         me.tbar= [{
+				xtype: 'component',
+				html: '<b>Hirarki</b>'
+			},'->',{
             /*
                 text: 'Expand All',
                 scope: this,
@@ -94,36 +96,19 @@ Ext.define('rcm.view.konfig.Nav', {
         me.callParent(arguments);
         me.on('beforeedit', me.handleBeforeEdit, me);
         me.relayEvents(me.getView(), ['listdrop'])
-        
-        /*
-        view.on('beforedrop', function(node, data, overModel, dropPosition, dropHandlers) {
-			// Defer the handling
-			dropHandlers.wait = true;
-			Ext.MessageBox.confirm('Drop', 'Are you sure', function(btn){
-				if (btn === 'yes') {
-					dropHandlers.processDrop();
-				} else {
-					dropHandlers.cancelDrop();
-				}
-			});
-		});
-		//*/
 	},
 	//*/
     
     handleBeforeEdit: function(editingPlugin, e) {
-		rcmSettings.bongkar = e.record;
 		//alert("id: "+e.record.get('id'));
         return e.record.get('id') !== -1;
     },
     
     handleDeleteClick: function(gridView, rowIndex, colIndex, column, e) {
-        // Fire a "deleteclick" event with all the same args as this handler
         this.fireEvent('delListDrop', gridView, rowIndex, colIndex, column, e);
     },
     
     refreshView: function() {
-        // refresh the data in the view.  This will trigger the column renderers to run, making sure the task counts are up to date.
         this.getView().refresh();
     },
     

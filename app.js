@@ -10,14 +10,13 @@ Ext.Loader.setConfig({
 });
 
 
-
 Ext.application({
     name: 'rcm',
     autoCreateViewport: true,
 
     controllers: [
 		'DataEntry',
-		'Laporan'
+		'Konfig'
 	],
     //models: ['DaftarGagal'],
     //stores: ['DaftarGagal'],
