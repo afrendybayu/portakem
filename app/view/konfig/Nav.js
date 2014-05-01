@@ -13,7 +13,8 @@ Ext.define('rcm.view.konfig.Nav', {
     //rootVisible: false,
     store: 'Hirarki',
 	title: 'Hirarki',
-
+	
+	//*
 	dockedItems: [{
 		xtype: 'toolbar',
 		dock: 'bottom',
@@ -32,20 +33,6 @@ Ext.define('rcm.view.konfig.Nav', {
 				//iconCls: 'tasks-delete-folder',
 				//id: 'delete-folder-btn',
 				tooltip: 'Delete Folder'
-		}]
-    },{
-		xtype: 'toolbar',
-		dock: 'top',
-		items: [{
-			text: 'Expand All',
-                handler: function(){
-                    this.expandAll();
-                }
-            }, {
-                text: 'Collapse All',
-                handler: function(){
-                    this.collapseAll();
-                }
 		}]
 	}],
 
@@ -88,6 +75,18 @@ Ext.define('rcm.view.konfig.Nav', {
                 handler: Ext.bind(me.handleDeleteClick, me)
             }
         ];
+        me.tbar= [{
+            /*
+                text: 'Expand All',
+                scope: this,
+                handler: this.onExpandAllClick
+            }, {
+			//*/
+                text: 'Collapse All',
+                scope: this,
+                handler: this.onCollapseAllClick
+		}],
+		
         me.addEvents(
 			'listdrop','delListDrop'
 		);
@@ -126,6 +125,28 @@ Ext.define('rcm.view.konfig.Nav', {
     refreshView: function() {
         // refresh the data in the view.  This will trigger the column renderers to run, making sure the task counts are up to date.
         this.getView().refresh();
-    }
+    },
     
+    onCollapseAllClick: function(){
+        var toolbar = this.down('toolbar');
+        
+        toolbar.disable();
+        this.collapseAll(function() {
+            toolbar.enable();
+        });
+    },
+    /*
+    onExpandAllClick: function(){
+        var me = this,
+            toolbar = me.down('toolbar');
+            
+        me.getEl().mask('Expanding tree...');
+        toolbar.disable();
+                    
+        this.expandAll(function() {
+            me.getEl().unmask();
+            toolbar.enable();
+        });
+    }
+    //*/
 });

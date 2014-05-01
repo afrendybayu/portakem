@@ -1,34 +1,35 @@
-/* AfrendyBayu,12Nov2013 */
+/* AfrendyBayu,1Mei2014, terpisah */
 
 Ext.define('rcm.controller.Main', {
     extend: 'Ext.app.Controller',
 
     views: [
-        'AppHeader',
-        'Navigation',
-        'Content',
+		'konfig.Nav',
     ],
     
     models: [
-	//	'DaftarGagal', 'RunningHour'
-	],		// creates getter named 'getDaftarGagalModel'
+		'Hirarki'
+	],
 
     stores: [
-	//	'DaftarGagal',				// creates getter named 'getDaftarGagalStore'
-    //   'RunningHour',
+		'Hirarki'
     ],
 
 	refs: [{
-//		ref: 'excelgrid',
-//		selector: 'excelgrid'
+		ref: 'taskNavK',
+		selector: 'taskNavK'
 	}],
 
 	init: function() {
 		var me = this;
         me.control({
-
+			'taskNavK': {
+				listdrop: me.hirListDrop,
+				delListDrop: me.delListDrop
+			},
         });
     },
-
+	
+	
 
 });
