@@ -22,6 +22,9 @@ Ext.define('rcm.controller.Konfig', {
 	init: function() {
 		var me = this;
         me.control({
+			'[iconCls=tasks-new-folder]': {
+                click: me.handleNewFolderClick
+            },
 			'taskNavK': {
 				listdrop: me.hirListDrop,
 				delListDrop: me.delListDrop
@@ -141,5 +144,51 @@ Ext.define('rcm.controller.Konfig', {
         this.deleteList(view.getRecord(view.findTargetByEvent(e)));
 	},
     
+    handleNewFolderClick: function(component, e) {
+        this.addList();
+    },
     
+    addList: function(leaf) {
+        var me = this,
+            listTree = me.getTaskNavK(),
+            cellEditingPlugin = listTree.cellEditingPlugin,
+            selectionModel = listTree.getSelectionModel(),
+            selectedList = selectionModel.getSelection()[0],
+            parentList = selectedList.isLeaf() ? selectedList.parentNode : selectedList,
+            newList = Ext.create('rcm.model.Hirarki', {
+                name: 'New ' + (leaf ? 'List' : 'Folder'),
+                leaf: leaf,
+                loaded: true // set loaded to true, so the tree won't try to dynamically load children for this node when expanded
+            }),
+            expandAndEdit = function() {
+                if(parentList.isExpanded()) {
+                    selectionModel.select(newList);
+                    me.addedNode = newList;
+                    cellEditingPlugin.startEdit(newList, 0);
+                } else {
+                    listTree.on('afteritemexpand', function startEdit(list) {
+                        if(list === parentList) {
+                            selectionModel.select(newList);
+                            me.addedNode = newList;
+                            cellEditingPlugin.startEdit(newList, 0);
+                            // remove the afterexpand event listener
+                            listTree.un('afteritemexpand', startEdit);
+                        }
+                    });
+                    parentList.expand();
+                }
+            };
+            
+        parentList.appendChild(newList);
+        listTree.getStore().sync();
+        if(listTree.getView().isVisible(true)) {
+            expandAndEdit();
+        } else {
+            listTree.on('expand', function onExpand() {
+                expandAndEdit();
+                listTree.un('expand', onExpand);
+            });
+            listTree.expand();
+        }
+    },
 });

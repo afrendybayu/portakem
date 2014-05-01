@@ -27,7 +27,7 @@ Ext.define('rcm.view.konfig.Nav', {
 				//id: 'delete-list-btn',
 				tooltip: 'Hapus Hirarki'
 			},{
-				//iconCls: 'tasks-new-folder',
+				iconCls: 'tasks-new-folder',
 				tooltip: 'New Folder'
 			},{
 				//iconCls: 'tasks-delete-folder',
