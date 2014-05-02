@@ -149,7 +149,7 @@ Ext.define('rcm.view.Util', {
 				//tglbln[i] = "'"+this.Upad((date.getMonth()+1))+""+this.Upad(date.getDate())+"'";
 				tglbln[i+4] = "k"+(date.getYear()-100)+""+this.Upad((date.getMonth()+1))+""+this.Upad(date.getDate());
 			}
-			console.log(tglbln);
+			console.log("item judul: "+tglbln);
 			return tglbln;
 		}
     }

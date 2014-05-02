@@ -23,7 +23,7 @@ Ext.define('rcm.view.lapobama.AvHome', {
 		me.chartConfig = {
 			chart: {
 				type: 'column',
-				zoomType: 'x',
+				zoomType: 'xy',
 				animation : {
 					duration: 1500,
 					easing: 'swing'

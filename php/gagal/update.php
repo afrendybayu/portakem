@@ -44,6 +44,7 @@ try {
 	$server = isset($params->server)?($params->server):"1";
 	$xid = $params->id; $idAr = array(); $catAr = array(); $idJml=0;
 	$tipeev = $params->tipeev;
+	$cc = $params->cat;
 	
 	if (intval($xid)==0) {
 		$level = substr($xid,0,1);
@@ -198,9 +199,9 @@ try {
 		if ($adatgl->jml==0)	{
 			//$sql = "INSERT INTO rh_201311 (eq,tgl,rh,cat) VALUES ('{$idAr[$i]}','{$waktu[$j]['tgl']}','{$waktu[$j]['jam']}','{$catAr[$i]}' )";
 			//$sql = "INSERT INTO rh_201311 (eq,tgl,rh,flag) VALUES ('{$id}','".$tglx."','".$rh[$tglx]."','e".implode("e", $idAr)."' )";
-			$sql =	"INSERT INTO rh_201311 (eq,tgl,rh,rh_av, rh_re,flag,bln,thn) VALUES ".
+			$sql =	"INSERT INTO rh_201311 (eq,tgl,rh,rh_av, rh_re,flag,bln,thn,cat) VALUES ".
 					"('{$id}','$tglx','{$rh[$tglx]}','{$rh_av[$tglx]}','{$rh_re[$tglx]}','e".implode("e", $idAr)."',".
-					"'".bwaktu($tglx)->bln."','".bwaktu($tglx)->thn."')";
+					"'".bwaktu($tglx)->bln."','".bwaktu($tglx)->thn."','$cc')";
 			//echo "sql: $sql<br/>";
 			$q = db_query($sql);
 		} else {

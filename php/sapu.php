@@ -39,7 +39,7 @@ try {
 	}
 	//*/
 	$idx = 55;
-	$sql = "SELECT id, flag FROM hirarki WHERE level = 3;";
+	$sql = "SELECT id, flag as cat FROM hirarki WHERE level = 3;";
 	//$sql = "SELECT id, flag FROM hirarki WHERE level = 3 AND (id=$idx)";	//  OR id=55
 	$q = db_query($sql);
 	if (!$q)	{
@@ -100,10 +100,10 @@ try {
 					while ($row = mysql_fetch_assoc($q)) {
 						$eqx = $row['eq'];
 					}
-					$sql =	"INSERT INTO rh_201311 (bln,thn,eq,tgl,rh,rh_av,rh_re,flag) VALUES ".
-							"('$bbb','$ttt','{$unit[$i]['id']}','$tglx','24','24','24','e$eqx')";
+					$sql =	"INSERT INTO rh_201311 (bln,thn,eq,tgl,rh,rh_av,rh_re,flag,cat) VALUES ".
+							"('$bbb','$ttt','{$unit[$i]['id']}','$tglx','24','24','24','e$eqx','{$unit[$i]['cat']}')";
 				} else {
-					$sql .= ",('$bbb','$ttt','{$unit[$i]['id']}','".$tglx."','24','24','24','e$eqx')";
+					$sql .= ",('$bbb','$ttt','{$unit[$i]['id']}','".$tglx."','24','24','24','e$eqx','{$unit[$i]['cat']}')";
 				}
 				//echo "sql: $sql<br/>";
 

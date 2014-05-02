@@ -4,6 +4,9 @@
 include '../connection.php';
 include '../util.php';
 
+//echo '{"success":true,"runninghour":[{"id":"21","eq":"XXXXGas Compressor #1","cat":null,"Lokasi":"00. Lagan"},{"id":"22","eq":"EEEGas Compressor #2","cat":null,"Lokasi":"00. Lagan"},{"id":"23","eq":"Gas Compressor #3","cat":null,"Lokasi":"00. Lagan"},{"id":"24","eq":"Gas Compressor #4","cat":null,"Lokasi":"00. Lagan"},{"id":"25","eq":"Gas Compressor #5","cat":null,"Lokasi":"00. Lagan"},{"id":"26","eq":"Gas Compressor #6","cat":null,"Lokasi":"00. Lagan"},{"id":"27","eq":"Gas Compressor #1","cat":null,"Lokasi":"01. Ibul"},{"id":"28","eq":"Gas Compressor #2","cat":null,"Lokasi":"01. Ibul"},{"id":"29","eq":"Gas Compressor #3","cat":null,"Lokasi":"01. Ibul"},{"id":"31","eq":"Gas Compressor #1","cat":null,"Lokasi":"02. Rambutan"},{"id":"32","eq":"Gas Compressor #2","cat":null,"Lokasi":"02. Rambutan"},{"id":"33","eq":"Gas Compressor #3","cat":null,"Lokasi":"02. Rambutan"},{"id":"38","eq":"Gas Compressor #4","cat":null,"Lokasi":"02. Rambutan"},{"id":"39","eq":"Gas Compressor #5","cat":null,"Lokasi":"02. Rambutan"},{"id":"34","eq":"Gas Compressor #1","cat":null,"Lokasi":"03. Teras"},{"id":"35","eq":"Gas Compressor #2","cat":null,"Lokasi":"03. Teras"},{"id":"36","eq":"Gas Compressor #3","cat":null,"Lokasi":"03. Teras"},{"id":"37","eq":"Gas Compressor #4","cat":null,"Lokasi":"03. Teras"},{"id":"40","eq":"Gas Compressor #1","cat":null,"Lokasi":"05. Jene"},{"id":"41","eq":"Gas Compressor #2","cat":null,"Lokasi":"05. Jene"},{"id":"42","eq":"Gas Compressor #4","cat":null,"Lokasi":"05. Jene"},{"id":"43","eq":"Gas Compressor #5","cat":null,"Lokasi":"05. Jene"},{"id":"44","eq":"Gas Compressor #1","cat":null,"Lokasi":"06. Soka"},{"id":"45","eq":"Gas Compressor #2","cat":null,"Lokasi":"06. Soka"},{"id":"46","eq":"Gas Compressor #3","cat":null,"Lokasi":"06. Soka"},{"id":"47","eq":"Gas Compressor #4","cat":null,"Lokasi":"06. Soka"},{"id":"138","eq":"Gas Compressor #5","cat":null,"Lokasi":"06. Soka"},{"id":"48","eq":"Gas Compressor #1","cat":null,"Lokasi":"09. Gunung Kembang"},{"id":"49","eq":"Gas Compressor #2","cat":null,"Lokasi":"09. Gunung Kembang"},{"id":"50","eq":"Gas Compressor #3","cat":null,"Lokasi":"09. Gunung Kembang"},{"id":"51","eq":"Gas Compressor #4","cat":null,"Lokasi":"09. Gunung Kembang"},{"id":"54","eq":"Gas Compressor #1","cat":null,"Lokasi":"16. Borang"},{"id":"55","eq":"Gas Compressor #2","cat":null,"Lokasi":"16. Borang"},{"id":"56","eq":"Gas Compressor #3","cat":null,"Lokasi":"16. Borang"},{"id":"57","eq":"Gas Compressor #2","cat":null,"Lokasi":"20. Koneng"}]}';
+//return;
+
 try {
 	$sql = array();
 	$eq = 0; $jml = 0;
@@ -16,13 +19,7 @@ try {
 		$tgl=date("Y-m-d");	
 		//echo "tgl: $tgl<br/>";
 	}
-	
-	/*
-	$m=substr($tgl,2,2);
-	
-	$y=substr($tgl,0,2);	 echo "$tgl >> m: $m<br/>";	// Tahun
-	$t=substr($tgl,4,2);	 echo "$tgl >> t: $t<br/>";	// Tanggal
-	//*/
+
 	list($y,$m,$t) = explode("-", $tgl);
 	
 
@@ -31,14 +28,14 @@ try {
 	$sql["tbl"][1] = "rh_".date("Ym", mktime(0, 0, 0, $m, $t, $y)-(13*24));
 	$sql["bts"][1] = date("Y-m-d", mktime(0, 0, 0, $m, $t-13, $y));
 	
-	echo "tbl: {$sql["tbl"][0]}, bts: {$sql["bts"][0]}, tbl: {$sql["tbl"][1]}, bts: {$sql["bts"][1]}<br/>";
-	echo "tbl: {$sql["tbl"][0]}, bts0: {$sql["bts"][0]}, bts1: {$sql["bts"][1]}<br/>";
+	//echo "tbl: {$sql["tbl"][0]}, bts: {$sql["bts"][0]}, tbl: {$sql["tbl"][1]}, bts: {$sql["bts"][1]}<br/>";
+	//echo "tbl: {$sql["tbl"][0]}, bts0: {$sql["bts"][0]}, bts1: {$sql["bts"][1]}<br/>";
 	
 	
 	//$s =  "select equip.id, equip.nama, equip.tag, equip.cat, hirarki.nama as hlok from equip ".
 	//		"left join hirarki on equip.lok = hirarki.id where equip.strh = '$cat' order by hlok, nama asc";
 	
-	$s =  "select id,nama,parent as idparent,ket /*level*/ ".
+	$s =  "select id,nama,flag as cat, parent as idparent,ket /*level*/ ".
 			"/*,(select h.parent from hirarki h where hh.parent = h.id) as parent*/ ".
 			",(select hhh.nama from hirarki hhh where hhh.id = (select hh.parent from hirarki hh where h.parent = hh.id)) as hlok ".
 			",(select hhh.urut from hirarki hhh where hhh.id = (select hh.parent from hirarki hh where h.parent = hh.id)) as urut ".
@@ -61,7 +58,7 @@ try {
 		$fas[$row['id']]['cat'] = $row['cat'];
 		$fas[$row['id']]['Lokasi'] = $row['hlok'];
 	}
-	print_r($fas);
+	//print_r($fas);
 
 	$loop = ($sql["tbl"][0]!=$sql["tbl"][1])?2:1;
 
@@ -73,101 +70,52 @@ try {
 	
 	//echo "{$sql["bts"][1]} ----- {$sql["bts"][0]}<br/>";
 	$sql = "SELECT * FROM rh_201311 WHERE tgl BETWEEN '{$sql['bts'][1]}' AND '{$sql['bts'][0]}' ";
-			//"AND rh<>'24'";
+	//		" AND eq='21'";
 	//echo "sql: $sql<br/>";
 	$q = db_query($sql);
 	
-	
-	// init //
-	for($i=13;$i>=0; $i--)	{
-		//$tisi[$i]
-		//echo date("ymd", mktime(0, 0, 0, $m, $t-$i, $y))."<br/>";
-		//$tisi[$eq]["k".date("ymd", mktime(0, 0, 0, $m, $t-$i, $y))] = '-';
-	}
-	
-	print_r($tisi);
-	//return;
-	
 	if ($q)	{
-		echo "<br/>hadir<br/><br/>";
+		//echo "<br/>hadir<br/><br/>";
 		while ($row = mysql_fetch_assoc($q)) {
 			if ($eq != $row['eq'])	{
-				echo "-- ";
+				//echo "-- ";
 				$eq = $row['eq'];
 				//$isi[$eq] = $row;	
 				$tisi[$eq]['id'] = $row['eq'];
 				$tisi[$eq]['tgl'] = $row['tgl'];
 				//$jml=$jml+1;
 			}
-			echo "<br/>ada<br/><br/>";
+			//echo "<br/>ada<br/><br/>";
 			$time = strtotime($row['tgl']);
 			$ii = format_rh_time($row['rh']);
-			$tisi[$eq]["k".date('ymd',$time)] = $ii?$ii:'-';
+			$tisi[$eq]["k".date('ymd',$time)] = $ii;
 			//$tisi[$eq]["k".date('ymd',$time)] = ($row['rh']);
 			//echo "row[rh]: {$row['rh']}<br/>";
-			echo "ii: $ii ";
+			//echo "ii: $ii ";
 		}
 		//echo "<br/>jos";
+		//*
 		if (!isset($tisi[$eq]["k".date('ymd',$time)]))	{
 			foreach ($fas as $a)	{
-				echo " -->".$a['id']."<br/>";
+				//echo " -->".$a['id']."<br/>";
+				for($i=13;$i>=0; $i--)	{
+					//echo "eq: ".$a['id']." ".date("ymd", mktime(0, 0, 0, $m, $t-$i, $y))."<br/>";
+					$fas[$a['id']]["k".date("ymd", mktime(0, 0, 0, $m, $t-$i, $y))] = '-';
+				}
 			}
-			for($i=13;$i>=0; $i--)	{
-				//$tisi[$i]
-				echo "eq: $eq ".date("ymd", mktime(0, 0, 0, $m, $t-$i, $y))."<br/>";
-				//$tisi[$eq]["k".date("ymd", mktime(0, 0, 0, $m, $t-$i, $y))] = '-';
+			
+		} else {
+			foreach ($tisi as $data)	{
+				//if ($fas[$data['id']]!=null)	{
+				if(@isset($fas[$data['id']]))	{
+					$fas[$data['id']] = @array_merge($fas[$data['id']],$data);
+				}
 			}
 		}
-	} else {
-		echo "<br>  disini ";
+		//*/
 	}
 	
 	mysql_free_result($q);
-	//print_r($tisi);
-	
-	
-	
-	// select equip.nama, equip.tag, equip.lok, equip.strh, hirarki.nama from equip
-	// left join hirarki on equip.lok = hirarki.id
-//	$sql["sql"][0] = "SELECT * FROM {$sql["tbl"][0]} where {$limit} tgl<='{$sql["bts"][0]}'  order by eq asc, tgl desc";
-//	$sql["sql"][1] = "SELECT * FROM {$sql["tbl"][1]} where tgl>='{$sql["bts"][1]}' order by eq asc, tgl desc";
-	/*
-	$sql["sql"][0] = "SELECT * FROM rh_201311 where {$limit} tgl<='{$sql["bts"][0]}' and rh<>'24:00' order by eq asc, tgl desc";
-	$sql["sql"][1] = "SELECT * FROM rh_201311 where tgl>='{$sql["bts"][1]}' and rh<>'24:00' order by eq asc, tgl desc";
-	
-	$tisi = array();
-	for ($i=0;$i<$loop;$i++)	{
-		//echo "sql: {$sql['sql'][$i]}<br/>";
-		$q = db_query($sql["sql"][$i]);
-
-		if ($q=='')	{
-			//echo "gak ono <br/>";
-		} else {
-			while ($row = mysql_fetch_assoc($q)) {
-				if ($eq != $row['eq'])	{
-					$eq = $row['eq'];
-					//$isi[$eq] = $row;	
-					$tisi[$eq]['id'] = $row['eq'];
-					$tisi[$eq]['tgl'] = $row['tgl'];
-					//$jml=$jml+1;
-				}
-				$time = strtotime($row['tgl']);
-				$tisi[$eq]["k".date('ymd',$time)] = $row['rh'];
-			}
-		}
-	}
-	//*/
-	
-	foreach ($tisi as $data)	{
-		//if ($fas[$data['id']]!=null)	{
-		if(@isset($fas[$data['id']]))	{
-			$fas[$data['id']] = @array_merge($fas[$data['id']],$data);
-		}
-	}
-
-	//mysql_free_result($q);
-	//echo "<br/><br/><br/>";	
-	//print_r($fas);
 	
 	$isi = array();
 	foreach ($fas as $data)	{

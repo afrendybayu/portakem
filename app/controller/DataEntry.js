@@ -636,7 +636,7 @@ Ext.define('rcm.controller.DataEntry', {
             me = this,
             task = form.getRecord();
 
-		var	id = form.findField('fgid').getValue(), eq = form.findField('eq'), 
+		var	id = form.findField('fgid').getValue(), eq = form.findField('eq'), cat = rcmSettings.cat,
 			event = form.findField('tfevent').getValue(), tipeev = form.findField('tipepm').getValue(),
 			ket = form.findField('tfket').getValue(), exe = form.findField('exe').getValue(),
 			dd = this.getDate(form.findField('datedown').getValue()), 
@@ -650,7 +650,7 @@ Ext.define('rcm.controller.DataEntry', {
 		
 		var rec = new rcm.model.DaftarGagal({
 			id:'u'+id,downt:dd,downj:td,startt:dm,startj:tm,endt:ds,endj:ts,upt:du,upj:tu,
-			event:event,tipeev:tipeev,ket:ket,exe:exe,server:rcmSettings.server
+			event:event,tipeev:tipeev,ket:ket,exe:exe,server:rcmSettings.server,cat:rcmSettings.cat
         });
         
         //*
