@@ -101,7 +101,19 @@ Ext.define('rcm.view.Util', {
 				}
 				
 				xwkt="k"+(tgl.getYear()-100)+""+this.Upad(tgl.getMonth()+1)+""+this.Upad(tgl.getDate());
-				grid={header:tgl.getDate(),dataIndex:xwkt,width:50,editor:'textfield'};
+				//grid={header:tgl.getDate(),dataIndex:xwkt,width:50,editor:'textfield', tdCls: 'x-change-cell'};
+				grid={header:tgl.getDate(),dataIndex:xwkt,width:50,editor:'textfield',
+					/*
+					renderer: function(value, meta) {
+						if (value === '24:00') { 
+							meta.tdCls = 'price-rise'; 
+							//return; 
+						} else {
+							meta.tdCls = 'price-fall'; 
+						}
+					}
+					//*/
+				};
 				//grid={header:tgl.getDate(),dataIndex:xwkt,width:55,editor:{xtype:'timefield',labelAlign:'top',format:'H:i',maxValue:'10:00'} };
 				
 				column.push(grid);
@@ -131,13 +143,13 @@ Ext.define('rcm.view.Util', {
 			tglbln[0] = 'eq'; tglbln[1] = 'Lokasi'; tglbln[2] = 'cat'; tglbln[3] = 'note';
 			for (var i=0;i<14;i++)	{
 				var date;
-				if (rcmSettings.tgl=='0')	date=new Date();
+				if (rcmSettings.tgl==='0')	date=new Date();
 				else date=new Date(rcmSettings.tgl);
 				date.setDate(date.getDate() - i);
 				//tglbln[i] = "'"+this.Upad((date.getMonth()+1))+""+this.Upad(date.getDate())+"'";
 				tglbln[i+4] = "k"+(date.getYear()-100)+""+this.Upad((date.getMonth()+1))+""+this.Upad(date.getDate());
 			}
-			//console.log(tglbln);
+			console.log(tglbln);
 			return tglbln;
 		}
     }

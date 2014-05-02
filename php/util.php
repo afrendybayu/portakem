@@ -3,6 +3,15 @@
 //include 'connection.php';
 //*
 
+
+function isDate($date){
+  $date = str_replace(array('.', '-', '\\'), '/', $date);
+  return 1 === preg_match(
+    '/^(?:20|19)[0-9]{2}([-.\\/])(?:0?[1-9]|1[012])\\1(?:0?[1-9]|[12][0-9]|3[01])$/',
+    $date
+  );
+}
+
 function pad($a)	{
 	return ($a<10)?("0".$a):$a;
 }

@@ -13,12 +13,17 @@ try {
 	if (isset($_GET['cat']))	{ $cat = $_GET['cat']; } else { $cat = 5;	}		// 5: default Compressor
 	//echo "tgl: ".$tgl."<br/>";
 	if ($tgl==null || $tgl=='0')	{
-		$tgl=date("ymd");	//echo "tgl: $tgl<br/>";
+		$tgl=date("Y-m-d");	
+		//echo "tgl: $tgl<br/>";
 	}
+	
+	/*
 	$m=substr($tgl,2,2);
 	
-	$y=substr($tgl,0,2);	// echo "$tgl >> m: $m<br/>";	// Tahun
-	$t=substr($tgl,4,2);	// echo "$tgl >> t: $t<br/>";	// Tanggal
+	$y=substr($tgl,0,2);	 echo "$tgl >> m: $m<br/>";	// Tahun
+	$t=substr($tgl,4,2);	 echo "$tgl >> t: $t<br/>";	// Tanggal
+	//*/
+	list($y,$m,$t) = explode("-", $tgl);
 	
 
 	$sql["tbl"][0] = "rh_".date("Ym", mktime(0, 0, 0, $m, $t, $y));
@@ -26,8 +31,8 @@ try {
 	$sql["tbl"][1] = "rh_".date("Ym", mktime(0, 0, 0, $m, $t, $y)-(13*24));
 	$sql["bts"][1] = date("Y-m-d", mktime(0, 0, 0, $m, $t-13, $y));
 	
-	//echo "tbl: {$sql["tbl"][0]}, bts: {$sql["bts"][0]}, tbl: {$sql["tbl"][1]}, bts: {$sql["bts"][1]}<br/>";
-	//echo "tbl: {$sql["tbl"][0]}, bts0: {$sql["bts"][0]}, bts1: {$sql["bts"][1]}<br/>";
+	echo "tbl: {$sql["tbl"][0]}, bts: {$sql["bts"][0]}, tbl: {$sql["tbl"][1]}, bts: {$sql["bts"][1]}<br/>";
+	echo "tbl: {$sql["tbl"][0]}, bts0: {$sql["bts"][0]}, bts1: {$sql["bts"][1]}<br/>";
 	
 	
 	//$s =  "select equip.id, equip.nama, equip.tag, equip.cat, hirarki.nama as hlok from equip ".
@@ -47,7 +52,7 @@ try {
 		exit;
 	}
 	
-	$fas = array();
+	$fas = array();	$tisi = array();
 	while ($row = mysql_fetch_assoc($q)) {
 		//echo $row['id']."<br/>";
 		//$tisi[$row['id']] = $row;
@@ -56,7 +61,7 @@ try {
 		$fas[$row['id']]['cat'] = $row['cat'];
 		$fas[$row['id']]['Lokasi'] = $row['hlok'];
 	}
-	//print_r($fas);
+	print_r($fas);
 
 	$loop = ($sql["tbl"][0]!=$sql["tbl"][1])?2:1;
 
@@ -72,21 +77,49 @@ try {
 	//echo "sql: $sql<br/>";
 	$q = db_query($sql);
 	
-	$tisi = array();
+	
+	// init //
+	for($i=13;$i>=0; $i--)	{
+		//$tisi[$i]
+		//echo date("ymd", mktime(0, 0, 0, $m, $t-$i, $y))."<br/>";
+		//$tisi[$eq]["k".date("ymd", mktime(0, 0, 0, $m, $t-$i, $y))] = '-';
+	}
+	
+	print_r($tisi);
+	//return;
+	
 	if ($q)	{
+		echo "<br/>hadir<br/><br/>";
 		while ($row = mysql_fetch_assoc($q)) {
 			if ($eq != $row['eq'])	{
+				echo "-- ";
 				$eq = $row['eq'];
 				//$isi[$eq] = $row;	
 				$tisi[$eq]['id'] = $row['eq'];
 				$tisi[$eq]['tgl'] = $row['tgl'];
 				//$jml=$jml+1;
 			}
+			echo "<br/>ada<br/><br/>";
 			$time = strtotime($row['tgl']);
-			$tisi[$eq]["k".date('ymd',$time)] = format_rh_time($row['rh']);
+			$ii = format_rh_time($row['rh']);
+			$tisi[$eq]["k".date('ymd',$time)] = $ii?$ii:'-';
 			//$tisi[$eq]["k".date('ymd',$time)] = ($row['rh']);
 			//echo "row[rh]: {$row['rh']}<br/>";
+			echo "ii: $ii ";
 		}
+		//echo "<br/>jos";
+		if (!isset($tisi[$eq]["k".date('ymd',$time)]))	{
+			foreach ($fas as $a)	{
+				echo " -->".$a['id']."<br/>";
+			}
+			for($i=13;$i>=0; $i--)	{
+				//$tisi[$i]
+				echo "eq: $eq ".date("ymd", mktime(0, 0, 0, $m, $t-$i, $y))."<br/>";
+				//$tisi[$eq]["k".date("ymd", mktime(0, 0, 0, $m, $t-$i, $y))] = '-';
+			}
+		}
+	} else {
+		echo "<br>  disini ";
 	}
 	
 	mysql_free_result($q);

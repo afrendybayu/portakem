@@ -23,6 +23,20 @@ Ext.define('rcm.view.dataentry.ExcelGrid', {
 		},
 		items: rcm.view.Util.UxcolGrid()
     },
+    
+    viewConfig: {
+        getRowClass: function(record, index) {
+			//rcmSettings.asa = record;
+            //*
+            var c = record.get('k140426');
+            if (c.localeCompare("24:00")) {
+                return 'price-fall';
+            } else {
+                return 'price-rise';
+            }
+            //*/
+        }
+    },
 	
 	initComponent: function() {
 		var me=this, cellEditingPlugin = Ext.create('Ext.grid.plugin.CellEditing', { clicksToEdit: 1 });
@@ -102,10 +116,12 @@ Ext.define('rcm.view.dataentry.ExcelGrid', {
 	//*/
 	
 	renderer: function(value, metadata, record, rowIndex, colIndex, store) {
-		if (value == "24:00") {
-			metadata.css = 'red';
+		alert("jos renderer");
+		console.log("value: "+value+", rowIx: "+rowIndex+", colIx: "+colIndex);
+		if(value.localeCompare("24:00")) {
+			meta.style = "background-color:green;";
 		} else {
-			metadata.css = 'green';
+			meta.style = "background-color:red;";
 		}
 		return colIndex;
 	},

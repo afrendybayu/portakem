@@ -5,10 +5,30 @@
 include './connection.php';
 include './util.php';
 
-$waktuawal  = '2013-01-1';
-$waktuakhir = '2014-2-9';
+//$waktuawal  = '2013-01-1';
+//$waktuakhir = '2014-2-9';
+//$date = '2013-01-1';
 
+
+//*
+if (isset($_GET['awal']))	{
+	$waktuawal = $_GET['awal'];
+	
+} else {
+	$waktuawal = date("Y-m-")."01";
+}
+echo "waktuawal: $waktuawal<br/>";
+//return;
+if (isset($_GET['akhir'])) {
+	$waktuakhir = $_GET['akhir'];
+} else {
+	$waktuakhir = date("Y-m-d");
+}
+echo "aw:".$waktuawal.", akhir: ".$waktuakhir;
+//return;
+//*/
 try {
+
 	/*
 	if($_GET["id"] && $_GET["awal"] && $_GET["akhir"])	{
 		$idx  = $_GET['id'];
@@ -19,8 +39,8 @@ try {
 	}
 	//*/
 	$idx = 55;
-	//$sql = "SELECT id, flag FROM hirarki WHERE level = 3;";
-	$sql = "SELECT id, flag FROM hirarki WHERE level = 3 AND (id=$idx)";	//  OR id=55
+	$sql = "SELECT id, flag FROM hirarki WHERE level = 3;";
+	//$sql = "SELECT id, flag FROM hirarki WHERE level = 3 AND (id=$idx)";	//  OR id=55
 	$q = db_query($sql);
 	if (!$q)	{
 		throw new Exception('Tidak ada hasil [0]');

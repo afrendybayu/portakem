@@ -695,18 +695,18 @@ Ext.define('rcm.controller.DataEntry', {
 		this.getRunningHourStore().reload();
 	},
 	
-	KalenderClick: function(dt)	{
-		rcmSettings.tgl = dt;
+	KalenderClick: function(pt)	{
+		rcmSettings.tgl = pt;
 		var tab=rcmSettings.tab.split("_");
 		//console.log("tab: "+tab[0]+", no: "+tab[1]);
 		if ((tab[0].localeCompare("tu")==0) && (tab[1].localeCompare("rh")==0))	{
-			var t = new Date(dt);
-			var pt = ''+(t.getYear()-100)+rcm.view.Util.Upad(t.getMonth()+1)+rcm.view.Util.Upad(t.getDate())+'';
 			this.ubahFieldRH();
-
+			//*
 			Ext.suspendLayouts();
 			this.getTaskExcelGrid().reconfigure(this.getRunningHourStore().load({ params:{tgl:pt, cat:rcmSettings.cat} }), rcm.view.Util.UxcolGrid());
+			rcmSettings.asa = this.getTaskExcelGrid();
 			Ext.resumeLayouts(true);
+			//*/
 		}
 	}
 });
