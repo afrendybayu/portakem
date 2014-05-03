@@ -3,6 +3,7 @@ Ext.define('rcm.view.lapobama.AvHome', {
     xtype: 'tAvHome',
 	extend: 'Chart.ux.Highcharts',
 	loadMask: true,
+	loadMaskMsg: 'Mikir dhisik ...',
 	
 	series : [{
 		dataIndex: 'th1',
@@ -30,7 +31,7 @@ Ext.define('rcm.view.lapobama.AvHome', {
 				},
 				backgroundColor: '#d9e9ef'
 			},
-
+			colors: ['#0d233a','#2f7ed8','#8bbc21'],
 			title : {
 					text: me.jdl,
 					//x: -40
@@ -80,7 +81,7 @@ Ext.define('rcm.view.lapobama.AvHome', {
 					}
 				},
 				credits : {
-					text : 'hc'
+					text : 'hcxxx'
 				},
 				legend : {
 					/*

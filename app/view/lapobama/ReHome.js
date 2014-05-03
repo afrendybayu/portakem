@@ -21,7 +21,7 @@ Ext.define('rcm.view.lapobama.ReHome', {
 	initComponent: function() {
 		var me=this;
 		me.chartConfig = {
-				colors: ['#FF6600'],
+				colors: ['#0d233a','#2f7ed8','#FF6600'],
 				chart: {
 					type: 'column',
 					zoomType: 'xy',
