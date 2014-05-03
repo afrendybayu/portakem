@@ -34,7 +34,7 @@ try {
 		 "LEFT JOIN equip ON h.id = equip.unit_id and equip.kode like '%COMP%' ".
 		 "where h.level = 3 and h.flag = 5 ".
 		 "order by urut,nama asc;";
-		echo "sql: $s<br/>";
+	//echo "sql: $s<br/>";
 	$q = db_query($s);
 	if (!$q)	{
 		echo "DB Error, could not query the database\n";
@@ -63,7 +63,7 @@ try {
 	
 
 	$s = "select eq, sum(rh) as av,sum(rh_re) as re,count(id) as jml from rh_201311 where cat=5 and thn=$y and bln=$m group by eq;";
-		echo "sql: $s<br/>";
+	//echo "sql: $s<br/>";
 	$q = db_query($s);
 	if (!$q)	{
 		echo "DB Error, could not query the database\n";
@@ -73,9 +73,9 @@ try {
 	
 	$datax = array();
 	while ($row = mysql_fetch_assoc($q)) {
-		$data[$row['eq']]['av'] = ($row['av']*100)/(24*$row['jml']);
-		$data[$row['eq']]['re'] = ($row['re']*100)/(24*$row['jml']);
-		$data[$row['eq']]['eq'] = $row['eq'];
+		$data[$row['eq']]['av'] = number_format(($row['av']*100)/(24*$row['jml']), 3);
+		$data[$row['eq']]['re'] = number_format(($row['re']*100)/(24*$row['jml']), 3);
+		//$data[$row['eq']]['eq'] = $row['eq'];
 	};
 	//	echo "sql: $s<br/>";
 	$q = db_query($s);
@@ -85,24 +85,16 @@ try {
 		exit;
 	}
 	
+	//*
+	$arGroup = array();
 	foreach ($data as $d)	{
-		print_r($d);
-		echo "<br/>";
+		//print_r($d);
+		//echo "<br/>";
+		array_push($arGroup,$d);
 	}
 
 	mysql_free_result($q);
-		
-	$i=0;
-	/*
-	foreach ($data as $d)	{
-		//$d['av'] = rand(50,100);
-		//$d['re'] = rand(80,100);
-		//$d['av'] = 100;
-		print_r($d); echo "<br/>";
-		$arGroup[$i] = $d;
-		$i++;
-	}
-	//*/
+
 	$jsonResult = array(
         'success' => true,
         'avGr' => $arGroup
@@ -115,6 +107,6 @@ try {
 	);
 }
 
-//echo json_encode($jsonResult);
+echo json_encode($jsonResult);
 
 ?>

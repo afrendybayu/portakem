@@ -152,8 +152,8 @@ try {
         'avhome' => $arAvRe
     );
 //*/
-
-		$s = "select cat, sum(rh_av) as av,sum(rh_re) as re,count(id) as jmleq from rh_201311 where thn=$th and bln=$bl group by cat";
+		// BULAN BERJALAN
+		$s = "select cat, sum(rh) as av,sum(rh_re) as re,count(id) as jmleq from rh_201311 where thn=$th and bln=$bl group by cat";
 		//echo "sql: $s<br/>";
 		$q = db_query($s);
 		if (!$q)	{
@@ -164,14 +164,14 @@ try {
 		
 		$arAvRe = array();
 		while ($row = mysql_fetch_assoc($q)) {
-			$arAvRe['b'][$row['cat']]['av'] = ($row['av']*100)/($row['jmleq']*24);
-			$arAvRe['b'][$row['cat']]['re'] = ($row['re']*100)/($row['jmleq']*24);
+			$arAvRe['b'][$row['cat']]['av'] = number_format(($row['av']*100)/($row['jmleq']*24),3);
+			$arAvRe['b'][$row['cat']]['re'] = number_format(($row['re']*100)/($row['jmleq']*24),3);
 			//echo "ID: {$row['cat']}, AV: {$row['av']}, RE: {$row['av']}, JML: {$row['jmleq']}<br/>";
 		}
+		//echo "<br/>";
 		
-		
-		
-		$s = "select cat, sum(rh_av) as av,sum(rh_re) as re,count(id) as jmleq from rh_201311 where thn=$th group by cat;";
+		// AWAL TAHUN SAMPAI SEKARANG
+		$s = "select cat, sum(rh) as av,sum(rh_re) as re,count(id) as jmleq from rh_201311 where thn=$th group by cat;";
 		//echo "sql: $s<br/>";
 		$q = db_query($s);
 		if (!$q)	{
@@ -181,14 +181,32 @@ try {
 		}
 		
 		while ($row = mysql_fetch_assoc($q)) {
-			$arAvRe['a'][$row['cat']]['av'] = ($row['av']*100)/($row['jmleq']*24);
-			$arAvRe['a'][$row['cat']]['re'] = ($row['re']*100)/($row['jmleq']*24);
+			$arAvRe['a'][$row['cat']]['av'] = number_format(($row['av']*100)/($row['jmleq']*24),3);
+			$arAvRe['a'][$row['cat']]['re'] = number_format(($row['re']*100)/($row['jmleq']*24),3);
 			//echo "ID: {$row['cat']}, AV: {$row['av']}, RE: {$row['av']}, JML: {$row['jmleq']}<br/>";
 		}
+		//echo "<br/>";
 		 
-		
+		// TAHUN KEMARIN
+		$thm1 = $th-1;
+		$s = "select cat, sum(rh) as av,sum(rh_re) as re,count(id) as jmleq from rh_201311 where thn=$thm1 group by cat";
+		//echo "sql: $s<br/>";
+		$q = db_query($s);
+		if (!$q)	{
+			echo "DB Error, could not query the database\n";
+			echo 'MySQL Error: ' . mysql_error();
+			exit;
+		}
+
+		while ($row = mysql_fetch_assoc($q)) {
+			$arAvRe['d'][$row['cat']]['av'] = number_format(($row['av']*100)/($row['jmleq']*24),3);
+			$arAvRe['d'][$row['cat']]['re'] = number_format(($row['re']*100)/($row['jmleq']*24),3);
+			//echo "ID: {$row['cat']}, AV: {$row['av']}, RE: {$row['av']}, JML: {$row['jmleq']}<br/>";
+		}
+		//echo "<br/>";
 		
 		mysql_free_result($q);
+		
 		//print_r($arAvRe);
 	
 	// 5 compressor
@@ -198,24 +216,24 @@ try {
 	$arAR = array();
 	
 	$obj1 = new stdClass();
-	$obj1->th1 = '0';
-	$obj1->avg = $arAvRe['a'][5]['av'];
-	$obj1->bln = $arAvRe['b'][5]['av'];
+	$obj1->th1 = ($arAvRe['d'][5]['av'])?:0;
+	$obj1->avg = ($arAvRe['a'][5]['av'])?:0;
+	$obj1->bln = ($arAvRe['b'][5]['av'])?:0;
 	$obj1->tgt = '98';
 	$obj1->m = "Gas Comp";
 	array_push($arAR,$obj1);
 	
 	$obj = new stdClass();
-	$obj->th1 = '0';
-	$obj->avg = $arAvRe['a'][7]['av'];
-	$obj->bln = $arAvRe['b'][7]['av'];
+	$obj->th1 = ($arAvRe['d'][7]['av'])?:0;
+	$obj->avg = ($arAvRe['a'][7]['av'])?:0;
+	$obj->bln = ($arAvRe['b'][7]['av'])?:0;
 	$obj->tgt = '98';
 	$obj->m = "Generator Set";
 	array_push($arAR,$obj);
 	
-	$obj2->th1 = '0';
-	$obj2->avg = $arAvRe['a'][6]['av'];
-	$obj2->bln = $arAvRe['b'][6]['av'];
+	$obj2->th1 = ($arAvRe['d'][6]['av'])?:0;
+	$obj2->avg = ($arAvRe['a'][6]['av'])?:0;
+	$obj2->bln = ($arAvRe['b'][6]['av'])?:0;
 	$obj2->tgt = '98';
 	$obj2->m = "Pump";
 	array_push($arAR,$obj2);

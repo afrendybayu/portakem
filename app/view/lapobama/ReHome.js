@@ -5,8 +5,14 @@ Ext.define('rcm.view.lapobama.ReHome', {
 	loadMask: true,
 	
 	series : [{
-		dataIndex: 're',
-		name: 'Reliability',
+		dataIndex: 'th1',
+		name: '2013',
+	},{
+		dataIndex: 'avg',
+		name: 'YTD/Avg 2014',
+	},{
+		dataIndex: 'bln',
+		name: 'Feb 2014',
 	}],
 	
 	store: 'ReHome',
@@ -18,7 +24,7 @@ Ext.define('rcm.view.lapobama.ReHome', {
 				colors: ['#FF6600'],
 				chart: {
 					type: 'column',
-					zoomType: 'x',
+					zoomType: 'xy',
 					animation : {
 						duration: 1500,
 						easing: 'swing'
@@ -69,6 +75,7 @@ Ext.define('rcm.view.lapobama.ReHome', {
 					text : 'hc'
 				},
 				legend : {
+					/*
 					enabled: false,
 					layout : 'vertical',
 					align : 'right',
@@ -76,6 +83,7 @@ Ext.define('rcm.view.lapobama.ReHome', {
 					x : -10,
 					//y : 100,
 					borderWidth : 0
+					//*/
 				}
 		};
 		me.callParent(arguments);

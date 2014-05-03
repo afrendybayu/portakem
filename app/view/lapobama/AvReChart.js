@@ -84,13 +84,15 @@ Ext.define('rcm.view.lapobama.AvReChart', {
 					width: '50%',
 					xtype: 'tAvHome',
 					fldY: ['av2014'],
-					jdl: 'Availability 2014',
+					jdl: 'Availability',
 					subJdl: 'Gas Compressor'
 				},{
+					//*
 					xtype: 'tReHome',
 					width: '50%',
 					height: '33.3%',
 					jdl: 'Reliability',
+					//*/
 				}]
 			},{
 				//height: '23.3%',

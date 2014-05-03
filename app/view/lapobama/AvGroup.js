@@ -18,9 +18,10 @@ Ext.define('rcm.view.lapobama.AvGroup', {
 	initComponent: function() {
 		var me=this;
 		me.chartConfig= {
+			colors: ['#66FF00','#FF6600'],
 			chart: {
 				type: 'bar',
-				zoomType: 'x',
+				zoomType: 'xy',
 				animation : {
 				duration: 1500,
 					easing: 'swing'
