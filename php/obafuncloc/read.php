@@ -55,7 +55,7 @@ try {
 		$arAvRe[$i]['m'] = nmbulan($i,1);
 	}
 	
-	$s = "SELECT bln,thn,(SELECT DAY(LAST_DAY(tgl))*24) as jml, sum(rh) AS av,sum(rh_re) AS re FROM rh_201311 ".
+	$s = "SELECT bln,thn,(SELECT DAY(LAST_DAY(tgl))*24) as jml, sum(rh_av) AS av,sum(rh_re) AS re FROM rh_201311 ".
 		 "WHERE eq='$eq' and (thn='$thn' or thn='$thnm1') GROUP BY bln,thn ORDER BY thn, bln ASC";
 	//echo "sql: $s<br/>";
 	$q = db_query($s);

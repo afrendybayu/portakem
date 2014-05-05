@@ -105,10 +105,10 @@ try {
 	//*/
 	//echo "<br/><br/>";
 	if (isset($bln) && $bln<13)	{
-		$s = "select eq, sum(rh) as av,sum(rh_re) as re,count(id) as jml from rh_201311 ".
+		$s = "select eq, sum(rh_av) as av,sum(rh_re) as re,count(id) as jml from rh_201311 ".
 			 "where cat=$gr and thn=$thn and bln=$bln group by eq;";
 	} else {
-		$s = "select eq, sum(rh) as av,sum(rh_re) as re,count(id) as jml from rh_201311 ".
+		$s = "select eq, sum(rh_av) as av,sum(rh_re) as re,count(id) as jml from rh_201311 ".
 			 "where cat=$gr and thn=$thn group by eq;";
 	}
 	

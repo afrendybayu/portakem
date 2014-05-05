@@ -161,7 +161,7 @@ try {
     );
 //*/
 		// BULAN BERJALAN
-		$s = "select cat, sum(rh) as av,sum(rh_re) as re,count(id) as jmleq from rh_201311 where thn=$th and bln=$bl group by cat";
+		$s = "select cat, sum(rh_av) as av,sum(rh_re) as re,count(id) as jmleq from rh_201311 where thn=$th and bln=$bl group by cat";
 		//echo "sql: $s<br/>";
 		$q = db_query($s);
 		if (!$q)	{
@@ -179,7 +179,7 @@ try {
 		//echo "<br/>";
 		
 		// AWAL TAHUN SAMPAI SEKARANG
-		$s = "select cat, sum(rh) as av,sum(rh_re) as re,count(id) as jmleq from rh_201311 where thn=$th group by cat;";
+		$s = "select cat, sum(rh_av) as av,sum(rh_re) as re,count(id) as jmleq from rh_201311 where thn=$th group by cat;";
 		//echo "sql: $s<br/>";
 		$q = db_query($s);
 		if (!$q)	{

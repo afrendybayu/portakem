@@ -571,14 +571,14 @@ Ext.define('rcm.controller.DataEntry', {
 	},
 	
 	equipClick: function(catx)	{
-		//console.log("diklik: "+rcmSettings.cat+" tgl: "+rcmSettings.tgl);
+		console.log("diklik: "+rcmSettings.cat+" tgl: "+rcmSettings.tgl);
 		var t;
 		if (rcmSettings.tgl.localeCompare("0")==0)	{
 			t=new Date();
 			//console.log("masuk sini: "+ t);
 		}
-		//else t = new Date(rcmSettings.tgl);
-		else t = rcmSettings.tgl;
+		else t = new Date(rcmSettings.tgl);
+		//else t = rcmSettings.tgl;
 		var pt = ''+(t.getYear()-100)+"-"+rcm.view.Util.Upad(t.getMonth()+1)+"-"+rcm.view.Util.Upad(t.getDate())+'';
 		Ext.suspendLayouts();
 		this.getTaskExcelGrid().reconfigure(this.getRunningHourStore().load({ params:{tgl:pt, cat:catx} }), rcm.view.Util.UxcolGrid());
