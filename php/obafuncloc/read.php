@@ -8,8 +8,6 @@ include '../util.php';
 $kal = array(1 => "Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des", "YTD/Avg");
 if (isset($_GET['eq']))	{
 	$eq = $_GET['eq'];
-} else {
-	
 }
 
 if (isset($_GET['tgl']))	{

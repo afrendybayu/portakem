@@ -5,17 +5,51 @@
 include '../connection.php';
 include '../util.php';
 
-$y = date("Y");
-$m = date("n");
-$d = date("d");
+$kal = array(1 => "Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des", "YTD/Avg");
+//$y = date("Y");
+//$m = date("n");
+//$d = date("d");
 if (isset($_GET['gr']))	{
 	$gr = $_GET['gr'];
 } else {
 	$gr = 5;
 }
 
+$ytd = 0;
+
+if (isset($_GET['tgl']))	{
+	$tgl = $_GET['tgl'];
+	$atgl = explode(" ",$tgl);
+	$n = count($atgl);
+	//echo "n: $n<br/>";
+	if ($n==1)	{
+		//$tgl = $atgl[0]."-12";
+		$thn = $atgl[0];
+	} else if ($n==2)	{
+		
+		//echo "in: ".in_array($atgl[0], $kal)."<br/>";
+		if (in_array($atgl[0], $kal))	{
+			$bln = array_search($atgl[0], $kal);
+		}
+		//echo "no: $no<br/>";
+		
+		if ($bln<13)	{
+			$tgl = $atgl[1]."-".$no;
+			//$bln = $atgl[0];
+			//$bln = 
+		} else {
+			$ytd = 1;
+		}
+		$thn = $atgl[1];
+	}
+	//echo "thn: $thn, bln: $bln, ytd: $ytd<br/>";
+} else {
+	$thn = date("Y");
+	$bln = date("n");
+}
+
 try {
-	$tgl = "2014-2";
+	//$tgl = "2014-2";
 	//$flag = 0;
 	//echo "tgl: $tgl<br/>";
 	
@@ -48,6 +82,7 @@ try {
 		echo "DB Error, could not query the database\n";
 		echo 'MySQL Error: ' . mysql_error();
 		exit;
+		throw new Exception('Query Equipment pada Unit SALAH');
 	}
 	
 	while ($row = mysql_fetch_assoc($q)) {
@@ -68,10 +103,15 @@ try {
 		//echo "<br/>";
 	}
 	//*/
+	//echo "<br/><br/>";
+	if (isset($bln) && $bln<13)	{
+		$s = "select eq, sum(rh) as av,sum(rh_re) as re,count(id) as jml from rh_201311 ".
+			 "where cat=$gr and thn=$thn and bln=$bln group by eq;";
+	} else {
+		$s = "select eq, sum(rh) as av,sum(rh_re) as re,count(id) as jml from rh_201311 ".
+			 "where cat=$gr and thn=$thn group by eq;";
+	}
 	
-
-	$s = "select eq, sum(rh) as av,sum(rh_re) as re,count(id) as jml from rh_201311 ".
-		 "where cat=$gr and thn=$y and bln=$m group by eq;";
 	//echo "sql: $s<br/>";
 	$q = db_query($s);
 	if (!$q)	{

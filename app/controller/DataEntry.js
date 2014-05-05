@@ -194,8 +194,8 @@ Ext.define('rcm.controller.DataEntry', {
     },
 
 	AvHomeClick: function(d, nama, id)	{
-		//console.log("group: "+id);
-		this.getAvGroupStore().load({ params:{gr:id} });
+		console.log("group: "+id);
+		this.getAvGroupStore().load({ params:{gr:id, tgl: d.series.name} });
 		this.getTAvGroup().setTitle('Availability & Reliability');
 		this.getTAvGroup().setSubTitle(nama+" "+d.series.name);
 		this.getTAvGroup().waktu = d.series.name;
@@ -573,9 +573,13 @@ Ext.define('rcm.controller.DataEntry', {
 	equipClick: function(catx)	{
 		//console.log("diklik: "+rcmSettings.cat+" tgl: "+rcmSettings.tgl);
 		var t;
-		if (rcmSettings.tgl=='0')	t=new Date();
-		else t = new Date(rcmSettings.tgl);
-		var pt = ''+(t.getYear()-100)+rcm.view.Util.Upad(t.getMonth()+1)+rcm.view.Util.Upad(t.getDate())+'';
+		if (rcmSettings.tgl.localeCompare("0")==0)	{
+			t=new Date();
+			//console.log("masuk sini: "+ t);
+		}
+		//else t = new Date(rcmSettings.tgl);
+		else t = rcmSettings.tgl;
+		var pt = ''+(t.getYear()-100)+"-"+rcm.view.Util.Upad(t.getMonth()+1)+"-"+rcm.view.Util.Upad(t.getDate())+'';
 		Ext.suspendLayouts();
 		this.getTaskExcelGrid().reconfigure(this.getRunningHourStore().load({ params:{tgl:pt, cat:catx} }), rcm.view.Util.UxcolGrid());
 		Ext.resumeLayouts(true);

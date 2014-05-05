@@ -31,6 +31,7 @@ function cek_unit($id)	{
 		echo "DB Error, could not query the database\n";
 		echo 'MySQL Error: ' . mysql_error();
 		exit;
+		//throw new Exception('Query Equipment pada Unit SALAH');
 	}
 	$row = mysql_fetch_assoc($q);
 	//echo ($row['nilai']);
