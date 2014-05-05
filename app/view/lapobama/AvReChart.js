@@ -129,12 +129,16 @@ Ext.define('rcm.view.lapobama.AvReChart', {
 					xtype: 'tAv2Thn',
 					fldY: ['av2014'],
 					jdl: 'Availability',
+					avrem1: 'av2013',
+					avre: 'av2014',
 				},{
 					//xtype: 'tAvReUnitx',
 					xtype: 'tAv2Thn',
 					width: '50%',
 					//height: '33.3%',
 					jdl: 'Reliability',
+					avrem1: 're2013',
+					avre: 're2014',
 				}]
 			}]
 		}]

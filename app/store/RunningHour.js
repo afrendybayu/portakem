@@ -1,5 +1,4 @@
 /* AfrendyBayu 14Nov2013 */
-
 Ext.define('rcm.store.RunningHour', {
     extend: 'Ext.data.Store',
     model: 'rcm.model.RunningHour',

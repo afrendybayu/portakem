@@ -88,7 +88,7 @@ try {
 			//echo "<br/>ada<br/><br/>";
 			$time = strtotime($row['tgl']);
 			$ii = format_rh_time($row['rh']);
-			$tisi[$eq]["k".date('ymd',$time)] = $ii;
+			$tisi[$eq]["k".date('ymd',$time)] = ($ii?:'-');
 			//$tisi[$eq]["k".date('ymd',$time)] = ($row['rh']);
 			//echo "row[rh]: {$row['rh']}<br/>";
 			//echo "ii: $ii ";

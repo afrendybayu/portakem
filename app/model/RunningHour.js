@@ -4,13 +4,12 @@ Ext.define('rcm.model.RunningHour', {
     requires:[
 		'Ext.data.proxy.Ajax',
     ],
-    fields: [],
-    
-
+        
+    //fields: [],
     proxy: {
 		type: 'ajax',
 		api: {
-			read: 'php/runninghour/read.php?'
+			read: 'php/runninghour/read.php'
         },
         reader: {
             type: 'json',

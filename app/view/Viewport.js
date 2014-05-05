@@ -55,7 +55,7 @@ Ext.define('rcm.view.Viewport', {
 		icon: 'modul/icons/bullets.png',
 		width: 210,
 		minWidth:210,
-		collapsed : true,
+		//collapsed : true,
 		collapsible: true,
 		split: true,
 		layout: {

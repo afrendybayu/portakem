@@ -7,6 +7,7 @@ $server =  'localhost';//'192.168.1.140';
 $username = 'root' ;// 'root';
 $password = 'tentakel';//'monita2010';
 $database = 'medco';//'monita3';
+//$database = 'medco2';//'monita3';
 
 /*
 $server =  'localhost';

@@ -5,18 +5,104 @@
 include '../connection.php';
 include '../util.php';
 
+$kal = array(1 => "Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des", "YTD/Avg");
+if (isset($_GET['eq']))	{
+	$eq = $_GET['eq'];
+} else {
+	
+}
+
+if (isset($_GET['tgl']))	{
+	$tgl = $_GET['tgl'];
+	$atgl = explode(" ",$tgl);
+	$n = count($atgl);
+	//echo "n: $n<br/>";
+	if ($n==1)	{
+		//$tgl = $atgl[0]."-12";
+		$thn = $atgl[0];
+	} else if ($n==2)	{
+		
+		//echo "in: ".in_array($atgl[0], $kal)."<br/>";
+		if (in_array($atgl[0], $kal))	{
+			$no = array_search($atgl[0], $kal);
+		}
+		//echo "no: $no<br/>";
+		
+		if ($no<13)	{
+			$tgl = $atgl[1]."-".$no;
+			
+			//$bln = 
+		} else {
+			
+		}
+		$thn = $atgl[1];
+	}
+	//echo "tgl: $tgl<br/>";
+} else {
+	$thn = date("Y");
+	$bln = date("n");
+}
+
+$thnm1 = $thn-1;
+
+try {
+	$arAvRe = array();
+	for ($i=0; $i<12; $i++)	{
+		//$z = blnthn($i+1,$thnm1);
+		$arAvRe[$i]['av'.$thnm1] = 0;
+		$arAvRe[$i]['re'.$thnm1] = 0;
+		$arAvRe[$i]['av'.$thn] = 0;
+		$arAvRe[$i]['re'.$thn] = 0;
+		$arAvRe[$i]['b'] = $i;
+		$arAvRe[$i]['m'] = nmbulan($i,1);
+	}
+	
+	$s = "SELECT bln,thn,(SELECT DAY(LAST_DAY(tgl))*24) as jml, sum(rh) AS av,sum(rh_re) AS re FROM rh_201311 ".
+		 "WHERE eq='$eq' and (thn='$thn' or thn='$thnm1') GROUP BY bln,thn ORDER BY thn, bln ASC";
+	//echo "sql: $s<br/>";
+	$q = db_query($s);
+	if (!$q)	{
+		echo "DB Error, could not query the database\n";
+		echo 'MySQL Error: ' . mysql_error();
+		exit;
+	}
+	
+	while ($row = mysql_fetch_assoc($q)) {
+			$arAvRe[intval($row['bln'])-1]['av'.$row['thn']] = number_format(($row['av']*100)/$row['jml'],2);
+			$arAvRe[intval($row['bln'])-1]['re'.$row['thn']] = number_format(($row['re']*100)/$row['jml'],2);		
+	}
+	
+	$jsonResult = array(
+        'success' => true,
+        'avre' => $arAvRe
+    );
+	
+} catch(Exception $e) {
+    $jsonResult = array(
+        'success' => false,
+        'message' => $e->getMessage()
+	);
+}
+
+echo json_encode($jsonResult);
+
+//echo "eq: $eq bln: $bln, thn: $thn<br/>";
+
+return;
+
 try {
 	
-	$kal = array(1 => "Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des", "YTD/Avg");
 	
-	$tgl = "Feb 2014";
+	
+	//$tgl = "Feb 2014";
 	//$tgl = "2013";
 	//$tgl = "YTD/Avg 2014";
 	
 	//if (isset($_GET['tgl']))	{ $tgl = $_GET['tgl']; } 
 	//else { $tgl = "2014-5"; }
 	
-	$eq = 54;
+	//$eq = 54;
+	/*
 	$atgl = explode(" ",$tgl);
 	$n = count($atgl);
 	//print_r ($atgl);
@@ -37,7 +123,8 @@ try {
 	} else {
 		
 	}
-	//echo "tgl: $tgl, no: $no<br/>";
+	//*/
+	echo "tgl: $tgl, no: $no<br/>";
 	
 	//return;
 	//$tgl = "2014-2";
@@ -120,13 +207,13 @@ try {
 
 
 	if (isset($_GET['eq']))		{
-		//$eq = $_GET['eq']; 
-		$eq = 54;
+		$eq = $_GET['eq']; 
+		//$eq = 54;
 		
 		$s = "SELECT bln,thn,sum(rh_av) AS av,sum(rh_re) AS re ".
 			 "FROM rh_201311 WHERE eq='$eq' and (thn='$thn' or thn='$thnm1') ".
 			 "GROUP BY bln,thn ORDER BY thn, bln ASC";
-		//echo "sql: $s<br/>";
+		echo "sql: $s<br/>";
 		$q = db_query($s);
 		if (!$q)	{
 			echo "DB Error, could not query the database\n";
@@ -155,69 +242,6 @@ try {
 		
 		mysql_free_result($q);
 	}
-	
-
-
-	/*
-	//sort($arAvRe);
-	echo "arAvRe: "; //print_r($arAvRe);	echo "<br/>";
-	echo "<br/>";
-	foreach($arAvRe as $aa)	{
-		print_r($aa);	echo "<br/>";
-	}
-	//return;
-	//*/
-	
-	/*
-	$s = "SELECT bln,thn,sum(rh_av) AS av,sum(rh_re) AS re ".
-		 "FROM rh_201311 WHERE eq='$eq' and (thn='$thn' or thn='$thnm1') ".
-		 "GROUP BY bln,thn ORDER BY thn, bln ASC";
-	//echo "sql: $s<br/>";
-	$q = db_query($s);
-	if (!$q)	{
-		echo "DB Error, could not query the database\n";
-		echo 'MySQL Error: ' . mysql_error();
-		exit;
-	}
-	
-	while ($row = mysql_fetch_assoc($q)) {
-		$arAvRe[intval($row['bln'])-1]['av'.$row['thn']] = $row['av'];
-		$arAvRe[intval($row['bln'])-1]['re'.$row['thn']] = $row['re'];
-		
-
-		$avx = ($arAvRe[intval($row['bln'])-1]['av'.$row['thn']]*100)/$arAvRe[intval($row['bln'])-1]['t'.$row['thn']];
-		$arAvRe[intval($row['bln'])-1]['av'.$row['thn']] = number_format($avx, 2, '.', '');
-		
-		$rex = ($arAvRe[intval($row['bln'])-1]['re'.$row['thn']]*100)/$arAvRe[intval($row['bln'])-1]['t'.$row['thn']];
-		$arAvRe[intval($row['bln'])-1]['re'.$row['thn']] = number_format($rex, 2, '.', '');
-
-		
-		//$arAvRe[intval($row['bln'])-1]['av'.$row['thn']] /= $arAvRe[intval($row['bln'])-1]['t'.$row['thn']]*0.01;
-		//print_r($arAvRe[intval($row['bln'])-1]);	echo "<br/>";
-		//echo "av{$row['thn']}: ".$arAvRe[intval($row['bln'])-1]['av'.$row['thn']].", dibagi ". $arAvRe[intval($row['bln'])-1]['t'.$row['thn']]."   ";
-		//echo "re{$row['thn']}: ".$arAvRe[intval($row['bln'])-1]['re'.$row['thn']].", dibagi ". $arAvRe[intval($row['bln'])-1]['t'.$row['thn']];
-		//echo "<br/>";
-	}
-	
-	mysql_free_result($q);
-	//*/
-	// lengkapi yang bolong
-	/*
-	echo "arAvRe: "; //print_r($arAvRe);	
-	echo "<br/>";
-	foreach($arAvRe as $aa)	{
-		//print_r($aa);	echo "<br/>";
-		
-	}
-	//*/
-	/*
-	for($i=0; $i<3; $i++)	{
-		echo "$i bln: ".($i+1).",&#09; av2013:{$arAvRe[$i]['av2013']}, re2013:{$arAvRe[$i]['re2013']} ".
-			 "av2014:{$arAvRe[$i]['av2014']}, re2014:{$arAvRe[$i]['re2014']} <br/>";
-		//echo "$i bln: {$i+1}, av2013:{$arAvRe[$i]['av2013']}, re2013:{$arAvRe[$i]['re2013']}, av2014:{$arAvRe[$i]['av2014']}, re2014:{$arAvRe[$i]['re2014']}<br/>";
-	}
-	echo "jml: ".count($arAvRe)."<br/>";
-	//*/
 	
 	$jsonResult = array(
         'success' => true,

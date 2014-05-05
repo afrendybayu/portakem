@@ -5,10 +5,18 @@
 include '../connection.php';
 include '../util.php';
 
-$th = date("Y");
-$bl = date("n");
+
+$avre = $_GET['tp'];
+if (isset($_GET['wkt']))	{
+	$th = date("Y");
+	$bl = date("n");
+} else {
+	$th = date("Y");
+	$bl = date("n");
+}
 
 try {
+	
 /*
 	$tgl = "2014-2";
 	$flag = 0;
@@ -215,28 +223,56 @@ try {
 	
 	$arAR = array();
 	
+	$obj  = new stdClass();
 	$obj1 = new stdClass();
-	$obj1->th1 = ($arAvRe['d'][5]['av'])?:0;
-	$obj1->avg = ($arAvRe['a'][5]['av'])?:0;
-	$obj1->bln = ($arAvRe['b'][5]['av'])?:0;
-	$obj1->tgt = '98';
-	$obj1->m = "Gas Comp";
-	array_push($arAR,$obj1);
+	$obj2 = new stdClass();
 	
-	$obj = new stdClass();
-	$obj->th1 = ($arAvRe['d'][7]['av'])?:0;
-	$obj->avg = ($arAvRe['a'][7]['av'])?:0;
-	$obj->bln = ($arAvRe['b'][7]['av'])?:0;
-	$obj->tgt = '98';
-	$obj->m = "Generator Set";
-	array_push($arAR,$obj);
-	
-	$obj2->th1 = ($arAvRe['d'][6]['av'])?:0;
-	$obj2->avg = ($arAvRe['a'][6]['av'])?:0;
-	$obj2->bln = ($arAvRe['b'][6]['av'])?:0;
-	$obj2->tgt = '98';
-	$obj2->m = "Pump";
-	array_push($arAR,$obj2);
+	if (strcmp($avre,"av")==0)	{
+		$obj1->th1 = ($arAvRe['d'][5]['av'])?:0;
+		$obj1->avg = ($arAvRe['a'][5]['av'])?:0;
+		$obj1->bln = ($arAvRe['b'][5]['av'])?:0;
+		$obj1->tgt = '98';
+		$obj1->m = "Gas Comp";
+		array_push($arAR,$obj1);
+		
+		
+		$obj->th1 = ($arAvRe['d'][7]['av'])?:0;
+		$obj->avg = ($arAvRe['a'][7]['av'])?:0;
+		$obj->bln = ($arAvRe['b'][7]['av'])?:0;
+		$obj->tgt = '98';
+		$obj->m = "Generator Set";
+		array_push($arAR,$obj);
+		
+		$obj2->th1 = ($arAvRe['d'][6]['av'])?:0;
+		$obj2->avg = ($arAvRe['a'][6]['av'])?:0;
+		$obj2->bln = ($arAvRe['b'][6]['av'])?:0;
+		$obj2->tgt = '98';
+		$obj2->m = "Pump";
+		array_push($arAR,$obj2);
+	} else if (strcmp($avre,"re")==0)	{
+		$obj1->th1 = ($arAvRe['d'][5]['re'])?:0;
+		$obj1->avg = ($arAvRe['a'][5]['re'])?:0;
+		$obj1->bln = ($arAvRe['b'][5]['re'])?:0;
+		$obj1->tgt = '98';
+		$obj1->m = "Gas Comp";
+		array_push($arAR,$obj1);
+		
+		
+		$obj->th1 = ($arAvRe['d'][7]['re'])?:0;
+		$obj->avg = ($arAvRe['a'][7]['re'])?:0;
+		$obj->bln = ($arAvRe['b'][7]['re'])?:0;
+		$obj->tgt = '98';
+		$obj->m = "Generator Set";
+		array_push($arAR,$obj);
+		
+		$obj2->th1 = ($arAvRe['d'][6]['av'])?:0;
+		$obj2->avg = ($arAvRe['a'][6]['av'])?:0;
+		$obj2->bln = ($arAvRe['b'][6]['av'])?:0;
+		$obj2->tgt = '98';
+		$obj2->m = "Pump";
+		array_push($arAR,$obj2);
+		
+	}
 	
 	$jsonResult = array(
         'success' => true,

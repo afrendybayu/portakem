@@ -141,19 +141,21 @@ Ext.define('rcm.view.Util', {
 		Ublntgl: function()	{
 			var tglbln=new Array();
 			tglbln[0] = 'eq'; tglbln[1] = 'Lokasi'; tglbln[2] = 'cat'; tglbln[3] = 'note';
+			//*
 			for (var i=0;i<14;i++)	{
 				var date;
 				if (rcmSettings.tgl==='0')	date=new Date();
 				else date=new Date(rcmSettings.tgl);
 				date.setDate(date.getDate() - i);
 				//tglbln[i] = "'"+this.Upad((date.getMonth()+1))+""+this.Upad(date.getDate())+"'";
-				tglbln[i+4] = "k"+(date.getYear()-100)+""+this.Upad((date.getMonth()+1))+""+this.Upad(date.getDate());
+				//tglbln[i+4] = "k"+(date.getYear()-100)+""+this.Upad((date.getMonth()+1))+""+this.Upad(date.getDate());
+				tglbln[i+4] = "k"+(date.getYear()-100)+this.Upad((date.getMonth()+1))+this.Upad(date.getDate());
+				//tglbln[i+4] = "k"+i;
 			}
+			tglbln[i+4] = 'k140426';
+			//*/
 			console.log("item judul: "+tglbln);
 			return tglbln;
 		}
     }
 });
-
-
-
