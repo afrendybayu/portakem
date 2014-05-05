@@ -203,7 +203,8 @@ Ext.define('rcm.controller.DataEntry', {
 	AvGroupClick: function(d,nama) 	{
 		var plh=this.getAvGroupStore().getAt(d.point.x).data,
 			wkt=this.getTAvGroup().waktu;
-		Ext.getCmp('iflAvRe').setText(plh.nama+", id:"+plh.id+", w: "+wkt);
+		//Ext.getCmp('iflAvRe').setText(plh.nama+", id:"+plh.id+", w: "+wkt);
+		Ext.getCmp('iflAvRe').setText(plh.nama+", "+wkt);
 		this.getTAvSpeedo().chartConfig.min = rcm.view.Util.Ubb(plh.av);
 		this.getAvSpeedoStore().getAt(0).set('av',plh.av);
 		this.getReSpeedoStore().getAt(0).set('av',plh.re);

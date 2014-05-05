@@ -2,7 +2,8 @@
 Ext.define('rcm.view.lapobama.AvGroup', {
     xtype: 'tAvGroup',
 	extend: 'Chart.ux.Highcharts',
-	waktu: '',
+	waktu: 'MEi 2014444',
+	jdl: 'dqwdwqd',
 	loadMask: true,
 
 	series : [{
