@@ -6,13 +6,13 @@ Ext.define('rcm.view.lapobama.ReHome', {
 	
 	series : [{
 		dataIndex: 'th1',
-		name: '2013',
+		name: rcm.view.Util.Uthm1(),
 	},{
 		dataIndex: 'avg',
-		name: 'YTD/Avg 2014',
+		name: rcm.view.Util.Uytd(),
 	},{
 		dataIndex: 'bln',
-		name: 'Feb 2014',
+		name: rcm.view.Util.Ublnini(),
 	}],
 	
 	store: 'ReHome',

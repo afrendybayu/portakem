@@ -193,8 +193,9 @@ Ext.define('rcm.controller.DataEntry', {
         });
     },
 
-	AvHomeClick: function(d, nama)	{
-		this.getAvGroupStore().load({ params:{gr:d.x} });
+	AvHomeClick: function(d, nama, id)	{
+		//console.log("group: "+id);
+		this.getAvGroupStore().load({ params:{gr:id} });
 		this.getTAvGroup().setTitle('Availability & Reliability');
 		this.getTAvGroup().setSubTitle(nama+" "+d.series.name);
 		this.getTAvGroup().waktu = d.series.name;

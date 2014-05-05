@@ -67,9 +67,19 @@ try {
 		exit;
 	}
 	
+	$nowB = date('n');
+	$nowT = date('Y');
+	$nowD = date('j')+1;
+	//echo "bln: $nowB, nowT: $nowT, nowD: $nowD<br/>";
 	while ($row = mysql_fetch_assoc($q)) {
-			$arAvRe[intval($row['bln'])-1]['av'.$row['thn']] = number_format(($row['av']*100)/$row['jml'],2);
-			$arAvRe[intval($row['bln'])-1]['re'.$row['thn']] = number_format(($row['re']*100)/$row['jml'],2);		
+			if (($nowB==$row['bln']) && ($nowT==$row['thn']))	{
+				//echo "bln: $nowB, === ".$row['bln']." nowT: $nowT === ".$row['thn']."<br/>";
+				$arAvRe[intval($row['bln'])-1]['av'.$row['thn']] = number_format(($row['av']*100)/($nowD*24),2);
+				$arAvRe[intval($row['bln'])-1]['re'.$row['thn']] = number_format(($row['re']*100)/($nowD*24),2);
+			} else {
+				$arAvRe[intval($row['bln'])-1]['av'.$row['thn']] = number_format(($row['av']*100)/$row['jml'],2);
+				$arAvRe[intval($row['bln'])-1]['re'.$row['thn']] = number_format(($row['re']*100)/$row['jml'],2);
+			}
 	}
 	
 	$jsonResult = array(

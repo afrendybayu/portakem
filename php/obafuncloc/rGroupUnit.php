@@ -8,10 +8,15 @@ include '../util.php';
 $y = date("Y");
 $m = date("n");
 $d = date("d");
+if (isset($_GET['gr']))	{
+	$gr = $_GET['gr'];
+} else {
+	$gr = 5;
+}
 
 try {
 	$tgl = "2014-2";
-	$flag = 0;
+	//$flag = 0;
 	//echo "tgl: $tgl<br/>";
 	
 	//if (isset($_GET['tgl']))	{ $tgl = $_GET['tgl']; } else { $tgl = "2014-5"; }
@@ -24,6 +29,9 @@ try {
 	//echo "wktx: ";	print_r($wktx);	echo "<br/>";
 	//echo "wkt : ";	print_r($wkt);	echo "<br/>";
 	//echo "Now: $skrg<br/><br/>";
+	
+	$kode = cek_unit($gr);
+	//echo "kode: $kode<br/>";
 
 	$data = array(); $arGroup = array();
 	$s = "select h.id,h.nama,equip.nama as unit,h.init as init ".
@@ -31,8 +39,8 @@ try {
 		 ",(select hhh.nama from hirarki hhh where hhh.id = (select hh.parent from hirarki hh where h.parent = hh.id)) as lok ".
 		 ",(select hhh.urut from hirarki hhh where hhh.id = (select hh.parent from hirarki hh where h.parent = hh.id)) as urut ".
 		 "FROM hirarki h ".
-		 "LEFT JOIN equip ON h.id = equip.unit_id and equip.kode like '%COMP%' ".
-		 "where h.level = 3 and h.flag = 5 ".
+		 "LEFT JOIN equip ON h.id = equip.unit_id and equip.kode like '%$kode%' ".
+		 "where h.level = 3 and h.flag = $gr ".
 		 "order by urut,nama asc;";
 	//echo "sql: $s<br/>";
 	$q = db_query($s);
@@ -62,7 +70,8 @@ try {
 	//*/
 	
 
-	$s = "select eq, sum(rh) as av,sum(rh_re) as re,count(id) as jml from rh_201311 where cat=5 and thn=$y and bln=$m group by eq;";
+	$s = "select eq, sum(rh) as av,sum(rh_re) as re,count(id) as jml from rh_201311 ".
+		 "where cat=$gr and thn=$y and bln=$m group by eq;";
 	//echo "sql: $s<br/>";
 	$q = db_query($s);
 	if (!$q)	{

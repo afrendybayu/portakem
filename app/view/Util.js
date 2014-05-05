@@ -52,6 +52,26 @@ Ext.define('rcm.view.Util', {
 			return d.getFullYear();
 		},
 		
+		Uthm1: function()	{
+			var d = new Date();
+			return (d.getFullYear()-1);
+		},
+		
+		cid: function(str)	{
+			if (str.localeCompare("Gas Comp")==0)	{
+				return 5;
+			} else if (str.localeCompare("Pump")==0)	{
+				return 6;
+			} else if (str.localeCompare("Generator Set")==0)	{
+				return 7;
+			}
+		},
+		
+		Uytd: function()	{
+			var d = new Date();
+			return ("YTD/Avg " + d.getFullYear());
+		},
+		
 		Uspeedo: function(w)	{
 			var d = new Date(w);
 			return (this.UnmBln(d.getMonth())+" "+d.getFullYear());

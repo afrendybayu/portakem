@@ -23,6 +23,20 @@ function nmbulan($i, $l)	{
 	return ($l>0)?$bln[$i]:$bulan[$i];
 }
 
+function cek_unit($id)	{
+	$sqlawal = "select kode from cat_equip where parent=0 and id=$id";
+	//echo "sql u: $sqlawal<br/>";
+	$q = db_query($sqlawal);
+	if (!$q)	{
+		echo "DB Error, could not query the database\n";
+		echo 'MySQL Error: ' . mysql_error();
+		exit;
+	}
+	$row = mysql_fetch_assoc($q);
+	//echo ($row['nilai']);
+	return ($row['kode']);
+}
+
 function blnthn($b, $t)	{
 	return "$t".pad($b);
 }

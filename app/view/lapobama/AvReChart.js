@@ -31,29 +31,6 @@ Ext.define('rcm.view.lapobama.AvReChart', {
 		hideLabel: true
 	},
 
-	
-    /*
-    items: [{
-		xtype: 'panel',
-		layout: {
-			type: 'hbox',
-			align: 'stretch',
-		},
-		border:0,
-		items:[{
-			xtype: 'tAvHome',
-			flex: 1,
-			fldY: ['av2014'],
-			jdl: 'Availability',
-		},{
-			xtype: 'tReHome',
-			flex: 1,
-			fldY: ['av2014'],
-			jdl: 'Reliability',
-		}]
-	}]
-	//*/
-    //*
 	items: [{
 		xtype: 'container',
 		layout: {
@@ -81,6 +58,7 @@ Ext.define('rcm.view.lapobama.AvReChart', {
 				},
 				border: 0,
 				items:[{
+					id: 'AvBar3',
 					width: '50%',
 					xtype: 'tAvHome',
 					fldY: ['av2014'],
@@ -88,6 +66,7 @@ Ext.define('rcm.view.lapobama.AvReChart', {
 					subJdl: 'Gas Compressor'
 				},{
 					//*
+					id: 'ReBar3',
 					xtype: 'tReHome',
 					width: '50%',
 					height: '33.3%',

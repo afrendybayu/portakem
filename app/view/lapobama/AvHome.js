@@ -4,15 +4,19 @@ Ext.define('rcm.view.lapobama.AvHome', {
 	extend: 'Chart.ux.Highcharts',
 	loadMask: true,
 	
+	requires:[
+		'rcm.view.Util',
+    ],
+	
 	series : [{
 		dataIndex: 'th1',
-		name: '2013',
+		name: rcm.view.Util.Uthm1(),
 	},{
 		dataIndex: 'avg',
-		name: 'YTD/Avg 2014',
+		name: rcm.view.Util.Uytd(),
 	},{
 		dataIndex: 'bln',
-		name: 'Feb 2014',
+		name: rcm.view.Util.Ublnini(),
 	}],
 	
 	store: 'AvHome',
@@ -38,7 +42,7 @@ Ext.define('rcm.view.lapobama.AvHome', {
 				xAxis : [{
 					title : {
 						//text : 'Waktu',
-					}
+					},
 				}],
 				yAxis : {
 					max: 100,
@@ -68,7 +72,8 @@ Ext.define('rcm.view.lapobama.AvHome', {
 						point: {
 							events: {
 								click: function(evt) {
-									me.fireEvent('AvHomeCl', evt.currentTarget, this.category);
+									//alert(this.category+": "+rcm.view.Util.cid(this.category) );
+									me.fireEvent('AvHomeCl', evt.currentTarget, this.category, rcm.view.Util.cid(this.category));
 								}
 							}
 						}
@@ -80,7 +85,7 @@ Ext.define('rcm.view.lapobama.AvHome', {
 					}
 				},
 				credits : {
-					text : 'hcxxx'
+					text : 'hc'
 				},
 				legend : {
 					/*
