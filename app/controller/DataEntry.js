@@ -212,16 +212,28 @@ Ext.define('rcm.controller.DataEntry', {
 		this.getTAvSpeedo().setSubTitle("Availability "+wkt);
 		this.getAvReUnitStore().load({ params:{tgl:wkt, eq:plh.id} });
 		//this.getTAvReChart().items.items[1].items.items[0].items.items[0].setTitle('Reliability '+wkt);
-
+		
+		Ext.getCmp('spAvR').setTitle(plh.kode);
+		Ext.getCmp('spAvR').setSubTitle("Availability "+wkt);
+		
+		Ext.getCmp('spReR').setTitle(plh.kode);
+		Ext.getCmp('spReR').setSubTitle("Reliability "+wkt);
+		
+		Ext.getCmp('Av2Thn').setTitle("Availability "+plh.kode+" Annually");
+		Ext.getCmp('Re2Thn').setTitle("Reliability "+plh.kode+" Annually");
+		
+		/*
 		var sp  = this.getTAvReChart().items.items[0].items.items[1],
 			sp2 = sp.items.items[1].items.items[1],
 			sp3 = sp.items.items[2];
-		sp2.setTitle(plh.kode);
-		sp2.setSubTitle('Reliability '+wkt);
+		//sp2.setTitle(plh.kode);
+		//sp2.setSubTitle('Reliability '+wkt);
 		
-		var jdl2 = rcm.view.Util.Ujdl2(wkt);
+		var jdl2 = rcm.view.Util.Ujdl2(wkt); alert("jdl2: "+jdl2);
+		//Ext.getCmp('spAvR').setTitle("Availability "+jdl2);
 		sp3.items.items[0].setTitle("Availability "+jdl2);
 		sp3.items.items[1].setTitle("Reliability "+jdl2);
+		//*/
 	},
 
 	hirUnitAvRe: function(a)	{
@@ -231,6 +243,7 @@ Ext.define('rcm.controller.DataEntry', {
 			var wkt=Ext.getCmp('iblnAvReU').getValue();
 			this.getAvReUnitStore().load({ params:{tgl:wkt, eq:a.id} });
 			
+			//Ext.getCmp('spAvR').
 			this.getTAvReChart().items.items[0].items.items[0].items.items[0].setTitle('Availability '+rcm.view.Util.U1th(wkt));
 			this.getTAvReChart().items.items[1].items.items[0].items.items[0].setTitle('Reliability '+rcm.view.Util.U1th(wkt));
 			//rcmSettings.bongkar = this.getTAvReChart().items.items[1].items.items[1].items.items[0];

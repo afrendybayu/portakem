@@ -27,7 +27,7 @@ Ext.define('rcm.view.dataentry.ExcelGrid', {
     viewConfig: {
         getRowClass: function(record, index) {
 			//rcmSettings.asa = record;
-            //*
+            /*
             var c = record.get('k140426');
             if (c.localeCompare("24:00")) {
                 return 'price-fall';
