@@ -10,28 +10,59 @@ if (isset($_GET['qe']))	{
 	$greq = $_GET["qe"];
 }
 
+$thn = date('Y');
+$bln = date('n');
+
 //echo "greq: ".$greq."<br/>";
 
+
 if (!strcmp($greq,'avgc'))	{
-	$av = '66.3';
+	$avre = 'rh_av'; $cat=5;
 } else if (!strcmp($greq,'avgs'))	{
-	$av = '74.9';
+	$avre = 'rh_av'; $cat=7;
+	//$av = '74.9';
 } else if (!strcmp($greq,'avpm'))	{
-	$av = '92.7';
+	$avre = 'rh_av'; $cat=6;
+	//$av = '92.7';
 } else if (!strcmp($greq,'regc'))	{
-	$av = '17.9';
+	$avre = 'rh_re'; $cat=5;
+	//$av = '17.9';
 } else if (!strcmp($greq,'regs'))	{
-	$av = '29.9';
+	$avre = 'rh_re'; $cat=7;
+	//$av = '29.9';
 } else if (!strcmp($greq,'repm'))	{
-	$av = '32.7';
-} else
-	$av = '87';
+	$avre = 'rh_re'; $cat=6;
+	//$av = '32.7';
+} else {
+	$avre = 'rh_av'; $cat=5;
+	//$av = '87';
+}
+
+$sql = "select (sum($avre)/count(id))*(100/24) as hsl from rh_201311 ".
+		" where thn=$thn and bln = $bln and cat = $cat";
+$sql = "select (sum($avre)/count(id))*(100/24) as hsl from rh_201311 ".
+		" where thn=$thn and bln = $bln and cat = $cat";
+//echo "sql: $sql<br/>";
+
+$q = db_query($sql);
+	
+	if (!$q)	{
+		echo "DB Error, could not query the database\n";
+		echo 'MySQL Error: ' . mysql_error();
+		exit;
+	}
+	
+	$arr = array(); $k=0;
+	while ($row = mysql_fetch_assoc($q)) {
+		$hsl = number_format((float)$row['hsl'], 2);
+	}
+
 
 try {
 	$arTeco = array();
 	$obj1 = new stdClass();
 	$obj1->nama = "";
-	$obj1->av = $av;
+	$obj1->av = $hsl;
 	array_push($arTeco,$obj1);
 		
 	$jsonResult = array(
