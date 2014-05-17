@@ -244,12 +244,12 @@ Ext.define('rcm.controller.DataEntry', {
 			this.getAvReUnitStore().load({ params:{tgl:wkt, eq:a.id} });
 			
 			//Ext.getCmp('spAvR').
-			this.getTAvReChart().items.items[0].items.items[0].items.items[0].setTitle('Availability '+rcm.view.Util.U1th(wkt));
-			this.getTAvReChart().items.items[1].items.items[0].items.items[0].setTitle('Reliability '+rcm.view.Util.U1th(wkt));
+			//this.getTAvReChart().items.items[0].items.items[0].items.items[0].setTitle('Availability '+rcm.view.Util.U1th(wkt));
+			//this.getTAvReChart().items.items[1].items.items[0].items.items[0].setTitle('Reliability '+rcm.view.Util.U1th(wkt));
 			//rcmSettings.bongkar = this.getTAvReChart().items.items[1].items.items[1].items.items[0];
-			this.getTAv2Thn().items.items[0].setTitle('Avalaibility '+rcm.view.Util.U2th(wkt));
-			this.getTAvReChart().items.items[1].items.items[1].items.items[0].setTitle(a.text);
-			this.getTAvReChart().items.items[1].items.items[1].items.items[0].setSubTitle('Availability '+rcm.view.Util.Uspeedo(wkt));
+			//this.getTAv2Thn().items.items[0].setTitle('Avalaibility '+rcm.view.Util.U2th(wkt));
+			//this.getTAvReChart().items.items[1].items.items[1].items.items[0].setTitle(a.text);
+			//this.getTAvReChart().items.items[1].items.items[1].items.items[0].setSubTitle('Availability '+rcm.view.Util.Uspeedo(wkt));
 			//this.getTAv2Thn().items.items[0].setTitle('Avalaibility '+rcm.view.Util.U1th(wkt));
 		}
 	},
