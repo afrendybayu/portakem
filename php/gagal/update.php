@@ -242,18 +242,18 @@ try {
 				
 				// INPUT data EVENT down ke tabel waktudown
 				if ($params->event==1) {		// standby
-					$sql = "INSERT INTO waktudown (server,eqid,unit_id,downt,downj,upt,upj,event,ket,nginput) ".
+					$sql = "INSERT INTO waktudown (server,eqid,unit_id,downt,downj,upt,upj,event,ket,exe,nginput) ".
 							"VALUES ('$server','{$idAr[$i]}','{$id}','{$params->downt}','{$params->downj}', '{$params->upt}', '{$params->upj}', ".
-							"'{$params->event}','{$params->ket}','{$now}' )";
+							"'{$params->event}','{$params->ket}','{$params->exe}','{$now}' )";
 				} else {
 					for($w=0; $w<$jmlpm; $w++)	{
 						if ($idAr[$i]==$pm[$w][0])	break;
 					}
 					$sql = "INSERT INTO waktudown (server,eqid,unit_id,downt,downj,upt,upj,startt,startj,endt,endj,".
-							"event,tipeev,ket,nginput) ".
+							"event,tipeev,ket,exe,nginput) ".
 							"VALUES ('$server','{$idAr[$i]}','{$id}','{$params->downt}','{$params->downj}', '{$params->upt}', '{$params->upj}', ".
 							"'{$params->startt}','{$params->startj}', '{$params->endt}', '{$params->endj}',".
-							"'{$params->event}','{$pm[$w][1]}','{$params->ket}','{$now}' )";
+							"'{$params->event}','{$pm[$w][1]}','{$params->ket}','{$params->exe}','{$now}' )";
 				}
 				//echo "sql u: $sql<br/>";
 				$q = db_query($sql);

@@ -128,7 +128,7 @@ Ext.define('rcm.view.dataentry.Notifikasi', {
 					text: 'Isi Lagi',
 					id: 'refill-task-edit-btn'
 			}]
-        }]
+        }];
         this.callParent(arguments);
     }
 });

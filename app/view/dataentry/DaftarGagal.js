@@ -4,12 +4,29 @@ Ext.define('rcm.view.dataentry.DaftarGagal', {
 	alias: 'widget.daftarGagal',
 	xtype: 'taskDaftarGagal',
 	//id: 'daftargagal',
+	
     
 	store: 'DaftarGagal',
+	/*
+	listeners: {
+		itemclick: function(dv, record, item, index, e) {
+			
+			rowClick(record.get('id'), record.raw.value);
+			alert(record.get('id'));
+		}
+	},
+	//*/
 
 	initComponent: function() {
 		var me=this, ceditp=Ext.create('Ext.grid.plugin.RowEditing');//clicksToEdit: 1
 		me.plugins = [ceditp];
+		
+		me.listeners = {
+			itemclick: function(dv, record, item, index, e) {
+				me.rowClick(record.get('id'), record, item, index, e);	//	record.raw.value
+			}
+		},
+		
 		me.columns = {	
 			items: [
 			{ xtype:'rownumberer',width:25 },
@@ -108,6 +125,13 @@ Ext.define('rcm.view.dataentry.DaftarGagal', {
 			'editDGClick',
 			'hapusDGClick'
         );
+        
+	},
+
+	rowClick: function(id, dv, record, item, index, e)	{
+		alert(id);
+		rcmSettings.asa = record;
+		rcmSettings.sas = record.raw.value;
 	},
 
 	hdlEditDGClick: function(grid, row, col, column, e) {

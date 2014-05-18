@@ -87,7 +87,7 @@ Ext.define('rcm.view.konfig.Nav', {
                 text: 'Collapse All',
                 scope: this,
                 handler: this.onCollapseAllClick
-		}],
+		}];
 		
         me.addEvents(
 			'listdrop','delListDrop'

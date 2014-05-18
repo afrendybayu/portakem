@@ -6,7 +6,8 @@ Ext.define('rcm.view.Content', {
 		'Ext.panel.Panel',
 		'Extensible.calendar.data.MemoryEventStore',
 		'Extensible.calendar.CalendarPanel',
-		'Extensible.example.calendar.data.Events'
+		'Extensible.example.calendar.data.Events',
+		'rcm.view.dataentry.PropGrid'
 	],
 
     layout: {
@@ -61,16 +62,18 @@ Ext.define('rcm.view.Content', {
 				items: [{
 						xtype: 'daftarGagal',
 						region: 'center',
-						id: 'app-gagal',
+						//id: 'app-gagal',
+						itemId: 'listGagal',
 						flex: 1,
 					},{
 						collapsible: true,
 						split: true,
-						minHeight: 300,
-						maxHeight: 400,
+						minHeight: 200,	//300,
+						maxHeight: 200,	//400,
 						region: 'south',
 						title: 'Info Detail DownTime',
-						html: 'testing dulu',
+						//html: 'testing dulu',
+						xtype: 'propgrid',
 						icon: 'modul/icons/more.png',
 				}]
 			/*
@@ -129,6 +132,8 @@ Ext.define('rcm.view.Content', {
 			//'recordedit'
         );
         this.on('tabchange', me.handleContentTab, this);
+        //var bookGridSm = this.getComponent('listGagal').getSelectionModel();
+        //alert(bookGridSm);
 	},
 	handleContentTab: function()	{
 		rcmSettings.tab = this.getActiveTab().getId();

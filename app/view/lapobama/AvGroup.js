@@ -35,7 +35,7 @@ Ext.define('rcm.view.lapobama.AvGroup', {
 			},
 			yAxis : {
 				max: 100,
-				min: 0,
+				min: 50,
 				title : {
 					text : 'Persen [%]'
 				}

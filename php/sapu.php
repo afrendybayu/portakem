@@ -22,7 +22,7 @@ echo "waktuawal: $waktuawal<br/>";
 if (isset($_GET['akhir'])) {
 	$waktuakhir = $_GET['akhir'];
 } else {
-	$waktuakhir = date("Y-m-d");
+	$waktuakhir = date("Y-m-d", time() - 86400);
 }
 echo "aw:".$waktuawal.", akhir: ".$waktuakhir;
 //return;

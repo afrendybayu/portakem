@@ -16,6 +16,7 @@ Ext.define('rcm.controller.DataEntry', {
         'dataentry.FormGagal',
         'dataentry.TabForm',
         'dataentry.IsiTabForm',
+        'dataentry.PropGrid',
         
         'laporan.Chart',
         'laporan.UploadFile',
