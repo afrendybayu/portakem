@@ -17,6 +17,7 @@ Ext.define('rcm.controller.DataEntry', {
         'dataentry.TabForm',
         'dataentry.IsiTabForm',
         'dataentry.PropGrid',
+        'dataentry.DetailInfo',
         
         'laporan.Chart',
         'laporan.UploadFile',
@@ -40,6 +41,8 @@ Ext.define('rcm.controller.DataEntry', {
         'utama.HoPie','utama.HoHistori',
         'utama.GridWO','utama.GridOrderC',
         
+        
+        
         //'konfig.Nav',
         //'konfig.DropZone'
     ],
@@ -48,6 +51,7 @@ Ext.define('rcm.controller.DataEntry', {
 		'Cause','OPart','Equip','FMode','Event','Aksi','PM',
 		'SapCause','SapDamage','SapOPart', 'SapCauseInfo',
 		'AvReUnit','AvHome','ReHome','AvGroup','AvSpeedo',
+		//'DetailGagal'
     ],
 
     stores: [
@@ -58,7 +62,8 @@ Ext.define('rcm.controller.DataEntry', {
 		'SapCauseInfo','SapDamageInfo',
 		'AvReUnit','AvHome','ReHome','AvGroup','AvSpeedo','ReSpeedo',
 		'HoTeco','HoMan','HoOrderC','SapEPO',
-		'ConMon','ConMonUnit'
+		'ConMon','ConMonUnit',
+		'DetailGagal'
 		
     ],
 
@@ -161,7 +166,8 @@ Ext.define('rcm.controller.DataEntry', {
 			},
 			'taskDaftarGagal': {
 				editDGClick: me.pilihEditDGClick,
-				hapusDGClick: me.pilihHapusDGClick
+				hapusDGClick: me.pilihHapusDGClick,
+				infoDetailGagal: me.pilihInfoDetailGagalClick
 			},
 			'taskTanggalan': {
 				klikKalender: me.KalenderClick
@@ -458,6 +464,11 @@ Ext.define('rcm.controller.DataEntry', {
                 });
             }
         });
+	},
+    
+    pilihInfoDetailGagalClick: function(id)	{
+		//alert("pilihInfoDetailGagalClick id: "+id);
+		console.log("pilihInfoDetailGagalClick id: "+id);
 	},
     
 	pilihEditDGClick: function(grid, row, col, column, e)	{

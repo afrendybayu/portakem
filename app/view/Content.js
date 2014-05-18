@@ -7,7 +7,8 @@ Ext.define('rcm.view.Content', {
 		'Extensible.calendar.data.MemoryEventStore',
 		'Extensible.calendar.CalendarPanel',
 		'Extensible.example.calendar.data.Events',
-		'rcm.view.dataentry.PropGrid'
+		'rcm.view.dataentry.PropGrid',
+		'rcm.view.dataentry.DetailInfo'
 	],
 
     layout: {
@@ -25,7 +26,12 @@ Ext.define('rcm.view.Content', {
 			title: 'Dashboard Home',
 			icon: 'modul/icons/Dashboard.png',
 			xtype: 'tHoChart',
-		},{	
+		//*
+		},{
+			title: 'Tes',
+			xtype: 'detailInfo'
+		//*/
+		},{
 			id: 'tu_re',
 			title: 'Reliability',
 			icon: 'modul/icons/report.png',
@@ -52,30 +58,64 @@ Ext.define('rcm.view.Content', {
 				//iconCls: 'icon-grid',
 				icon: 'modul/icons/application_go.png'
 			},{
-				//layout: 'accordion',
+				//xtype: 'detailInfo',
+				title: 'Data Running Hour',
+				//*
 				align: 'stretch',
 				title: 'Daftar DownTime Unit',
 				icon: 'modul/icons/grid.png',
 				layout: {
 					type: 'border'
 				},
+				//
 				items: [{
 						xtype: 'daftarGagal',
-						region: 'center',
+						region: 'north',
 						//id: 'app-gagal',
 						itemId: 'listGagal',
 						flex: 1,
 					},{
 						collapsible: true,
+						//collapsed: true,
 						split: true,
-						minHeight: 200,	//300,
-						maxHeight: 200,	//400,
-						region: 'south',
+						//flex: 1,
+						minHeight: 300,
+						maxHeight: 400,
+						region: 'center',
 						title: 'Info Detail DownTime',
 						//html: 'testing dulu',
-						xtype: 'propgrid',
+						//xtype: 'propgrid',
+						//xtype: 'detailInfo',
 						icon: 'modul/icons/more.png',
-				}]
+						//*
+						layout: 'border',
+						items: [{
+							region: 'west',
+							//region: 'north',
+							width: 300,
+							//html: 'West',
+							xtype: 'propgrid',
+							weight: 100
+							
+						}, {
+							//title: 'Central',
+							region: 'center',
+							//minWidth: 80,
+							flex: 1,
+							html: 'center',
+							//weight: 100
+						}, {
+							//title: 'Central',
+							region: 'south',
+							//minWidth: 80,
+							//flex: 3,
+							html: 'south',
+							flex: 1
+							//height: 0
+						}]
+						//*/
+					}]
+				//*/
 			/*
 			},{
 				id: 'tu_ag',

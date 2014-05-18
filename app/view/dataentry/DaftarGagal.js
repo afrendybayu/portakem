@@ -129,9 +129,10 @@ Ext.define('rcm.view.dataentry.DaftarGagal', {
 	},
 
 	rowClick: function(id, dv, record, item, index, e)	{
-		alert(id);
-		rcmSettings.asa = record;
-		rcmSettings.sas = record.raw.value;
+		//alert(id);
+		this.fireEvent('infoDetailGagal', id);
+		//rcmSettings.asa = record;
+		//rcmSettings.sas = record.raw.value;
 	},
 
 	hdlEditDGClick: function(grid, row, col, column, e) {
