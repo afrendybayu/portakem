@@ -19,6 +19,7 @@ Ext.define('rcm.controller.DataEntry', {
         'dataentry.PropGrid',
         'dataentry.DetailInfo',
         'dataentry.InfoFMEA',
+        'dataentry.DetailInfo',
         
         'laporan.Chart',
         'laporan.UploadFile',
@@ -474,8 +475,11 @@ Ext.define('rcm.controller.DataEntry', {
 		this.getEventInfoStore().load({ params:{id:id} });
 		
 		//Ext.getCmp('htmleddet').getToolbar().hide();
-		//Ext.getCmp('htmleddet').setValue("aaaaa");
+		Ext.getCmp('htmleddet').setValue("aaaaa");
+		//Ext.getCmp('htmleddet').hide();
+		//Ext.getCmp('htmleddet').show();
 		
+		//*
 		if (ev>2) {
 			Ext.getCmp('idinfofmea').expand();
 		//	Ext.apply(Ext.getCmp('idinfofmea'), {height: '50%'});
@@ -483,6 +487,7 @@ Ext.define('rcm.controller.DataEntry', {
 			Ext.getCmp('idinfofmea').collapse();
 		//	Ext.apply(Ext.getCmp('idinfofmea'), {height: '0%'});
 		}
+		//*/
 	},
     
 	pilihEditDGClick: function(grid, row, col, column, e)	{

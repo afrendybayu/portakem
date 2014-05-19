@@ -26,11 +26,6 @@ Ext.define('rcm.view.Content', {
 			title: 'Dashboard Home',
 			icon: 'modul/icons/Dashboard.png',
 			xtype: 'tHoChart',
-		//*
-		},{
-			title: 'Tes',
-			xtype: 'detailInfo'
-		//*/
 		},{
 			id: 'tu_re',
 			title: 'Reliability',
@@ -46,6 +41,7 @@ Ext.define('rcm.view.Content', {
 			id: 'tu_pr',
 			title: 'Prestasi Mesin',
 			icon: 'modul/icons/perform.png',
+			xtype: 'detailInfo'
 		//*/
 		},{
 			id: 'tu_rh',
@@ -78,7 +74,7 @@ Ext.define('rcm.view.Content', {
 					},{
 						id: 'bgDetail',
 						collapsible: true,
-						collapsed: true,
+						//collapsed: true,
 						split: true,
 						minHeight: 220,
 						maxHeight: 400,
@@ -86,6 +82,9 @@ Ext.define('rcm.view.Content', {
 						region: 'south',
 						title: 'Info Detail DownTime',
 						icon: 'modul/icons/more.png',
+						//html: 'detailInfo'
+						xtype: 'detailInfo'
+						/*
 						layout: 'border',
 						items: [{
 								region: 'west',
@@ -94,20 +93,21 @@ Ext.define('rcm.view.Content', {
 								weight: 100
 							}, {
 								collapsible: true,
-								collapsed: true,
+								//collapsed: true,
 								id: 'idinfofmea',
 								title: 'Unit Failure List',
-								region: 'north',
+								region: 'center',
 								flex: 1,
 								xtype: 'infofmea'
 							},{
-								title: 'Note',
-								id: 'htmleddet',
-								region: 'center',
-								//html: 'center keterangan editor',
-								xtype: 'htmleditor',
+								//title: 'Note',
+								
+								region: 'south',
+								//xtype: 'htmleditor',
+								xtype: 'detailInfo',
 								flex: 1
 						}]
+						//*/
 					}]
 				//*/
 			/*

@@ -3,32 +3,41 @@ Ext.define('rcm.view.dataentry.DetailInfo', {
 	extend: 'Ext.panel.Panel',
 	xtype: 'detailInfo',
 
-    layout: 'border',
-	items: [{
-			region: 'center',
-			//region: 'west',
-			//width: 400,
-			xtype: 'propgrid',
-			//weight: 300
-		}, {
-			region: 'east',
-			html: 'propgrid',
-			flex: 1,
-			weight: 100
-		//*
-		}, {
-			region: 'east',
-			flex: 1,
-			//minWidth: 80,
-			html: 'South Eastern'
-		//*/
-	}],
-
-	initComponent: function() {
-		var me=this;
-		
-		
-		me.callParent(arguments);
-	}
+	/*
+    layout: 'fit',
+    //
+    items: [{
+		id: 'htmleddet',
+		value: 'asdfh',
+        xtype: 'htmleditor',
+        //hidden: true
+        //enableColors: false,
+        //enableAlignments: false
+    }]
+	//*/
 	
+	layout: 'border',
+						items: [{
+							//title: 'propgridt',
+								region: 'west',
+								width: '26%',
+								xtype: 'propgrid',
+								weight: 100
+							}, {
+								title: 'Failure List',
+								collapsible: true,
+								//collapsed: true,
+								id: 'idinfofmea',
+								title: 'Unit Failure List',
+								region: 'center',
+								flex: 1,
+								xtype: 'infofmea'
+							},{
+								//title: 'Note',
+								id: 'htmleddet',
+								region: 'south',
+								xtype: 'htmleditor',
+								//xtype: 'detailInfo',
+								flex: 1
+	}]
 });
