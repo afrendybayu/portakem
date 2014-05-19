@@ -25,7 +25,7 @@ Ext.define('rcm.view.dataentry.DetailInfo', {
 								weight: 100
 							}, {
 								title: 'Failure List',
-								collapsible: true,
+								//collapsible: true,
 								//collapsed: true,
 								id: 'idinfofmea',
 								title: 'Unit Failure List',
@@ -37,7 +37,6 @@ Ext.define('rcm.view.dataentry.DetailInfo', {
 								id: 'htmleddet',
 								region: 'south',
 								xtype: 'htmleditor',
-								//xtype: 'detailInfo',
 								flex: 1
 	}]
 });

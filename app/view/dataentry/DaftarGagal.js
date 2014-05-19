@@ -32,7 +32,7 @@ Ext.define('rcm.view.dataentry.DaftarGagal', {
 
 	initComponent: function() {
 		var me=this, ceditp=Ext.create('Ext.grid.plugin.RowEditing');//clicksToEdit: 1
-		me.plugins = [ceditp];
+		//me.plugins = [ceditp];
 		
 		me.listeners = {
 			itemclick: function(dv, record, item, index, e) {

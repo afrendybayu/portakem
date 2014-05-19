@@ -469,23 +469,25 @@ Ext.define('rcm.controller.DataEntry', {
 	},
     
     pilihInfoDetailGagalClick: function(id, ev)	{
-		Ext.getCmp('bgDetail').expand();
-		console.log("pilihInfoDetailGagalClick id: "+id+", event: "+ev);
+		//Ext.getCmp('bgDetail').expand();
+		Ext.getCmp('bgDetail').setHeight(300);
+		//console.log("pilihInfoDetailGagalClick id: "+id+", event: "+ev);
 		this.getDetailGagalStore().load({ params:{id:id} });
 		this.getEventInfoStore().load({ params:{id:id} });
 		
 		//Ext.getCmp('htmleddet').getToolbar().hide();
 		Ext.getCmp('htmleddet').setValue("aaaaa");
-		//Ext.getCmp('htmleddet').hide();
-		//Ext.getCmp('htmleddet').show();
+		Ext.getCmp('htmleddet').setReadOnly(true)
 		
-		//*
-		if (ev>2) {
-			Ext.getCmp('idinfofmea').expand();
-		//	Ext.apply(Ext.getCmp('idinfofmea'), {height: '50%'});
-		} else {
-			Ext.getCmp('idinfofmea').collapse();
-		//	Ext.apply(Ext.getCmp('idinfofmea'), {height: '0%'});
+		/*
+		var html = Ext.getCmp('idinfofmea');
+		if (ev>2)	{
+			html.expand();
+			//html.setHeight(150);
+		}
+		else 	{	//
+			html.collapse();
+			//html.setHeight(40);
 		}
 		//*/
 	},
