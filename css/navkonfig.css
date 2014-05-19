@@ -8,11 +8,15 @@
     background-image: url('../modul/icons/new_folder.png');
 }
 
-.price-fall .x-change-cell {
+.rusak .x-change-cell {
     background-color: #FFB0C4;
     color:red;
 }
-.price-rise .x-change-cell {
+.sip .x-change-cell {
     background-color: #B0FFC5;
     color:green;
+}
+.baik .x-change-cell {
+    background-color: #B0FFC5;
+    color:blue;
 }

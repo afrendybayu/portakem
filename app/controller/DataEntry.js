@@ -18,6 +18,7 @@ Ext.define('rcm.controller.DataEntry', {
         'dataentry.IsiTabForm',
         'dataentry.PropGrid',
         'dataentry.DetailInfo',
+        'dataentry.InfoFMEA',
         
         'laporan.Chart',
         'laporan.UploadFile',
@@ -63,7 +64,7 @@ Ext.define('rcm.controller.DataEntry', {
 		'AvReUnit','AvHome','ReHome','AvGroup','AvSpeedo','ReSpeedo',
 		'HoTeco','HoMan','HoOrderC','SapEPO',
 		'ConMon','ConMonUnit',
-		'DetailGagal'
+		'DetailGagal','EventInfo'
 		
     ],
 
@@ -467,8 +468,13 @@ Ext.define('rcm.controller.DataEntry', {
 	},
     
     pilihInfoDetailGagalClick: function(id)	{
-		//alert("pilihInfoDetailGagalClick id: "+id);
-		console.log("pilihInfoDetailGagalClick id: "+id);
+		Ext.getCmp('bgDetail').expand();
+		console.log("pilihInfoDetailGagalClick id: "+id+", event: ");
+		this.getDetailGagalStore().load({ params:{id:id} });
+		this.getEventInfoStore().load({ params:{id:id} });
+		//Ext.getCmp('htmleddet').getToolbar().hide();
+		//Ext.getCmp('htmleddet').setValue("aaaaa");
+		// Ext.apply(Ext.getCmp('IdHere'), {flex: 1});
 	},
     
 	pilihEditDGClick: function(grid, row, col, column, e)	{

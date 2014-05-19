@@ -2,9 +2,9 @@
 new Ext.define('rcm.store.DetailGagal', {
     extend: 'Ext.data.Store',
     model: 'rcm.model.DetailGagal',
-    requires: 'rcm.model.DetailGagal',
+    requires: 'rcm.model.DetailGagal'
     
-	autoLoad: true
+	//autoLoad: true
 	//autoSync: true
 });
 

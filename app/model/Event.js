@@ -6,6 +6,8 @@ Ext.define('rcm.model.Event', {
 	],
 
 	fields: [ 'iddown','cat','eql','ideql','opart','idopart','mode','idmode','cause','idcause','aksi','idaksi' ],
+	
+	/*
     proxy: {
 		type: 'ajax',
 		api: {
@@ -18,4 +20,5 @@ Ext.define('rcm.model.Event', {
             messageProperty: 'message'
         }
     }
+    //*/
 });

@@ -16,6 +16,19 @@ Ext.define('rcm.view.dataentry.DaftarGagal', {
 		}
 	},
 	//*/
+	
+	viewConfig: {
+        getRowClass: function(record, index) {
+            var c = record.get('event');
+            if (c.localeCompare("Breakdown")==0) {
+                return 'rusak';
+			} else if (c.localeCompare("Stand By")==0) {
+                return 'sip';
+            } else {
+                return 'baik';
+            }
+        }
+    },
 
 	initComponent: function() {
 		var me=this, ceditp=Ext.create('Ext.grid.plugin.RowEditing');//clicksToEdit: 1
@@ -32,7 +45,7 @@ Ext.define('rcm.view.dataentry.DaftarGagal', {
 			{ xtype:'rownumberer',width:25 },
 			{ header:'Lokasi',dataIndex:'lok',width:100 },
 			{ header:'Nama Unit',dataIndex:'nama',width:135 },
-			{ header:'Kejadian',dataIndex:'event',width:75 },
+			{ header:'Kejadian',dataIndex:'event',width:75, tdCls: 'x-change-cell' },
 			{ header:'Unit Down',
 				columns: 
 					[	{ header: 'Tanggal', dataIndex: 'downt', width:80,

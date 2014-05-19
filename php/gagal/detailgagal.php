@@ -5,7 +5,18 @@ include '../connection.php';
 
 
 try {
-
+	if (isset($_GET['id']))	{
+		$id = $_GET['id'];
+	} else {
+		
+	}
+	
+	$rid = explode("e", $id);
+	//print_r(array_filter($rid));
+	$id = implode(",",array_filter($rid));
+	//echo "id: $id<br/><br/>";
+	
+	
 	$sql =	"SELECT waktudown.id,eqid,kode,fm,pmdef.nama as namapm,down_id,exe,".
 			"downt,downj,upt,upj,startt,startj,endt,endj,event as idevent,tipeev ".
 			",(select hirarki.nama from hirarki where hirarki.id = ".
@@ -19,7 +30,7 @@ try {
 			"LEFT JOIN equip ON equip.id = waktudown.eqid ".
 			"LEFT JOIN event ON event.down_id = waktudown.id ".
 			"LEFT JOIN pmdef ON pmdef.id = waktudown.tipeev ".
-			"where waktudown.id in (37,38) ".
+			"where waktudown.id in ($id) ".
 			"order by downt desc, downj desc";
 			//"group by down_id ".
 	
@@ -57,11 +68,11 @@ try {
 				if (isset($row['fm'])) {
 					if (strlen($isi[$jml]['fm'])>0)		{
 						//$isi[$jml]['fm'] .= "&nbsp;&nbsp;";
-						$prop['event'] .= "&nbsp;&nbsp;";
+						//$prop['event'] .= "&nbsp;&nbsp;";
 					}
 					//$isi[$jml]['fm'] .= "[{$row['kode']}: {$row['fm']}]";
 					//$prop['fm'] .= "[{$row['kode']}: {$row['namapm']}]";
-					$prop['event'] .= " [{$row['kode']}: {$row['namapm']}]";
+					//$prop['event'] .= " [{$row['kode']}: {$row['namapm']}]";
 				}
 			}
 		} else {
@@ -100,9 +111,12 @@ try {
 				//echo "fm: {$row['namapm']}<br/>";
 				if (isset($row['namapm'])) {
 					//echo "---- ada fm<br/>";
-					$isi[$jml]['fm'] = "[{$row['kode']}: {$row['namapm']}]";
+					//$isi[$jml]['fm'] = "[{$row['kode']}: {$row['namapm']}]";
+					$prop['event'] .= " [{$row['kode']}: {$row['namapm']}]";
 				}
 			} else {
+				// senin 
+				/*
 				$isi[$jml]['startt'] = date('d-m-Y',strtotime("{$row["startt"]} {$row["startj"]}"));
 				$isi[$jml]['startj'] = date('H:i',	strtotime("{$row["startt"]} {$row["startj"]}"));
 				$isi[$jml]['endt'] = date('d-m-Y',	strtotime("{$row["endt"]} {$row["endj"]}"));
@@ -115,6 +129,10 @@ try {
 					//print_r($mdar);
 					//echo $row['kode']." > ".$row['fm']."----<br/>";
 				}
+				//*/
+				$prop['start'] = date('d M Y H:i',strtotime("{$row["startt"]} {$row["startj"]}"));
+				$prop['end']   = date('d M Y H:i',strtotime("{$row["endt"]} {$row["endj"]}"));
+				//$prop['event'] .= " [{$row['kode']}: {$row['fm']}]";
 			}
 			/*
 			$isi[$jml]['downt'] = date('d-m-Y',strtotime("{$row['downt']} {$row["downj"]}"));
@@ -139,41 +157,14 @@ try {
 	}
 	mysql_free_result($q);
 	//print_r($isi);
-	
+
+
 	/*
-	$isi['id'][0]  = 'ID';
-	$isi['id'][1]  = $prop['id'];
-	
-	$isi['func'][0]  = 'Function Location';
-	$isi['func'][1]  = $prop['func'];
-	
-	$isi['event'][0]  = 'Event';
-	$isi['event'][1]  = $prop['event'];
-	
-	$isi['down'][0]  = 'Unit Down';
-	$isi['down'][1]  = $prop['down'];
-	
-	$isi['start'][0]  = 'Start Repair';
-	$isi['start'][1]  = $prop['start'];
-	
-	$isi['up'][0]  = 'Unit Running';
-	$isi['up'][1]  = $prop['up'];
-
-	$isi['stop'][0]  = 'Repair End';
-	$isi['stop'][1]  = $prop['end'];
-	
-	$isi['up'][0]  = 'Unit Running';
-	$isi['up'][1]  = $prop['up'];
-	
-	$isi['exe'][0]  = 'Executor';
-	$isi['exe'][1]  = $prop['exe'];
-	//*/
-
 	$obj1 = new stdClass();
 	$obj1->nama = "ID";
 	$obj1->nilai = $prop['id'];
 	array_push($isi,$obj1);
-	
+	//*/
 	$obj2 = new stdClass();
 	$obj2->nama = "Function Location";
 	$obj2->nilai = $prop['func'];
@@ -189,26 +180,31 @@ try {
 	$obj4->nilai = $prop['down'];
 	array_push($isi,$obj4);
 	
-	$obj5 = new stdClass();
-	$obj5->nama = "Start Repair";
-	$obj5->nilai = $prop['start'];
-	array_push($isi,$obj5);
+	if ($ax!=1)	{		// selain stanby
+		$obj5 = new stdClass();
+		$obj5->nama = "Start Repair";
+		$obj5->nilai = $prop['start'];
+		array_push($isi,$obj5);
+	}
 	
 	$obj6 = new stdClass();
 	$obj6->nama = "Unit Running";
 	$obj6->nilai = $prop['up'];
 	array_push($isi,$obj6);
 	
-	$obj7 = new stdClass();
-	$obj7->nama = "Repair End";
-	$obj7->nilai = $prop['end'];
-	array_push($isi,$obj7);
+	if ($ax!=1)	{		// selain stanby
+		$obj7 = new stdClass();
+		$obj7->nama = "Repair End";
+		$obj7->nilai = $prop['end'];
+		array_push($isi,$obj7);
+	}
 	
-	$obj8 = new stdClass();
-	$obj8->nama = "Executor";
-	$obj8->nilai = $prop['exe'];
-	array_push($isi,$obj8);
-	
+	if ($ax!=1)	{		// selain stanby
+		$obj8 = new stdClass();
+		$obj8->nama = "Executor";
+		$obj8->nilai = $prop['exe'];
+		array_push($isi,$obj8);
+	}
 	
 	//echo "jml: ".count($isi)."<br/>";
 	/*

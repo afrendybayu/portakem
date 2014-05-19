@@ -394,6 +394,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 				},
 				store: 'Event',
 				columns: [
+					{ xtype:'rownumberer',width:25 },
 					{ text: "Equipment", dataIndex: 'eql', width:150, editor: {
 						xtype: 'combo', store: 'Equip',editable: false,	emptyText: 'Pilih Equipment... ',
 						queryParam: 'tipe',name : 'eql',displayField: 'nama',valueField: 'nama',queryMode: 'local',

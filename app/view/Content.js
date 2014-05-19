@@ -41,10 +41,12 @@ Ext.define('rcm.view.Content', {
 			title: 'SAP Report',
 			icon: 'modul/icons/report_check.png',
 			xtype: 'tabChart',
+		/*
 		},{
 			id: 'tu_pr',
 			title: 'Prestasi Mesin',
 			icon: 'modul/icons/perform.png',
+		//*/
 		},{
 			id: 'tu_rh',
 			title: 'Runnning Hour',
@@ -66,52 +68,41 @@ Ext.define('rcm.view.Content', {
 				align: 'stretch',
 				title: 'Daftar DownTime Unit',
 				icon: 'modul/icons/grid.png',
-				layout: {
-					type: 'border'
-				},
+				layout: 'border',
 				//
 				items: [{
 						xtype: 'daftarGagal',
-						//region: 'north',
 						region: 'center',
-						//id: 'app-gagal',
 						itemId: 'listGagal',
 						flex: 1,
 					},{
+						id: 'bgDetail',
 						collapsible: true,
-						//collapsed: true,
+						collapsed: true,
 						split: true,
-						//flex: 1,
-						minHeight: 300,
+						minHeight: 220,
 						maxHeight: 400,
 						height: 300,
-						//region: 'center',
 						region: 'south',
 						title: 'Info Detail DownTime',
-						//html: 'testing dulu',
-						//xtype: 'propgrid',
-						//xtype: 'detailInfo',
 						icon: 'modul/icons/more.png',
-						//*
 						layout: 'border',
 						items: [{
 								region: 'west',
-								width: 300,
-								//flex: 3,
-								//html: 'propgrid',
+								width: '26%',
 								xtype: 'propgrid',
 								weight: 100
 							}, {
-								//title: 'Central',
+								title: 'Unit Failure List',
 								region: 'north',
-								//minWidth: 80,
 								flex: 1,
-								html: 'north',
+								xtype: 'infofmea'
 							},{
+								title: 'Note',
+								id: 'htmleddet',
 								region: 'center',
-								//minWidth: 80,
-								//flex: 3,
-								html: 'center keterangan editor',
+								//html: 'center keterangan editor',
+								xtype: 'htmleditor',
 								flex: 1
 						}]
 					}]
@@ -193,15 +184,16 @@ Ext.define('rcm.view.Content', {
 		
 		console.log("tab: "+tab.title+", id: "+this.getActiveTab().getId()+" view/Content.js");
 		console.log("tab: "+rcmSettings.tab);
+		
 	},
 	
 	TambahClick: function()	{
-		console.log("tambah: ");
-		rcmSettings.sas = this.getEl();//.getActiveTab();
-		console.log("tab: "+rcmSettings.sas);
+		//console.log("tambah: ");
+		//rcmSettings.sas = this.getEl();//.getActiveTab();
+		//console.log("tab: "+rcmSettings.sas);
 	},
 	
 	KurangClick: function()	{
-		console.log("Kurang: ");
+		//console.log("Kurang: ");
 	}
 })
