@@ -62,6 +62,7 @@ try {
 			$isi[$jml]['unit_id'] = $row['unit_id'];
 			$isi[$jml]['nama'] = $row['nama'];
 			$isi[$jml]['lok'] = $row['lok'];
+			$isi[$jml]['idevent'] = $row['idevent'];
 			
 			if ($row['idevent']==1) { 		// standby
 				$isi[$jml]['startt'] = '';		$isi[$jml]['startj'] = '';

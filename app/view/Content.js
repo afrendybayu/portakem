@@ -93,6 +93,9 @@ Ext.define('rcm.view.Content', {
 								xtype: 'propgrid',
 								weight: 100
 							}, {
+								collapsible: true,
+								collapsed: true,
+								id: 'idinfofmea',
 								title: 'Unit Failure List',
 								region: 'north',
 								flex: 1,
@@ -169,8 +172,6 @@ Ext.define('rcm.view.Content', {
 			//'recordedit'
         );
         this.on('tabchange', me.handleContentTab, this);
-        //var bookGridSm = this.getComponent('listGagal').getSelectionModel();
-        //alert(bookGridSm);
 	},
 	handleContentTab: function()	{
 		rcmSettings.tab = this.getActiveTab().getId();

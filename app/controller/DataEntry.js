@@ -467,14 +467,22 @@ Ext.define('rcm.controller.DataEntry', {
         });
 	},
     
-    pilihInfoDetailGagalClick: function(id)	{
+    pilihInfoDetailGagalClick: function(id, ev)	{
 		Ext.getCmp('bgDetail').expand();
-		console.log("pilihInfoDetailGagalClick id: "+id+", event: ");
+		console.log("pilihInfoDetailGagalClick id: "+id+", event: "+ev);
 		this.getDetailGagalStore().load({ params:{id:id} });
 		this.getEventInfoStore().load({ params:{id:id} });
+		
 		//Ext.getCmp('htmleddet').getToolbar().hide();
 		//Ext.getCmp('htmleddet').setValue("aaaaa");
-		// Ext.apply(Ext.getCmp('IdHere'), {flex: 1});
+		
+		if (ev>2) {
+			Ext.getCmp('idinfofmea').expand();
+		//	Ext.apply(Ext.getCmp('idinfofmea'), {height: '50%'});
+		} else {
+			Ext.getCmp('idinfofmea').collapse();
+		//	Ext.apply(Ext.getCmp('idinfofmea'), {height: '0%'});
+		}
 	},
     
 	pilihEditDGClick: function(grid, row, col, column, e)	{
