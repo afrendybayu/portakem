@@ -65,7 +65,7 @@ Ext.define('rcm.controller.DataEntry', {
 		'AvReUnit','AvHome','ReHome','AvGroup','AvSpeedo','ReSpeedo',
 		'HoTeco','HoMan','HoOrderC','SapEPO',
 		'ConMon','ConMonUnit',
-		'DetailGagal','EventInfo'
+		'DetailGagal','EventInfo','Note'
 		
     ],
 
@@ -297,6 +297,7 @@ Ext.define('rcm.controller.DataEntry', {
         //});
         //*/
         Ext.QuickTips.init();
+        Ext.getCmp('htmleddet').setReadOnly(true)
         Ext.apply(Ext.form.field.VTypes, {
 			daterange: function(val, field) {
 				var date = field.parseDate(val);
@@ -474,10 +475,13 @@ Ext.define('rcm.controller.DataEntry', {
 		//console.log("pilihInfoDetailGagalClick id: "+id+", event: "+ev);
 		this.getDetailGagalStore().load({ params:{id:id} });
 		this.getEventInfoStore().load({ params:{id:id} });
+		var n = this.getNoteStore().load({ params:{id:id} });
+		alert(n.getAt(0));
+		rcmSettings.asa = n;
 		
 		//Ext.getCmp('htmleddet').getToolbar().hide();
 		Ext.getCmp('htmleddet').setValue("aaaaa");
-		Ext.getCmp('htmleddet').setReadOnly(true)
+		//Ext.getCmp('htmleddet').setReadOnly(true)
 		
 		/*
 		var html = Ext.getCmp('idinfofmea');

@@ -3,7 +3,7 @@ Ext.define('rcm.store.EventInfo', {
     extend: 'Ext.data.Store',
     model: 'rcm.model.Event',
     requires: 'rcm.model.Event',
-    autoLoad: true,
+    //autoLoad: true,
     
     proxy: {
 		type: 'ajax',
