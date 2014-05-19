@@ -52,12 +52,14 @@ Ext.define('rcm.view.Content', {
 			//layout: 'accordion',
 			xtype: 'tabpanel',
 			items: [{
+			/*
 				title: 'Data Running Hour',
 				xtype: 'excelgrid',
 				id: 'app-runninghour',
 				//iconCls: 'icon-grid',
 				icon: 'modul/icons/application_go.png'
 			},{
+			//*/
 				//xtype: 'detailInfo',
 				title: 'Data Running Hour',
 				//*
@@ -70,7 +72,8 @@ Ext.define('rcm.view.Content', {
 				//
 				items: [{
 						xtype: 'daftarGagal',
-						region: 'north',
+						//region: 'north',
+						region: 'center',
 						//id: 'app-gagal',
 						itemId: 'listGagal',
 						flex: 1,
@@ -81,7 +84,9 @@ Ext.define('rcm.view.Content', {
 						//flex: 1,
 						minHeight: 300,
 						maxHeight: 400,
-						region: 'center',
+						height: 300,
+						//region: 'center',
+						region: 'south',
 						title: 'Info Detail DownTime',
 						//html: 'testing dulu',
 						//xtype: 'propgrid',
@@ -90,30 +95,25 @@ Ext.define('rcm.view.Content', {
 						//*
 						layout: 'border',
 						items: [{
-							region: 'west',
-							//region: 'north',
-							width: 300,
-							//html: 'West',
-							xtype: 'propgrid',
-							weight: 100
-							
-						}, {
-							//title: 'Central',
-							region: 'center',
-							//minWidth: 80,
-							flex: 1,
-							html: 'center',
-							//weight: 100
-						}, {
-							//title: 'Central',
-							region: 'south',
-							//minWidth: 80,
-							//flex: 3,
-							html: 'south',
-							flex: 1
-							//height: 0
+								region: 'west',
+								width: 300,
+								//flex: 3,
+								//html: 'propgrid',
+								xtype: 'propgrid',
+								weight: 100
+							}, {
+								//title: 'Central',
+								region: 'north',
+								//minWidth: 80,
+								flex: 1,
+								html: 'north',
+							},{
+								region: 'center',
+								//minWidth: 80,
+								//flex: 3,
+								html: 'center keterangan editor',
+								flex: 1
 						}]
-						//*/
 					}]
 				//*/
 			/*
@@ -127,6 +127,12 @@ Ext.define('rcm.view.Content', {
 				//	data: Ext.create('Extensible.example.calendar.data.Events')
 				//}),
 			//*/
+			},{
+				title: 'Data Running Hour',
+				xtype: 'excelgrid',
+				id: 'app-runninghour',
+				//iconCls: 'icon-grid',
+				icon: 'modul/icons/application_go.png'
 			}]
 		},{
 			id: 'tu_kf',
