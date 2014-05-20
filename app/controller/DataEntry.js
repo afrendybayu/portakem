@@ -685,11 +685,15 @@ Ext.define('rcm.controller.DataEntry', {
 			form =  taskFormGagal.down('form').getForm(),
 			sDG = Ext.create('rcm.model.DaftarGagal');
 		
+		taskFormGagal.down('form').getForm().reset();
+		
 		me.getTaskIsiFormGagal().pilihEventG(rec.get('idevent'));
 		me.getTaskIsiFormGagal().setNilai(rec);
 
-		//taskFormGagal.down('form').getForm().reset();
-		taskFormGagal.setTitle('Edit Form Notifikasi '+rec.get('nama'));
+		//alert(rec.get('eqid'));
+		this.getPMStore().load({ params:{unit:rec.get('eqid')} });
+
+		taskFormGagal.setTitle('Edit Form Notifikasi');
 		taskFormGagal.show();
 
 	},

@@ -86,6 +86,7 @@ Ext.define('rcm.view.dataentry.FormGagal', {
             items: [{
 				xtype: 'displayfield',
 				name: 'eq',
+				id: 'fmEq',
 				labelAlign: 'left',
 				labelWidth: 120,
 				fieldLabel: '<b>Function Location</b>',

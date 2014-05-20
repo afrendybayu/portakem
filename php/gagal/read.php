@@ -4,7 +4,8 @@ include '../connection.php';
 
 try {
 
-	$sql =	"SELECT waktudown.id,eqid,kode,fm,pmdef.nama as namapm,down_id,downt,downj,upt,upj,startt,startj,endt,endj,event as idevent,tipeev ".
+	$sql =	"SELECT waktudown.id,eqid,waktudown.unit_id,kode,fm,pmdef.nama as namapm,down_id, ".
+			"downt,downj,upt,upj,startt,startj,endt,endj,event as idevent,tipeev,waktudown.ket,exe ".
 			",(select hirarki.nama from hirarki where hirarki.id = ".
 			"(select hirarki.parent from hirarki where hirarki.id = ".
 			"(select hirarki.parent from hirarki where hirarki.id = equip.unit_id))) as lok ".
@@ -18,7 +19,7 @@ try {
 			"LEFT JOIN pmdef ON pmdef.id = waktudown.tipeev ".
 			"order by downt desc, downj desc";
 			//"group by down_id ".
-
+	//echo "sql: $sql<br/><br/>";
 	$q = db_query($sql);
 
 	if (!$q)	{
@@ -44,6 +45,7 @@ try {
 					if (strlen($isi[$jml]['fm'])>0)
 						$isi[$jml]['fm'] .= "&nbsp;&nbsp;";
 					$isi[$jml]['fm'] .= "[{$row['kode']}: {$row['namapm']}]";
+					$isi[$jml]['tipeev'] .= ",".$row['tipeev'];
 				}
 			} else if (($ax==3) || ($ax==4)) {
 				//echo "fm: {$row['fm']}<br/>";
@@ -58,11 +60,15 @@ try {
 			$mdar = Array();
 		//if (($row['downt']!=$dd) && ($row['downj']!=$td)) {
 			$isi[$jml]['event'] = $row['event'];
+			$isi[$jml]['eqid'] = $row['unit_id'];
 			$isi[$jml]['id'] = 'e'.$row['id'];
 			$isi[$jml]['unit_id'] = $row['unit_id'];
 			$isi[$jml]['nama'] = $row['nama'];
 			$isi[$jml]['lok'] = $row['lok'];
 			$isi[$jml]['idevent'] = $row['idevent'];
+			$isi[$jml]['ket'] = $row['ket'];
+			$isi[$jml]['exe'] = $row['exe'];
+			$isi[$jml]['tipeev'] = $row['tipeev'];
 			
 			if ($row['idevent']==1) { 		// standby
 				$isi[$jml]['startt'] = '';		$isi[$jml]['startj'] = '';

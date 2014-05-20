@@ -8,7 +8,7 @@ try {
 	if (isset($_GET['id']))	{
 		$id = $_GET['id'];
 	} else {
-		
+		throw new Exception("ID Unit Tidak Ada");
 	}
 	
 	$rid = explode("e", $id);

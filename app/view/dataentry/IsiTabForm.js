@@ -579,10 +579,27 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 	},
 	
 	setNilai: function(rec)	{
-		alert("masuk SetNilai: "+rec.get('event'));
-		//Ext.getCmp('idtfevent').setValue(rec.get('event'));
-		Ext.getCmp('idtfevent').setValue(1);
-		//Ext.getCmp('idtfevent').setValue('PM');
-		rcmSettings.asa = Ext.getCmp('idtfevent');
+		alert("masuk SetNilai: **"+rec.get('exe')+"__, event: "+rec.get('ket')+", pm:"+rec.get('tipeev'));
+		var ev = parseInt(rec.get('idevent'));
+		Ext.getCmp('fmEq').setValue(rec.get('nama')+" @"+rec.get('lok'));
+		Ext.getCmp('idtfevent').setValue(ev);
+		Ext.getCmp('datedown').setValue(rec.get('downt'));
+		Ext.getCmp('timedown').setValue(rec.get('downj'));
+		Ext.getCmp('dateup').setValue(rec.get('upt'));
+		Ext.getCmp('timeup').setValue(rec.get('upj'));
+		Ext.getCmp('idexe').setValue(rec.get('exe'));
+		Ext.getCmp('idtfket').setValue(rec.get('ket'));
+		
+		
+		Ext.getCmp('tipepm').setValue(2);
+		/*
+		if (ev==2)	{
+			//Ext.getCmp('tipepm').setValue(rec.get('tipeev').split(','));
+		}
+		//*/
+		Ext.getCmp('datemulai').setValue(rec.get('startt'));
+		Ext.getCmp('timemulai').setValue(rec.get('startj'));
+		Ext.getCmp('dateselesai').setValue(rec.get('endt'));
+		Ext.getCmp('timeselesai').setValue(rec.get('endj'));
 	}
 });

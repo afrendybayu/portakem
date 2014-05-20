@@ -42,7 +42,15 @@ try {
 	//$cat = explode('c',$arid);
 
 	$sqlcat = implode("' or eqcat='",$arid);
+	/*
 	$sql =	"select pmdef.id,eqcat,cat_equip.nama as cat, kode, durasi,pmdef.nama from pmlist ".
+			"left join pmdef on pmdef.id = pmlist.pm ".
+			"left join cat_equip on cat_equip.id = pmlist.eqcat ".
+			"where eqcat='$sqlcat' ".
+			//"where eqcat=9 or eqcat=10 ".
+			"order by kode asc, durasi asc";
+	//*/
+	$sql =	"select pmlist.id,eqcat,cat_equip.nama as cat, kode, durasi,pmdef.nama from pmlist ".
 			"left join pmdef on pmdef.id = pmlist.pm ".
 			"left join cat_equip on cat_equip.id = pmlist.eqcat ".
 			"where eqcat='$sqlcat' ".
@@ -56,19 +64,21 @@ try {
 		echo 'MySQL Error: ' . mysql_error();
 		exit;
 	}
-	
+
 	$arr = array(); $k=0;
 	while ($row = mysql_fetch_assoc($q)) {
 		$z=0;
+		/*
 		for ($z=0; $z<count($arreq); $z++)	{
 			if ($row['eqcat']==$arreq[$z]['cat'])
-				$arr[$k]['id'] = 'e'.$arreq[$z]['id'].'pm'.$row['id'];
+				//$arr[$k]['id'] = 'e'.$arreq[$z]['id'].'pm'.$row['id'];
 				//$arr[$k]['id'] = 'id'.$row['id'].'c'.$arreq[$z]['cat'];
 		}
+		//*/
 		
-		//$arr[$k]['id'] = $row['id'];
+		$arr[$k]['id'] = $row['id'];
 		$arr[$k]['cat'] = $row['eqcat'];
-		$arr[$k]['nama'] = '['.$row['kode'].'] '.$row['nama'];
+		$arr[$k]['nama'] = '['.$row['kode'].'] '.$row['nama'].' '.$arr[$k]['id'];
 		$k++;
 	}
 	mysql_free_result($q);
