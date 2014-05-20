@@ -16,10 +16,10 @@ Ext.define('rcm.view.dataentry.InfoFMEA', {
 		items: [
 			{ xtype:'rownumberer',width:25 },
 			{ text: 'Equipment',  dataIndex: 'eql', flex: 1 },
-			{ text: 'Object Part', dataIndex: 'opart', width:200 },
-			{ text: 'Failure Mode', dataIndex: 'mode', width:200 },
-			{ text: 'Cause', dataIndex: 'cause', width:130 },
-			{ text: 'Action', dataIndex: 'aksi', width:130 }
+			{ text: 'Object Part', dataIndex: 'opart', width:220 },
+			{ text: 'Failure Mode', dataIndex: 'mode', width:140 },
+			{ text: 'Cause', dataIndex: 'cause', width:180 },
+			{ text: 'Action', dataIndex: 'aksi', width:120 }
 		],
     },
 	

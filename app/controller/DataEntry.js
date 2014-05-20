@@ -472,10 +472,8 @@ Ext.define('rcm.controller.DataEntry', {
     pilihInfoDetailGagalClick: function(id, ev)	{
 		//
 		//Ext.getCmp('bgDetail').setHeight(300);
-		//console.log("pilihInfoDetailGagalClick id: "+id+", event: "+ev);
 		this.getDetailGagalStore().load({ params:{id:id} });
 		var jD = this.getEventInfoStore().load({ params:{id:id} });
-		//alert(jD.getCount());
 		
 		//Ext.getCmp('htmleddet').getToolbar().hide();
 		var n = this.getNoteStore().load({ params:{id:id} });
@@ -493,7 +491,8 @@ Ext.define('rcm.controller.DataEntry', {
 			html.collapse();
 			//html.setHeight(40);
 		}
-		
+		//*/
+		/*
 		if (jD.getCount()>0)
 			html.setTitle("Unit Failure List [ "+jD.getCount()+" failure ]");
 		else 
@@ -503,14 +502,7 @@ Ext.define('rcm.controller.DataEntry', {
 		//Ext.getCmp('bgDetail').expand();
 	},
     
-	pilihEditDGClick: function(grid, row, col, column, e)	{
-		var me = this,
-            taskFormGagal = me.getTaskFormGagal(),
-			form =  taskFormGagal.down('form').getForm(),
-			sDG = Ext.create('rcm.model.DaftarGagal');
-		
-		taskFormGagal.show();
-	},
+
 	
 	refreshRH: function()	{
 		console.log("----- mulai refreshRHr");
@@ -680,6 +672,19 @@ Ext.define('rcm.controller.DataEntry', {
 		this.simpanFormGagal();
 		this.getTaskFormGagal().close();
 	},
+
+	pilihEditDGClick: function(grid, row, col, column, e)	{
+		var me = this,
+            taskFormGagal = me.getTaskFormGagal(),
+			form =  taskFormGagal.down('form').getForm(),
+			sDG = Ext.create('rcm.model.DaftarGagal');
+		
+		taskFormGagal.down('form').getForm().reset();
+		taskFormGagal.setTitle('Edit Form Notifikasi ');
+		taskFormGagal.show();
+
+	},
+
 	
 	getDate: function (w) {
 		var t = new Date(w);

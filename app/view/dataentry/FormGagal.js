@@ -8,9 +8,11 @@ Ext.define('rcm.view.dataentry.FormGagal', {
 		'rcm.view.dataentry.IsiTabForm',
 	],
 	
-	closeAction: 'hide',
+	//closeAction: 'destroy',		//'hide',
 	//modal: true,
 	//width: 500,
+	closable: false,
+	resizable: false,
 	x:100,
 	y:42,
 	//height: 500,
@@ -96,7 +98,17 @@ Ext.define('rcm.view.dataentry.FormGagal', {
 				name: 'fgid',
 				value: 'idhidden'
 			}],
-		}]
+		}];
+		/*
+		me.listeners = {
+			close:function(flag){
+				//if(flag == true){
+					alert("close window");
+					//add to db
+				//}
+			}
+		};
+		//*/
 		me.callParent(arguments);
 		
 	}

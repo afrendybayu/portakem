@@ -148,7 +148,7 @@ Ext.define('rcm.view.dataentry.DaftarGagal', {
 		var rec = grid.getStore().getAt(row);
 		alert("Edit kejadian "+ rec.get('event')+" "+rec.get('nama'));
 		//grid.getStore().removeAt(rowIndex);
-		//this.fireEvent('editDGClick', grid, row, col);
+		this.fireEvent('editDGClick', grid, row, col);
 	},
 	
 	hdlHapusDGClick: function(grid, row, col, column, e) {
