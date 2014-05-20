@@ -576,5 +576,13 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 		}
 		console.log("seleksi event: "+n);
 		this.updateErrorState(n);
+	},
+	
+	setNilai: function(rec)	{
+		alert("masuk SetNilai: "+rec.get('event'));
+		//Ext.getCmp('idtfevent').setValue(rec.get('event'));
+		Ext.getCmp('idtfevent').setValue(1);
+		//Ext.getCmp('idtfevent').setValue('PM');
+		rcmSettings.asa = Ext.getCmp('idtfevent');
 	}
 });

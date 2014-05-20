@@ -14,12 +14,13 @@ Ext.define('rcm.controller.DataEntry', {
         'dataentry.DaftarGagal',
         'dataentry.ExcelGrid',
         'dataentry.FormGagal',
-        'dataentry.TabForm',
+        //'dataentry.TabForm',
         'dataentry.IsiTabForm',
         'dataentry.PropGrid',
         'dataentry.DetailInfo',
         'dataentry.InfoFMEA',
         'dataentry.DetailInfo',
+        //'dataentry.IsiTabForm'
         
         'laporan.Chart',
         'laporan.UploadFile',
@@ -98,6 +99,11 @@ Ext.define('rcm.controller.DataEntry', {
 	},{
 		ref: 'tAvReChart',
 		selector: 'tAvReChart'
+	/*
+	},{
+		ref: 'taskFormGagal',
+		selector: 'taskFormGagal'
+	//*/
 	},{
 		ref: 'taskExcelGrid',
 		selector: 'taskExcelGrid'
@@ -673,14 +679,17 @@ Ext.define('rcm.controller.DataEntry', {
 		this.getTaskFormGagal().close();
 	},
 
-	pilihEditDGClick: function(grid, row, col, column, e)	{
+	pilihEditDGClick: function(rec)	{
 		var me = this,
             taskFormGagal = me.getTaskFormGagal(),
 			form =  taskFormGagal.down('form').getForm(),
 			sDG = Ext.create('rcm.model.DaftarGagal');
 		
-		taskFormGagal.down('form').getForm().reset();
-		taskFormGagal.setTitle('Edit Form Notifikasi ');
+		me.getTaskIsiFormGagal().pilihEventG(rec.get('idevent'));
+		me.getTaskIsiFormGagal().setNilai(rec);
+
+		//taskFormGagal.down('form').getForm().reset();
+		taskFormGagal.setTitle('Edit Form Notifikasi '+rec.get('nama'));
 		taskFormGagal.show();
 
 	},

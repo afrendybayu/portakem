@@ -9,16 +9,17 @@ Ext.define('rcm.view.dataentry.TabForm', {
 	],
 	
 	plain: true,
-
+	/*
 	initComponent: function() {
 		var me=this;
 		me.items = [{
 				title: 'Event 1',
-				xtype: 'isiFormGagal'
+				//xtype: 'isiFormGagal'
 			},{
 				id: 'tTF',
 				icon: 'modul/icons/add.gif',
 		}];
+		
 		me.buttons = [{
 				text: 'Batal',
 				id: 'cancel-task-fg-btn',
@@ -26,16 +27,6 @@ Ext.define('rcm.view.dataentry.TabForm', {
 			},
 				'->'
 			,{
-			/*
-				text: 'Tambah',
-				id: 'add-task-fg-btn',
-				icon: 'modul/icons/add.gif',
-				handler: function() {
-					console.log("tombol tambah ...");
-					me.handleFGTab();
-				}
-			},{
-			//*/
 				text: '<b>Simpan</b>',
 				icon: 'modul/icons/savedisk.png',
 				id: 'save-task-fg-btn',
@@ -49,10 +40,12 @@ Ext.define('rcm.view.dataentry.TabForm', {
 						console.log("dihapus: "+dd+ ", id: ");
 					}
 				}
-			}]
+		}];
+		
 		me.callParent(arguments);
 		this.on('tabchange', me.handleFGTab, this);
 	},
+	//*/
 	
 	handleFGTab: function()	{
 		var tab = this.getActiveTab();

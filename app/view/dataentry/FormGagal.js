@@ -99,6 +99,8 @@ Ext.define('rcm.view.dataentry.FormGagal', {
 				value: 'idhidden'
 			}],
 		}];
+		
+		
 		/*
 		me.listeners = {
 			close:function(flag){
