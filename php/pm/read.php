@@ -78,7 +78,7 @@ try {
 		
 		$arr[$k]['id'] = $row['id'];
 		$arr[$k]['cat'] = $row['eqcat'];
-		$arr[$k]['nama'] = '['.$row['kode'].'] '.$row['nama'].' '.$arr[$k]['id'];
+		$arr[$k]['nama'] = '['.$row['kode'].'] '.$row['nama'].' '.$row['id'];
 		$k++;
 	}
 	mysql_free_result($q);

@@ -28,11 +28,12 @@ Ext.define('rcm.view.dataentry.DaftarGagal', {
 				//me.rowClick(record.get('id'), record.get('idevent'));	//	record.raw.value
 				//console.log("ide: "+record.get('idevent')+", ev: "+record.idevent);
 				//rcmSettings.asa = record.;
-				//alert("id: "+record.get('id')+", event: "+record.get('idevent'));
+				//alert("unit_id: "+record.get('eqid')+", event: "+record.get('idevent'));
+				me.row1Click(record.get('eqid'));
 			},
 			itemdblclick: function(dv, record, item, index, e)	{
 			//	alert("double click");
-				me.rowClick(record.get('id'), record.get('idevent'));	//	record.raw.value
+				me.row2Click(record.get('id'), record.get('idevent'));	//	record.raw.value
 			}
 		},
 		
@@ -137,7 +138,14 @@ Ext.define('rcm.view.dataentry.DaftarGagal', {
         
 	},
 
-	rowClick: function(id, ev, dv, record, item, index, e)	{
+	row1Click: function(id)	{
+		//alert(id);
+		//this.fireEvent('infoDetailGagal', id,ev);
+		//rcmSettings.asa = record;
+		//rcmSettings.sas = record.raw.value;
+	},
+
+	row2Click: function(id, ev, dv, record, item, index, e)	{
 		//alert(id);
 		this.fireEvent('infoDetailGagal', id,ev);
 		//rcmSettings.asa = record;

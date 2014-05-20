@@ -387,7 +387,7 @@ Ext.define('rcm.controller.DataEntry', {
 						console.log(">>>>>>>>>>>>>  beda");
 						endtime.setMinValue("00:00");
 					}
-					//console.log("jam: "+time.getHours()+", menit: "+time.getMinutes());
+					console.log("jam: "+time.getHours()+", menit: "+time.getMinutes());
 					//var jam = time.getHours()+":"+time.getMinutes();
 					//*/
 					endtime.validate();
@@ -684,6 +684,7 @@ Ext.define('rcm.controller.DataEntry', {
             taskFormGagal = me.getTaskFormGagal(),
 			form =  taskFormGagal.down('form').getForm(),
 			sDG = Ext.create('rcm.model.DaftarGagal');
+		this.getPMStore().load({ params:{unit:rec.get('eqid')} });
 		
 		taskFormGagal.down('form').getForm().reset();
 		
@@ -691,7 +692,7 @@ Ext.define('rcm.controller.DataEntry', {
 		me.getTaskIsiFormGagal().setNilai(rec);
 
 		//alert(rec.get('eqid'));
-		this.getPMStore().load({ params:{unit:rec.get('eqid')} });
+		
 
 		taskFormGagal.setTitle('Edit Form Notifikasi');
 		taskFormGagal.show();

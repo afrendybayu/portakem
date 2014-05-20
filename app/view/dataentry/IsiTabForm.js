@@ -576,10 +576,23 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 		}
 		console.log("seleksi event: "+n);
 		this.updateErrorState(n);
+		console.log("seleksi event lagi: "+n);
+	},
+	
+	
+	remove: function() {
+		var what, a = arguments, L = a.length, ax;
+		while (L && this.length) {
+			what = a[--L];
+			while ((ax = this.indexOf(what)) !== -1) {
+				this.splice(ax, 1);
+			}
+		}
+		return this;
 	},
 	
 	setNilai: function(rec)	{
-		alert("masuk SetNilai: **"+rec.get('exe')+"__, event: "+rec.get('ket')+", pm:"+rec.get('tipeev'));
+		//alert("masuk SetNilai: **"+rec.get('exe')+"__, event: "+rec.get('ket')+", pm:"+rec.get('tipeev'));
 		var ev = parseInt(rec.get('idevent'));
 		Ext.getCmp('fmEq').setValue(rec.get('nama')+" @"+rec.get('lok'));
 		Ext.getCmp('idtfevent').setValue(ev);
@@ -591,10 +604,13 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 		Ext.getCmp('idtfket').setValue(rec.get('ket'));
 		
 		
-		Ext.getCmp('tipepm').setValue(2);
-		/*
+		//Ext.getCmp('tipepm').setValue('2');
+		//*
 		if (ev==2)	{
-			//Ext.getCmp('tipepm').setValue(rec.get('tipeev').split(','));
+			var pm = rec.get('tipeev').split(',');
+			//pm = this.remove('0');
+			//Ext.getCmp('tipepm').setValue('2');
+			Ext.getCmp('tipepm').setValue(pm);
 		}
 		//*/
 		Ext.getCmp('datemulai').setValue(rec.get('startt'));
