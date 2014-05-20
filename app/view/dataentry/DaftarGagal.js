@@ -4,18 +4,7 @@ Ext.define('rcm.view.dataentry.DaftarGagal', {
 	alias: 'widget.daftarGagal',
 	xtype: 'taskDaftarGagal',
 	//id: 'daftargagal',
-	
-    
 	store: 'DaftarGagal',
-	/*
-	listeners: {
-		itemclick: function(dv, record, item, index, e) {
-			
-			rowClick(record.get('id'), record.raw.value);
-			alert(record.get('id'));
-		}
-	},
-	//*/
 	
 	viewConfig: {
         getRowClass: function(record, index) {
@@ -36,10 +25,14 @@ Ext.define('rcm.view.dataentry.DaftarGagal', {
 		
 		me.listeners = {
 			itemclick: function(dv, record, item, index, e) {
-				me.rowClick(record.get('id'), record.get('idevent'));	//	record.raw.value
+				//me.rowClick(record.get('id'), record.get('idevent'));	//	record.raw.value
 				//console.log("ide: "+record.get('idevent')+", ev: "+record.idevent);
 				//rcmSettings.asa = record.;
 				//alert("id: "+record.get('id')+", event: "+record.get('idevent'));
+			},
+			itemdblclick: function(dv, record, item, index, e)	{
+			//	alert("double click");
+				me.rowClick(record.get('id'), record.get('idevent'));	//	record.raw.value
 			}
 		},
 		

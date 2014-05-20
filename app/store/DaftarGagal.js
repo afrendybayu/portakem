@@ -4,7 +4,7 @@ new Ext.define('rcm.store.DaftarGagal', {
     model: 'rcm.model.DaftarGagal',
     requires: 'rcm.model.DaftarGagal',
     
-	autoLoad: true,
-	autoSync: true
+	autoLoad: true
+	//autoSync: true
 });
 

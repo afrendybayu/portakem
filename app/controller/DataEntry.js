@@ -470,21 +470,21 @@ Ext.define('rcm.controller.DataEntry', {
 	},
     
     pilihInfoDetailGagalClick: function(id, ev)	{
-		//Ext.getCmp('bgDetail').expand();
-		Ext.getCmp('bgDetail').setHeight(300);
+		//
+		//Ext.getCmp('bgDetail').setHeight(300);
 		//console.log("pilihInfoDetailGagalClick id: "+id+", event: "+ev);
 		this.getDetailGagalStore().load({ params:{id:id} });
-		this.getEventInfoStore().load({ params:{id:id} });
-		var n = this.getNoteStore().load({ params:{id:id} });
-		alert(n.getAt(0));
-		rcmSettings.asa = n;
+		var jD = this.getEventInfoStore().load({ params:{id:id} });
+		//alert(jD.getCount());
 		
 		//Ext.getCmp('htmleddet').getToolbar().hide();
-		Ext.getCmp('htmleddet').setValue("aaaaa");
+		var n = this.getNoteStore().load({ params:{id:id} });
+		Ext.getCmp('htmleddet').setValue(n.getAt(0).get('ket'));
 		//Ext.getCmp('htmleddet').setReadOnly(true)
 		
-		/*
+		
 		var html = Ext.getCmp('idinfofmea');
+		/*
 		if (ev>2)	{
 			html.expand();
 			//html.setHeight(150);
@@ -493,7 +493,14 @@ Ext.define('rcm.controller.DataEntry', {
 			html.collapse();
 			//html.setHeight(40);
 		}
+		
+		if (jD.getCount()>0)
+			html.setTitle("Unit Failure List [ "+jD.getCount()+" failure ]");
+		else 
+			html.setTitle("Unit Failure List ");
 		//*/
+		
+		//Ext.getCmp('bgDetail').expand();
 	},
     
 	pilihEditDGClick: function(grid, row, col, column, e)	{
