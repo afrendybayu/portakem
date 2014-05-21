@@ -68,17 +68,19 @@ try {
 	$arr = array(); $k=0;
 	while ($row = mysql_fetch_assoc($q)) {
 		$z=0;
-		/*
+		//*
 		for ($z=0; $z<count($arreq); $z++)	{
 			if ($row['eqcat']==$arreq[$z]['cat'])
-				//$arr[$k]['id'] = 'e'.$arreq[$z]['id'].'pm'.$row['id'];
+				$arr[$k]['id'] = 'e'.$arreq[$z]['id'].'pm'.$row['id'];
 				//$arr[$k]['id'] = 'id'.$row['id'].'c'.$arreq[$z]['cat'];
+				//$arr[$k]['id'] = 'e'.$row['id'].'i'.$row['id'];
+				
 		}
 		//*/
 		
-		$arr[$k]['id'] = $row['id'];
+		//$arr[$k]['id'] = $row['id'];
 		$arr[$k]['cat'] = $row['eqcat'];
-		$arr[$k]['nama'] = '['.$row['kode'].'] '.$row['nama'].' '.$row['id'];
+		$arr[$k]['nama'] = '['.$row['kode'].'] '.$row['nama'].' '.$arr[$k]['id'];
 		$k++;
 	}
 	mysql_free_result($q);

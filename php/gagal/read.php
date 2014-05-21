@@ -3,7 +3,7 @@
 include '../connection.php';
 
 try {
-
+	/*
 	$sql =	"SELECT waktudown.id,eqid,waktudown.unit_id,kode,fm,pmdef.nama as namapm,down_id, ".
 			"downt,downj,upt,upj,startt,startj,endt,endj,event as idevent,tipeev,waktudown.ket,exe ".
 			",(select hirarki.nama from hirarki where hirarki.id = ".
@@ -19,6 +19,20 @@ try {
 			"LEFT JOIN pmdef ON pmdef.id = waktudown.tipeev ".
 			"order by downt desc, downj desc";
 			//"group by down_id ".
+	//*/
+	$sql =  "SELECT waktudown.id,event as idevent,tipeev ".
+			",(select pmdef.nama from pmdef where pmdef.id = (select pmlist.pm from pmlist where pmlist.id=tipeev)) as namapm ".
+			",eqid,waktudown.unit_id,kode,fm,downt,downj,upt,upj,startt,startj,endt,endj,waktudown.ket,exe ".
+			",(select hirarki.nama from hirarki where hirarki.id ".
+			"	= (select hirarki.parent from hirarki where hirarki.id ".
+			"	= (select hirarki.parent from hirarki where hirarki.id = equip.unit_id))) as lok ".
+			",listEvent.nama as event, equip.unit_id ".
+			",(select nama from hirarki where hirarki.id = (select unit_id from equip where id = waktudown.eqid)) as nama ".
+			"FROM waktudown ".
+			"LEFT JOIN listEvent ON listEvent.id = waktudown.event ".
+			"LEFT JOIN equip ON equip.id = waktudown.eqid ".
+			"LEFT JOIN event ON event.down_id = waktudown.id ".
+			"order by downt desc, downj desc;";
 	//echo "sql: $sql<br/><br/>";
 	$q = db_query($sql);
 
@@ -45,7 +59,7 @@ try {
 					if (strlen($isi[$jml]['fm'])>0)
 						$isi[$jml]['fm'] .= "&nbsp;&nbsp;";
 					$isi[$jml]['fm'] .= "[{$row['kode']}: {$row['namapm']}]";
-					$isi[$jml]['tipeev'] .= ",".$row['tipeev'];
+					$isi[$jml]['tipeev'] .= ",".'e'.$row['id'].'pm'.$row['tipeev'];
 				}
 			} else if (($ax==3) || ($ax==4)) {
 				//echo "fm: {$row['fm']}<br/>";
@@ -68,7 +82,7 @@ try {
 			$isi[$jml]['idevent'] = $row['idevent'];
 			$isi[$jml]['ket'] = $row['ket'];
 			$isi[$jml]['exe'] = $row['exe'];
-			$isi[$jml]['tipeev'] = $row['tipeev'];
+			$isi[$jml]['tipeev'] = 'e'.$row['id'].'pm'.$row['tipeev'];
 			
 			if ($row['idevent']==1) { 		// standby
 				$isi[$jml]['startt'] = '';		$isi[$jml]['startj'] = '';
@@ -90,7 +104,7 @@ try {
 				$isi[$jml]['startj'] = date('H:i',	strtotime("{$row["startt"]} {$row["startj"]}"));
 				$isi[$jml]['endt'] = date('d-m-Y',	strtotime("{$row["endt"]} {$row["endj"]}"));
 				$isi[$jml]['endj'] = date('H:i',	strtotime("{$row["endt"]} {$row["endj"]}"));
-				if (isset($row['fm'])) {
+				if (isset($row['fm']) && $row['fm']!='') {
 					$isi[$jml]['fm'] = "[{$row['kode']}: {$row['fm']}]";
 					//array_push($tar,$row['fm']);
 					//$mdar[$row['kode']] = $row['kode'];
@@ -113,10 +127,13 @@ try {
 		//$isi[$jml]['fm'] .=
 	}
 	mysql_free_result($q);
-	//print_r($isi);
-	
-	
-	//print_r($isi);
+	/*
+	foreach($isi as $i)	{
+		print_r($i);
+		echo "<br/><br/>";
+	}
+	return;
+	//*/
 	
     $jsonResult = array(
         'success' => true,

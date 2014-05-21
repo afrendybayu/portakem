@@ -135,7 +135,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
                 icon: 'modul/icons/savedisk.png',
                 hidden: true,
                 text: 'Update',
-                width: 140,
+                width: 140
                 /*
                 handler: function() {
 					var ev = Ext.getCmp('updateRh').getValue();
@@ -579,9 +579,10 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 			Ext.getCmp('TFpm').setVisible(false);
 			Ext.getCmp('TFmt').setVisible(false);
 			Ext.getCmp('TFst').setVisible(false);
+			Ext.getCmp('TFTmbl').setVisible(false);
 			Ext.getCmp('TFGrid').setVisible(false);
 			Ext.getCmp('idexe').setVisible(false);
-
+			
 
 		} 
 		else if (n==2)	{
@@ -597,8 +598,9 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 			Ext.getCmp('TFpm').setVisible(true);
 			Ext.getCmp('TFmt').setVisible(true);
 			Ext.getCmp('TFst').setVisible(true);
-			Ext.getCmp('TFGrid').setVisible(false);
+			Ext.getCmp('TFTmbl').setVisible(false);
 			Ext.getCmp('idexe').setVisible(true);
+			Ext.getCmp('TFGrid').setVisible(false);
 			//*/
 		} else	{ // BD & CR
 			/*
@@ -612,8 +614,9 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 			Ext.getCmp('TFpm').setVisible(false);
 			Ext.getCmp('TFmt').setVisible(true);
 			Ext.getCmp('TFst').setVisible(true);
-			Ext.getCmp('TFGrid').setVisible(true);
+			Ext.getCmp('TFTmbl').setVisible(true);
 			Ext.getCmp('idexe').setVisible(true);
+			Ext.getCmp('TFGrid').setVisible(true);
 		}
 		console.log("seleksi event: "+n);
 		this.updateErrorState(n);
@@ -636,7 +639,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 		Ext.getCmp('save-task-fg-btn').setVisible(false);
 		Ext.getCmp('update-rh').setVisible(true);
 		
-		alert("masuk SetNilai: **"+rec.get('ket'));
+		alert("masuk SetNilai: **"+rec.get('ket')+", pm: "+rec.get('tipeev'));
 		var ev = parseInt(rec.get('idevent'));
 		Ext.getCmp('fmEq').setValue(rec.get('nama')+" @"+rec.get('lok'));
 		Ext.getCmp('idtfevent').setValue(ev);

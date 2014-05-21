@@ -452,19 +452,37 @@ Ext.define('rcm.controller.DataEntry', {
 	},
     
     pilihInfoDetailGagalClick: function(id, ev)	{
-
 		//Ext.getCmp('bgDetail').setHeight(300);
 		this.getDetailGagalStore().load({ params:{id:id} });
-		var jD = this.getEventInfoStore().load({ params:{id:id} });
+		// var jD = 
+		this.getEventInfoStore().load({ 
+			params:{id:id},
+			scope: this,
+			callback: function(rec, operation, success) {
+				if (success) {
+					//alert("getEventInfoStore: **************");		// + category.get('name'));
+					rcmSettings.asa = rec;
+				}
+			}
+		});
 		
 		//Ext.getCmp('htmleddet').getToolbar().hide();
-		var n = this.getNoteStore().load({ params:{id:id} });
-		Ext.getCmp('htmleddet').setValue(n.getAt(0).get('ket'));
+		this.getNoteStore().load({ 
+			params:{id:id},
+			scope: this,
+			callback: function(rec, operation, success) {
+				if (success) {
+					Ext.getCmp('htmleddet').setValue(rec[0].get('ket'));
+					//alert(rec[0].get('ket'));
+				}
+			}
+		});
+		//Ext.getCmp('htmleddet').setValue(n.getAt(0).get('ket'));
 		//Ext.getCmp('htmleddet').setReadOnly(true)
 		
 		
 		var html = Ext.getCmp('idinfofmea');
-		/*
+		//*
 		if (ev>2)	{
 			html.expand();
 			//html.setHeight(150);

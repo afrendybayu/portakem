@@ -16,7 +16,7 @@ try {
 	$id = implode(",",array_filter($rid));
 	//echo "id: $id<br/><br/>";
 	
-	
+	/*
 	$sql =	"SELECT waktudown.id,eqid,kode,fm,pmdef.nama as namapm,down_id,exe,".
 			"downt,downj,upt,upj,startt,startj,endt,endj,event as idevent,tipeev ".
 			",(select hirarki.nama from hirarki where hirarki.id = ".
@@ -32,8 +32,22 @@ try {
 			"LEFT JOIN pmdef ON pmdef.id = waktudown.tipeev ".
 			"where waktudown.id in ($id) ".
 			"order by downt desc, downj desc";
-			//"group by down_id ".
-	
+			//"group by down_id "
+	//*/
+	$sql =	"SELECT waktudown.id,event as idevent,tipeev,eqid,kode,fm ".
+			",(select pmdef.nama from pmdef where pmdef.id = (select pmlist.pm from pmlist where pmlist.id=tipeev)) as namapm ".
+			",down_id,exe,downt,downj,upt,upj,startt,startj,endt,endj ".
+			",(select hirarki.nama from hirarki where hirarki.id ".
+			"	= (select hirarki.parent from hirarki where hirarki.id ".
+			"	= (select hirarki.parent from hirarki where hirarki.id = equip.unit_id))) as lok ".
+			",listEvent.nama as event, equip.unit_id ".
+			",(select nama from hirarki where hirarki.id = (select unit_id from equip where id = waktudown.eqid)) as nama ".
+			"FROM waktudown ".
+			"LEFT JOIN listEvent ON listEvent.id = waktudown.event ".
+			"LEFT JOIN equip ON equip.id = waktudown.eqid ".
+			"LEFT JOIN event ON event.down_id = waktudown.id ".
+			"LEFT JOIN pmdef ON pmdef.id = waktudown.tipeev ".
+			"where waktudown.id in ($id) order by downt desc, downj desc";
 	//echo "sql: $sql<br/>";
 	$q = db_query($sql);
 

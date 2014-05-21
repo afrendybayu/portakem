@@ -225,12 +225,17 @@ try {
 	$jmlpm = count($tipeev);
 	//$tipeev = array("e34pm1", "e33pm15");
 	for($i=0; $i<$jmlpm; $i++)	{
+		
+		
+		
+		//*
 		$pmx  = explode("pm", $tipeev[$i]);
 		//print_r($pmx); echo "<br/>";
 		$ideq = explode("e", $pmx[0]);
 		//echo "id: {$ideq[1]}<br/>";
 		$pm[$i][0] = $ideq[1];
 		$pm[$i][1] = $pmx[1];
+		//*/
 	}
 	
 	

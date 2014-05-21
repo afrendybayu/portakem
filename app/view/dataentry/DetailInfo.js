@@ -11,8 +11,8 @@ Ext.define('rcm.view.dataentry.DetailInfo', {
 			weight: 100
 		}, {
 			title: 'Failure List',
-			//collapsible: true,
-			//collapsed: true,
+			collapsible: true,
+			collapsed: true,
 			id: 'idinfofmea',
 			title: 'Unit Failure List',
 			region: 'center',
