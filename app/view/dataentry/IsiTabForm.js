@@ -563,38 +563,19 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 	},
 	
 	pilihEventG: function(n)	{
-		var mx = this.items.items;
+		//var mx = this.items.items;
 		var ev = Ext.getCmp('idtfevent').getSubmitValue();
-		console.log("masuk pilih Event ev: "+ev);
+		//console.log("masuk pilih Event ev: "+ev);
 		this.fireEvent('plhEventGagalXY', n);
 		if (n==1)	{		// StandBy
-			/*
-			mx[1].setVisible(false);
-			mx[3].setVisible(false);
-			mx[5].setVisible(false);
-			mx[6].setVisible(false);
-			mx[7].setVisible(false);
-			mx[9].setVisible(false);
-			//*/
 			Ext.getCmp('TFpm').setVisible(false);
 			Ext.getCmp('TFmt').setVisible(false);
 			Ext.getCmp('TFst').setVisible(false);
 			Ext.getCmp('TFTmbl').setVisible(false);
 			Ext.getCmp('TFGrid').setVisible(false);
 			Ext.getCmp('idexe').setVisible(false);
-			
-
 		} 
 		else if (n==2)	{
-			/*
-			mx[1].setVisible(true);
-			mx[3].setVisible(true);
-			mx[5].setVisible(true);
-			mx[6].setVisible(false);
-			mx[7].setVisible(false);
-			mx[9].setVisible(true);
-			//*/
-			//*
 			Ext.getCmp('TFpm').setVisible(true);
 			Ext.getCmp('TFmt').setVisible(true);
 			Ext.getCmp('TFst').setVisible(true);
@@ -603,14 +584,6 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 			Ext.getCmp('TFGrid').setVisible(false);
 			//*/
 		} else	{ // BD & CR
-			/*
-			mx[1].setVisible(false);
-			mx[3].setVisible(true);
-			mx[5].setVisible(true);
-			mx[6].setVisible(true);
-			mx[7].setVisible(true);
-			mx[9].setVisible(true);
-			//*/
 			Ext.getCmp('TFpm').setVisible(false);
 			Ext.getCmp('TFmt').setVisible(true);
 			Ext.getCmp('TFst').setVisible(true);
@@ -618,9 +591,9 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 			Ext.getCmp('idexe').setVisible(true);
 			Ext.getCmp('TFGrid').setVisible(true);
 		}
-		console.log("seleksi event: "+n);
+		//console.log("seleksi event: "+n);
 		this.updateErrorState(n);
-		console.log("seleksi event lagi: "+n);
+		//console.log("seleksi event lagi: "+n);
 	},
 	
 	
@@ -639,7 +612,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 		Ext.getCmp('save-task-fg-btn').setVisible(false);
 		Ext.getCmp('update-rh').setVisible(true);
 		
-		alert("masuk SetNilai: **"+rec.get('ket')+", pm: "+rec.get('tipeev'));
+		//alert("masuk SetNilai: **"+rec.get('ket')+", pm: "+rec.get('tipeev'));
 		var ev = parseInt(rec.get('idevent'));
 		Ext.getCmp('fmEq').setValue(rec.get('nama')+" @"+rec.get('lok'));
 		Ext.getCmp('idtfevent').setValue(ev);
@@ -647,19 +620,20 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 		Ext.getCmp('timedown').setValue(rec.get('downj'));
 		Ext.getCmp('dateup').setValue(rec.get('upt'));
 		Ext.getCmp('timeup').setValue(rec.get('upj'));
-		Ext.getCmp('idexe').setValue(rec.get('ket'));
-		Ext.getCmp('idtfket').setValue(rec.get('exe'));
+		Ext.getCmp('idexe').setValue(rec.get('exe')+" "+rec.get('ket'));
+		Ext.getCmp('idtfket').setValue(rec.get('ket')+" "+rec.get('exe'));
 		
 		//Ext.getCmp('idtfket').setValue('cobacoab');
-		
-		
 		//Ext.getCmp('tipepm').setValue('2');
 		//*
 		if (ev==2)	{
-			var pm = rec.get('tipeev').split(',');
-			//pm = this.remove('0');
-			//Ext.getCmp('tipepm').setValue('2');
+			
+			var pm = rec.get('tipeev').split(",");
+			alert(pm);
+			//var pm = "e59pm16,e58pm2";
+			//alert("PM: "+pm[0]);
 			Ext.getCmp('tipepm').setValue(pm);
+			//Ext.getCmp('tipepm').setValue(pm);
 		}
 		//*/
 		Ext.getCmp('datemulai').setValue(rec.get('startt'));
@@ -668,8 +642,8 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 		Ext.getCmp('timeselesai').setValue(rec.get('endj'));
 		
 		
-		
-		rcmSettings.asa = Ext.getCmp('update-rh');
+		return (rec.get('tipeev'));
+		//rcmSettings.asa = Ext.getCmp('update-rh');
 	},
 	
 	ubahButton: function(x)	{

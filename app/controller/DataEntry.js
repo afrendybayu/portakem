@@ -697,7 +697,7 @@ Ext.define('rcm.controller.DataEntry', {
 
 		taskFormGagal.setTitle('Edit Form Notifikasi');
 		taskFormGagal.show();
-
+		//alert(a);
 	},
 
 	

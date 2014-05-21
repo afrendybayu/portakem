@@ -59,7 +59,7 @@ try {
 					if (strlen($isi[$jml]['fm'])>0)
 						$isi[$jml]['fm'] .= "&nbsp;&nbsp;";
 					$isi[$jml]['fm'] .= "[{$row['kode']}: {$row['namapm']}]";
-					$isi[$jml]['tipeev'] .= ",".'e'.$row['id'].'pm'.$row['tipeev'];
+					$isi[$jml]['tipeev'] .= ",".'e'.$row['eqid'].'pm'.$row['tipeev'];
 				}
 			} else if (($ax==3) || ($ax==4)) {
 				//echo "fm: {$row['fm']}<br/>";
@@ -82,7 +82,7 @@ try {
 			$isi[$jml]['idevent'] = $row['idevent'];
 			$isi[$jml]['ket'] = $row['ket'];
 			$isi[$jml]['exe'] = $row['exe'];
-			$isi[$jml]['tipeev'] = 'e'.$row['id'].'pm'.$row['tipeev'];
+			$isi[$jml]['tipeev'] = 'e'.$row['eqid'].'pm'.$row['tipeev'];
 			
 			if ($row['idevent']==1) { 		// standby
 				$isi[$jml]['startt'] = '';		$isi[$jml]['startj'] = '';
