@@ -189,6 +189,9 @@ Ext.define('rcm.controller.DataEntry', {
 			'#save-task-fg-btn': {
 				click: me.simpanGagalClick
 			},
+			'#update-rh': {
+				click: me.updateGagalClick
+			},
 			'#tambah-fmea-btn': {
 				click: me.tambahFMEAClick
 			},
@@ -295,15 +298,16 @@ Ext.define('rcm.controller.DataEntry', {
 	},
 
 	onLaunch: function() {
-		
-        //var RunningStore = this.getRunningHourStore();
+
         //RunningStore.load({
 		//	callback: this.onRunningLoad,
 		//	scope: this
         //});
         //*/
-        Ext.QuickTips.init();
-        Ext.getCmp('htmleddet').setReadOnly(true)
+        
+        //Ext.QuickTips.init();
+        Ext.getCmp('htmleddet').setReadOnly(true);
+        //*
         Ext.apply(Ext.form.field.VTypes, {
 			daterange: function(val, field) {
 				var date = field.parseDate(val);
@@ -325,21 +329,6 @@ Ext.define('rcm.controller.DataEntry', {
 						//console.log("tgl up BEDAAAA, st: "+start.getValue()+", stop: "+enddate.getValue());
 						endtime.setMinValue("00:00");
 					}
-
-					/*
-					if (sttdate.getValue().getTime()==du.getTime())	{
-						//alert("sama waktu");
-						if (td.getTime()>tu.getTime())	{
-							Ext.getCmp('save-task-fg-btn').disable();
-							alert("Input Waktu masih salah !");
-						//} else {
-						//	Ext.getCmp('save-task-fg-btn').enable();
-						}
-					} 
-					//else {
-						//var endtime = field.up('form').down('#' + field.endTimeField);
-						//endtime.setMinValue("00:00");
-					//*/
 					
 					
 					start.setMaxValue(date);
@@ -377,19 +366,7 @@ Ext.define('rcm.controller.DataEntry', {
 					console.log("parse st: "+Date.parse(sttdate.getValue())+", en: "+Date.parse(enddate.getValue()));
 					console.log("start date: "+sttdate.getValue()+", stopdate: "+enddate.getValue());
 					
-					//*
-					if (Date.parse(sttdate.getValue()) == Date.parse(enddate.getValue()))	{
-						console.log(">>>>>>>>>>>>> waktu SAMA");
-						endtime.setMinValue(time);
-					} 
-					//*
-					else {
-						console.log(">>>>>>>>>>>>>  beda");
-						endtime.setMinValue("00:00");
-					}
-					console.log("jam: "+time.getHours()+", menit: "+time.getMinutes());
-					//var jam = time.getHours()+":"+time.getMinutes();
-					//*/
+
 					endtime.validate();
 					this.timeRangeMin = time;
 				}
@@ -397,12 +374,11 @@ Ext.define('rcm.controller.DataEntry', {
 			},
 			timerangeText: 'Start Time must be less than end time',
 		});
+		//*/
 		this.ubahFieldRH();
         console.log("ini muncul: onLaunch");
     },
-    
-    
-    
+
     onDaftarGagalLoad: function() {
 		console.log("masuk callback onDaftarGagalLoad");
     },
@@ -476,7 +452,7 @@ Ext.define('rcm.controller.DataEntry', {
 	},
     
     pilihInfoDetailGagalClick: function(id, ev)	{
-		//
+
 		//Ext.getCmp('bgDetail').setHeight(300);
 		this.getDetailGagalStore().load({ params:{id:id} });
 		var jD = this.getEventInfoStore().load({ params:{id:id} });
@@ -506,6 +482,13 @@ Ext.define('rcm.controller.DataEntry', {
 		//*/
 		
 		//Ext.getCmp('bgDetail').expand();
+		//alert("tesss");
+		//Ext.suspendLayouts();
+		//Ext.resumeLayouts(true);
+		
+		rcmSettings.asa = Ext.getCmp('save-task-fg-btn');
+		
+		//Ext.getCmp('save-task-fg-btn').setText("Update");
 	},
     
 
@@ -692,7 +675,7 @@ Ext.define('rcm.controller.DataEntry', {
 		me.getTaskIsiFormGagal().setNilai(rec);
 
 		//alert(rec.get('eqid'));
-		
+		Ext.getCmp('idtfket').setValue('cobacoab');
 
 		taskFormGagal.setTitle('Edit Form Notifikasi');
 		taskFormGagal.show();
@@ -710,7 +693,13 @@ Ext.define('rcm.controller.DataEntry', {
 		return t.getHours()+':'+t.getMinutes();
 	},
 	
+	updateGagalClick: function()	{
+		alert("update Data DataEntry");
+		this.getTaskFormGagal().close();
+	},
+	
 	simpanFormGagal: function()	{
+		//alert(this.getTaskIsiFormGagal().getCmp('save-task-fg-btn').getText());
 		//console.log("simpan data simpanFormGagal: "+rcmSettings.eqx);
 		var taskFormGagal = this.getTaskFormGagal(),
             windowEl = taskFormGagal.getEl(),
@@ -718,9 +707,12 @@ Ext.define('rcm.controller.DataEntry', {
             me = this,
             task = form.getRecord();
 
-		var	id = form.findField('fgid').getValue(), eq = form.findField('eq'), cat = rcmSettings.cat,
-			event = form.findField('tfevent').getValue(), tipeev = form.findField('tipepm').getValue(),
-			ket = form.findField('tfket').getValue(), exe = form.findField('exe').getValue(),
+		var	id = form.findField('fgid').getValue(),
+			eq = form.findField('eq'), cat = rcmSettings.cat,
+			event = form.findField('tfevent').getValue(),
+			tipeev = form.findField('tipepm').getValue(),
+			ket = form.findField('tfket').getValue(),
+			exe = form.findField('exe').getValue(),
 			dd = this.getDate(form.findField('datedown').getValue()), 
 			td = this.getTime(form.findField('timedown').getValue()),
 			dm = this.getDate(form.findField('datemulai').getValue()), 

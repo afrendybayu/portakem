@@ -120,13 +120,29 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
                 disabled: true,
                 text: 'Simpan Data',
                 width: 140,
+                /*
                 handler: function() {
 					var ev = Ext.getCmp('idtfevent').getValue();
                     if (ev && ev>0)	{
 						
 					}
                 }
-            }]
+                //*/
+            }, {
+				xtype: 'button',
+                //formBind: true,
+                id:'update-rh',
+                icon: 'modul/icons/savedisk.png',
+                hidden: true,
+                text: 'Update',
+                width: 140,
+                /*
+                handler: function() {
+					var ev = Ext.getCmp('updateRh').getValue();
+					//alert("updteeeeeeeee");
+                }
+				//*/
+			}]
 	}],
 
 	initComponent: function() {
@@ -436,6 +452,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 				name: 'tfket',
 				id: 'idtfket',
 				fieldLabel: 'Keterangan',
+				msgTarget: 'side',
 				height: 80,
 				//anchor: '100%'
 			},{			// 9 Pelaksana
@@ -550,29 +567,53 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 		var ev = Ext.getCmp('idtfevent').getSubmitValue();
 		console.log("masuk pilih Event ev: "+ev);
 		this.fireEvent('plhEventGagalXY', n);
-		if (n==1)	{
+		if (n==1)	{		// StandBy
+			/*
 			mx[1].setVisible(false);
 			mx[3].setVisible(false);
 			mx[5].setVisible(false);
 			mx[6].setVisible(false);
 			mx[7].setVisible(false);
 			mx[9].setVisible(false);
+			//*/
+			Ext.getCmp('TFpm').setVisible(false);
+			Ext.getCmp('TFmt').setVisible(false);
+			Ext.getCmp('TFst').setVisible(false);
+			Ext.getCmp('TFGrid').setVisible(false);
+			Ext.getCmp('idexe').setVisible(false);
+
+
 		} 
 		else if (n==2)	{
+			/*
 			mx[1].setVisible(true);
 			mx[3].setVisible(true);
 			mx[5].setVisible(true);
 			mx[6].setVisible(false);
 			mx[7].setVisible(false);
 			mx[9].setVisible(true);
-			
+			//*/
+			//*
+			Ext.getCmp('TFpm').setVisible(true);
+			Ext.getCmp('TFmt').setVisible(true);
+			Ext.getCmp('TFst').setVisible(true);
+			Ext.getCmp('TFGrid').setVisible(false);
+			Ext.getCmp('idexe').setVisible(true);
+			//*/
 		} else	{ // BD & CR
+			/*
 			mx[1].setVisible(false);
 			mx[3].setVisible(true);
 			mx[5].setVisible(true);
 			mx[6].setVisible(true);
 			mx[7].setVisible(true);
 			mx[9].setVisible(true);
+			//*/
+			Ext.getCmp('TFpm').setVisible(false);
+			Ext.getCmp('TFmt').setVisible(true);
+			Ext.getCmp('TFst').setVisible(true);
+			Ext.getCmp('TFGrid').setVisible(true);
+			Ext.getCmp('idexe').setVisible(true);
 		}
 		console.log("seleksi event: "+n);
 		this.updateErrorState(n);
@@ -592,7 +633,10 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 	},
 	
 	setNilai: function(rec)	{
-		//alert("masuk SetNilai: **"+rec.get('exe')+"__, event: "+rec.get('ket')+", pm:"+rec.get('tipeev'));
+		Ext.getCmp('save-task-fg-btn').setVisible(false);
+		Ext.getCmp('update-rh').setVisible(true);
+		
+		alert("masuk SetNilai: **"+rec.get('ket'));
 		var ev = parseInt(rec.get('idevent'));
 		Ext.getCmp('fmEq').setValue(rec.get('nama')+" @"+rec.get('lok'));
 		Ext.getCmp('idtfevent').setValue(ev);
@@ -600,8 +644,10 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 		Ext.getCmp('timedown').setValue(rec.get('downj'));
 		Ext.getCmp('dateup').setValue(rec.get('upt'));
 		Ext.getCmp('timeup').setValue(rec.get('upj'));
-		Ext.getCmp('idexe').setValue(rec.get('exe'));
-		Ext.getCmp('idtfket').setValue(rec.get('ket'));
+		Ext.getCmp('idexe').setValue(rec.get('ket'));
+		Ext.getCmp('idtfket').setValue(rec.get('exe'));
+		
+		//Ext.getCmp('idtfket').setValue('cobacoab');
 		
 		
 		//Ext.getCmp('tipepm').setValue('2');
@@ -617,5 +663,14 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 		Ext.getCmp('timemulai').setValue(rec.get('startj'));
 		Ext.getCmp('dateselesai').setValue(rec.get('endt'));
 		Ext.getCmp('timeselesai').setValue(rec.get('endj'));
+		
+		
+		
+		rcmSettings.asa = Ext.getCmp('update-rh');
+	},
+	
+	ubahButton: function(x)	{
+		//if (x==1)
+			//Ext.getCmp('save-task-fg-btn').setText("Update");
 	}
 });
