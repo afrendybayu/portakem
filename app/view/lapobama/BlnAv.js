@@ -27,9 +27,10 @@ Ext.define('rcm.view.lapobama.BlnAv', {
 					format: 'F Y',
 					margin: '0 10'
 				},{
-					xtype: 'label',
-					text: '',
-				
+					id: 'btnCariAVx',
+					xtype: 'button',
+					width: 100,
+					text: 'Submit',
 				},{
 					xtype: 'label',
 					id: 'iflAvRe',

@@ -507,12 +507,12 @@ Ext.define('rcm.controller.DataEntry', {
 			html.setTitle("Unit Failure List ");
 		//*/
 		
-		//Ext.getCmp('bgDetail').expand();
+		Ext.getCmp('bgDetail').expand();
 		//alert("tesss");
 		//Ext.suspendLayouts();
 		//Ext.resumeLayouts(true);
 		
-		rcmSettings.asa = Ext.getCmp('save-task-fg-btn');
+		//rcmSettings.asa = Ext.getCmp('save-task-fg-btn');
 		
 		//Ext.getCmp('save-task-fg-btn').setText("Update");
 	},
@@ -701,7 +701,7 @@ Ext.define('rcm.controller.DataEntry', {
 		me.getTaskIsiFormGagal().setNilai(rec);
 
 		//alert(rec.get('eqid'));
-		Ext.getCmp('idtfket').setValue('cobacoab');
+		//Ext.getCmp('idtfket').setValue('cobacoab');
 
 		taskFormGagal.setTitle('Edit Form Notifikasi');
 		taskFormGagal.show();
@@ -719,9 +719,45 @@ Ext.define('rcm.controller.DataEntry', {
 		return t.getHours()+':'+t.getMinutes();
 	},
 	
+	ambilDataForm: function()	{
+		var taskFormGagal = this.getTaskFormGagal(),
+            windowEl = taskFormGagal.getEl(),
+            form = taskFormGagal.down('form').getForm(),
+            me = this,
+            task = form.getRecord(),
+            o = {};
+
+		o.id = form.findField('fgid').getValue();
+		o.eq = form.findField('eq'), cat = rcmSettings.cat;
+		o.event = form.findField('tfevent').getValue();
+		o.tipeev = form.findField('tipepm').getValue();
+		o.ket = form.findField('tfket').getValue();
+		o.exe = form.findField('exe').getValue();
+		o.dd = this.getDate(form.findField('datedown').getValue()); 
+		o.td = this.getTime(form.findField('timedown').getValue());
+		o.dm = this.getDate(form.findField('datemulai').getValue()); 
+		o.tm = this.getTime(form.findField('timemulai').getValue());
+		o.ds = this.getDate(form.findField('dateselesai').getValue()); 
+		o.ts = this.getTime(form.findField('timeselesai').getValue());
+		o.du = this.getDate(form.findField('dateup').getValue()); 
+		o.tu = this.getTime(form.findField('timeup').getValue());
+		
+		return o;
+	},
+	
 	updateGagalClick: function()	{
-		alert("update Data DataEntry");
-		this.getTaskFormGagal().close();
+		var me=this, o = me.ambilDataForm();
+		alert("id:"+o.id+"\nevent:"+o.event+"\ndd: "+o.dd+"\ndt: "+o.td+"\ndm: "+o.dm+"\ndt: "+o.tm+
+			"\nds:"+o.ds+"\nts:"+o.ts+"\ndu: "+o.du+"\ntu: "+o.tu+"\nevent: "+o.event+"\ntipeev: "+o.tipeev+
+			"\nket:"+o.ket+"\nexe:"+o.exe+"\nserver: "+rcmSettings.server+"\ncat: "+rcmSettings.cat);
+		
+		/*
+		var rec = new rcm.model.DaftarGagal({
+			id:'u'+o.id,downt:dd,downj:td,startt:dm,startj:tm,endt:ds,endj:ts,upt:du,upj:tu,
+			event:event,tipeev:tipeev,ket:ket,exe:exe,server:rcmSettings.server,cat:rcmSettings.cat
+        });
+        //*/
+		me.getTaskFormGagal().close();
 	},
 	
 	simpanFormGagal: function()	{

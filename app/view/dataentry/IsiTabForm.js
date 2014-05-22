@@ -448,15 +448,19 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 					}
 				]
 			},{			// 8 KetEditor	
-				xtype: 'htmleditor',
+				//xtype: 'htmleditor',
+				width:509,
+				xtype: 'textarea',
 				name: 'tfket',
 				id: 'idtfket',
 				fieldLabel: 'Keterangan',
 				msgTarget: 'side',
+				flex: 1,
 				height: 80,
 				//anchor: '100%'
 			},{			// 9 Pelaksana
 				xtype: 'textfield',
+				width:509,
 				hidden: true,
 				fieldLabel: 'Pelaksana',
 				msgTarget: 'side',
@@ -615,13 +619,14 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 		//alert("masuk SetNilai: **"+rec.get('ket')+", pm: "+rec.get('tipeev'));
 		var ev = parseInt(rec.get('idevent'));
 		Ext.getCmp('fmEq').setValue(rec.get('nama')+" @"+rec.get('lok'));
+		Ext.getCmp('fgid').setValue(rec.get('id'));
 		Ext.getCmp('idtfevent').setValue(ev);
 		Ext.getCmp('datedown').setValue(rec.get('downt'));
 		Ext.getCmp('timedown').setValue(rec.get('downj'));
 		Ext.getCmp('dateup').setValue(rec.get('upt'));
 		Ext.getCmp('timeup').setValue(rec.get('upj'));
-		Ext.getCmp('idexe').setValue(rec.get('exe')+" "+rec.get('ket'));
-		Ext.getCmp('idtfket').setValue(rec.get('ket')+" "+rec.get('exe'));
+		Ext.getCmp('idexe').setValue(rec.get('exe'));
+		Ext.getCmp('idtfket').setValue(rec.get('ket'));
 		
 		//Ext.getCmp('idtfket').setValue('cobacoab');
 		//Ext.getCmp('tipepm').setValue('2');

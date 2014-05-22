@@ -173,7 +173,7 @@ try {
 	//print_r($isi);
 
 
-	/*
+	//*
 	$obj1 = new stdClass();
 	$obj1->nama = "ID";
 	$obj1->nilai = $prop['id'];

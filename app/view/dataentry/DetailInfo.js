@@ -21,8 +21,11 @@ Ext.define('rcm.view.dataentry.DetailInfo', {
 		},{
 			split: true,
 			id: 'htmleddet',
+			title: 'Note',
+			//width: 600,
 			region: 'south',
-			xtype: 'htmleditor',
+			//xtype: 'htmleditor',
+			xtype: 'textarea',
 			flex: 1
 	}]
 });

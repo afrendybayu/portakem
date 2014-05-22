@@ -74,11 +74,11 @@ Ext.define('rcm.view.Content', {
 					},{
 						id: 'bgDetail',
 						collapsible: true,
-						//collapsed: true,
+						collapsed: true,
 						split: true,
 						minHeight: 220,
 						maxHeight: 400,
-						height: 300,
+						height: 220,
 						region: 'south',
 						title: 'Info Detail DownTime',
 						icon: 'modul/icons/more.png',

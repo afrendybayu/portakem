@@ -96,7 +96,7 @@ Ext.define('rcm.view.dataentry.FormGagal', {
 			
 			},{
 				xtype: 'hiddenfield',
-				name: 'fgid',
+				id: 'fgid',
 				value: 'idhidden'
 			}],
 		}];
