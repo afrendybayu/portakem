@@ -23,8 +23,8 @@ Ext.define('rcm.view.dataentry.DaftarGagal', {
 	
 	requires: [
 		'rcm.view.dataentry.BlnGagal',
-		
 	],
+	enableColumnHide: false,
 	
 	viewConfig: {
         getRowClass: function(record, index) {
@@ -99,7 +99,7 @@ Ext.define('rcm.view.dataentry.DaftarGagal', {
 			//*	
 				filter: {
 					type: 'string',
-					//store: 'EventList'
+					store: 'EventList'
 				}//*/
 			},
 			{ header:'Unit Down',
