@@ -20,7 +20,7 @@ Ext.define('rcm.controller.DataEntry', {
         'dataentry.DetailInfo',
         'dataentry.InfoFMEA',
         'dataentry.DetailInfo',
-        //'dataentry.IsiTabForm'
+        'dataentry.BlnGagal',
         
         'laporan.Chart',
         'laporan.UploadFile',
@@ -201,6 +201,9 @@ Ext.define('rcm.controller.DataEntry', {
 			'#samarun-fmea-btn': {
 				click: me.samarunFMEAClick
 			},
+			'#btnCariDGx': {
+				click: me.cariDaftarGagal
+			},
 			'taskGridCause': {
 				gridCauseFilter: me.grafikCauseClick,
 				clrChartCause: me.grafikCauseClear
@@ -252,6 +255,11 @@ Ext.define('rcm.controller.DataEntry', {
 		sp3.items.items[0].setTitle("Availability "+jdl2);
 		sp3.items.items[1].setTitle("Reliability "+jdl2);
 		//*/
+	},
+	
+	cariDaftarGagal: function()	{
+		//alert(Ext.getCmp("iblnDG").getValue());
+		this.getDaftarGagalStore().load({ params:{ tgl:Ext.getCmp("iblnDG").getValue() } });
 	},
 
 	hirUnitAvRe: function(a)	{

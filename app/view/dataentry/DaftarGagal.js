@@ -6,6 +6,10 @@ Ext.define('rcm.view.dataentry.DaftarGagal', {
 	//id: 'daftargagal',
 	store: 'DaftarGagal',
 	
+	requires: [
+		'rcm.view.dataentry.BlnGagal'
+	],
+	
 	viewConfig: {
         getRowClass: function(record, index) {
             var c = record.get('event');
@@ -18,6 +22,13 @@ Ext.define('rcm.view.dataentry.DaftarGagal', {
             }
         }
     },
+    
+    	
+	dockedItems: [{
+		dock: 'top',
+		xtype: 'tblnGagal',
+    }],
+	
 
 	initComponent: function() {
 		var me=this, ceditp=Ext.create('Ext.grid.plugin.RowEditing');//clicksToEdit: 1

@@ -3,6 +3,29 @@
 include '../connection.php';
 
 try {
+	if (isset($_GET['tgl']) && ($_GET['tgl']!=''))	{
+		$tgl = $_GET['tgl'];
+		if (strtotime($tgl)>=strtotime("now"))	{
+			$tglak = date('Y-m-d');
+			//echo "masuk sini<br/>";
+		}
+		else {
+			$tglak = date('Y-m-t',strtotime($tgl));
+			//echo "2 masuk sini<br/>";
+		}
+	}
+	else {
+		$tglak = date('Y-m-d');
+	}
+	//$tglak = date('Y-m-t',strtotime($xx));
+	
+	$yl = 1;		// TOTAL LIST 2 BULAN
+	
+	//list($y,$m,$t) = explode("-", $tglak);
+	//$tglaw = date('Y-m-01', mktime(0, 0, 0, $m-$yl, $t, $y));
+	$tglaw = date('Y-m-01', strtotime("-$yl month"));
+	//echo "awal: $tglaw, akhir: $tglak<br/>";
+	//*/
 	/*
 	$sql =	"SELECT waktudown.id,eqid,waktudown.unit_id,kode,fm,pmdef.nama as namapm,down_id, ".
 			"downt,downj,upt,upj,startt,startj,endt,endj,event as idevent,tipeev,waktudown.ket,exe ".
@@ -32,6 +55,7 @@ try {
 			"LEFT JOIN listEvent ON listEvent.id = waktudown.event ".
 			"LEFT JOIN equip ON equip.id = waktudown.eqid ".
 			"LEFT JOIN event ON event.down_id = waktudown.id ".
+			"WHERE downt BETWEEN '$tglaw' AND '$tglak' ".
 			"order by downt desc, downj desc;";
 	//echo "sql: $sql<br/><br/>";
 	$q = db_query($sql);

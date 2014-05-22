@@ -52,7 +52,7 @@ Ext.define('rcm.view.dataentry.FormGagal', {
 		}]
 	}],
 	//*/
-	
+
 	initComponent: function() {
 		var me=this;
 		/*
