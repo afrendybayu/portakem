@@ -627,13 +627,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 		//Ext.getCmp('tipepm').setValue('2');
 		//*
 		if (ev==2)	{
-			
-			var pm = rec.get('tipeev').split(",");
-			alert(pm);
-			//var pm = "e59pm16,e58pm2";
-			//alert("PM: "+pm[0]);
-			Ext.getCmp('tipepm').setValue(pm);
-			//Ext.getCmp('tipepm').setValue(pm);
+			Ext.getCmp('tipepm').setValue(rec.get('tipeev').split(","));
 		}
 		//*/
 		Ext.getCmp('datemulai').setValue(rec.get('startt'));
@@ -642,8 +636,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 		Ext.getCmp('timeselesai').setValue(rec.get('endj'));
 		
 		
-		return (rec.get('tipeev'));
-		//rcmSettings.asa = Ext.getCmp('update-rh');
+		//return (rec.get('tipeev'));
 	},
 	
 	ubahButton: function(x)	{
