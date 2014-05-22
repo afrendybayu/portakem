@@ -6,7 +6,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 	xtype: 'taskIsiFormGagal',
 	require: [
 		'Ext.form.TextField',
-		'Ext.grid.Panel',
+		'Ext.grid.Panel'
 	],
 	
 	fieldDefaults: {

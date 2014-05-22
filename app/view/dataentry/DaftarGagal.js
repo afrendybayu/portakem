@@ -1,4 +1,19 @@
 /* AfrendyBayu, 13Nov2013 */
+
+var filters = {
+        ftype: 'filters',
+        // encode and local configuration options defined previously for easier reuse
+        //encode: encode, // json encode the filter query
+        local: true,   // defaults to false (remote filtering)
+
+        // Filters are most naturally placed in the column definition, but can also be
+        // added here.
+        filters: [{
+            type: 'boolean',
+            dataIndex: 'id'
+        }]
+};
+
 Ext.define('rcm.view.dataentry.DaftarGagal', {
 	extend: 'Ext.grid.Panel',
 	alias: 'widget.daftarGagal',
@@ -7,7 +22,8 @@ Ext.define('rcm.view.dataentry.DaftarGagal', {
 	store: 'DaftarGagal',
 	
 	requires: [
-		'rcm.view.dataentry.BlnGagal'
+		'rcm.view.dataentry.BlnGagal',
+		
 	],
 	
 	viewConfig: {
@@ -23,7 +39,9 @@ Ext.define('rcm.view.dataentry.DaftarGagal', {
         }
     },
     
-    	
+    features: [filters],
+    loadMask: true,
+    
 	dockedItems: [{
 		dock: 'top',
 		xtype: 'tblnGagal',
@@ -33,7 +51,31 @@ Ext.define('rcm.view.dataentry.DaftarGagal', {
 	initComponent: function() {
 		var me=this, ceditp=Ext.create('Ext.grid.plugin.RowEditing');//clicksToEdit: 1
 		//me.plugins = [ceditp];
+		/*
+		var fl = Ext.create('Ext.ux.grid.FiltersFeature', { 
+			local: local,   // defaults to false (remote filtering)
+			filters: [{
+				type: 'boolean',
+				dataIndex: 'visible'
+			}]
+		});
 		
+		//*/
+		/*
+		me.features = [{
+			ftype: 'filters',
+			// encode and local configuration options defined previously for easier reuse
+			encode: false, // json encode the filter query
+			local: true,   // defaults to false (remote filtering)
+
+			// Filters are most naturally placed in the column definition, but can also be
+			// added here.
+			filters: [{
+				type: 'boolean',
+				dataIndex: 'visible'
+			}]
+		}];
+		//*/
 		me.listeners = {
 			itemclick: function(dv, record, item, index, e) {
 				//me.rowClick(record.get('id'), record.get('idevent'));	//	record.raw.value
@@ -51,9 +93,14 @@ Ext.define('rcm.view.dataentry.DaftarGagal', {
 		me.columns = {	
 			items: [
 			{ xtype:'rownumberer',width:25 },
-			{ header:'Lokasi',dataIndex:'lok',width:100 },
-			{ header:'Nama Unit',dataIndex:'nama',width:135 },
-			{ header:'Kejadian',dataIndex:'event',width:75, tdCls: 'x-change-cell' },
+			{ header:'Lokasi',dataIndex:'lok',width:100
+				,filter: { 	type: 'string'  } 
+			},
+			{ header:'Nama Unit',dataIndex:'nama',width:135
+				,filter: { type: 'string' }
+			},
+			{ header:'Kejadian',dataIndex:'event',width:75, tdCls: 'x-change-cell',
+				},
 			{ header:'Unit Down',
 				columns: 
 					[	{ header: 'Tanggal', dataIndex: 'downt', width:80,

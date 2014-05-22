@@ -44,7 +44,7 @@ Ext.define('rcm.controller.DataEntry', {
         'utama.HoPie','utama.HoHistori',
         'utama.GridWO','utama.GridOrderC',
         
-        
+        'Ext.ux.grid.FiltersFeature'
         
         //'konfig.Nav',
         //'konfig.DropZone'

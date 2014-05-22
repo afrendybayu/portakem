@@ -5,7 +5,8 @@ Ext.Loader.setConfig({
     paths: {
         "Extensible": "./modul/extensible-1.5.2/src/",
         "Extensible.example": "./modul/extensible-1.5.2/examples/",
-        "Chart" : "./modul/Chart/"
+        "Chart" : "./modul/Chart/",
+        "Ext.ux.grid": "./app/view/ux/"
     }
 });
 
