@@ -93,14 +93,15 @@ Ext.define('rcm.view.dataentry.DaftarGagal', {
 		me.columns = {	
 			items: [
 			{ xtype:'rownumberer',width:25 },
-			{ header:'Lokasi',dataIndex:'lok',width:100
-				,filter: { 	type: 'string'  } 
-			},
-			{ header:'Nama Unit',dataIndex:'nama',width:135
-				,filter: { type: 'string' }
-			},
+			{ header:'Lokasi',dataIndex:'lok',width:100,filter: { 	type: 'string'  } },
+			{ header:'Nama Unit',dataIndex:'nama',width:135,filter: { type: 'string' } },
 			{ header:'Kejadian',dataIndex:'event',width:75, tdCls: 'x-change-cell',
-				},
+			//*	
+				filter: {
+					type: 'string',
+					//store: 'EventList'
+				}//*/
+			},
 			{ header:'Unit Down',
 				columns: 
 					[	{ header: 'Tanggal', dataIndex: 'downt', width:80,

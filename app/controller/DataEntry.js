@@ -66,7 +66,7 @@ Ext.define('rcm.controller.DataEntry', {
 		'AvReUnit','AvHome','ReHome','AvGroup','AvSpeedo','ReSpeedo',
 		'HoTeco','HoMan','HoOrderC','SapEPO',
 		'ConMon','ConMonUnit',
-		'DetailGagal','EventInfo','Note'
+		'DetailGagal','EventInfo','Note','EventList'
 		
     ],
 
@@ -315,6 +315,8 @@ Ext.define('rcm.controller.DataEntry', {
         
         //Ext.QuickTips.init();
         Ext.getCmp('htmleddet').setReadOnly(true);
+        
+        this.getEventListStore().load();
         //*
         Ext.apply(Ext.form.field.VTypes, {
 			daterange: function(val, field) {
@@ -389,6 +391,7 @@ Ext.define('rcm.controller.DataEntry', {
 
     onDaftarGagalLoad: function() {
 		console.log("masuk callback onDaftarGagalLoad");
+		
     },
     
 	onRunningLoad: function() {
@@ -676,10 +679,10 @@ Ext.define('rcm.controller.DataEntry', {
 		me.getEventStore().loadData([],false);
 		taskFormGagal.setWidth(500);
 		taskFormGagal.show();
-		this.getEquipStore().load({ params:{unit:dRHs.id} });
-		this.getOPartStore().load({ params:{unit:dRHs.id} });
-		this.getFModeStore().load({ params:{unit:dRHs.id} });
-		this.getPMStore().load({ params:{unit:dRHs.id} });
+		me.getEquipStore().load({ params:{unit:dRHs.id} });
+		me.getOPartStore().load({ params:{unit:dRHs.id} });
+		me.getFModeStore().load({ params:{unit:dRHs.id} });
+		me.getPMStore().load({ params:{unit:dRHs.id} });
 	},
 	
 	simpanGagalClick: function(button, e)	{
