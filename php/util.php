@@ -57,13 +57,14 @@ function cek_tole_hari()	{
 }
 //cek_tole_hari();
 
-function cek_waktu_range($id, $downt, $downj, $upt, $upj, $flag=0, $event)	{
+function cek_waktu_range($id, $downt, $downj, $upt, $upj, $flag=0, $event, $edit, $idid)	{
 	//echo "cek_waktu_range flag: $flag, event: $event<br/>";
 	$w = new stdClass();
 	$ii=0; $dt=array(); $dj=array(); $ut=array(); $uj=array(); $ev=array();
 	$sql =	"SELECT id,downt,downj,upt,upj,event FROM waktudown WHERE eqid='{$id}' ".
 			"AND (downt BETWEEN '".hari_dengan_tole($downt,-cek_tole_hari())."' AND '".hari_dengan_tole($downt,cek_tole_hari())."' ".
-			"OR upt BETWEEN '".hari_dengan_tole($upt,-cek_tole_hari())."' AND '".hari_dengan_tole($upt,cek_tole_hari())."')";
+			"OR upt BETWEEN '".hari_dengan_tole($upt,-cek_tole_hari())."' AND '".hari_dengan_tole($upt,cek_tole_hari())."') ";
+	if ($edit) $sql .= "AND id NOT IN (".implode(',',$idid).")";
 	//echo "<br/>sql u: $sql<br/>";
 	//return;
 	//$sqlawal = "select id,downt,downj,upt,upj from waktudown where eqid='{$id}' ".
@@ -92,7 +93,8 @@ function cek_waktu_range($id, $downt, $downj, $upt, $upj, $flag=0, $event)	{
 	//*/
 	$q = db_query($sql);
 	if (!$q)	{
-		echo "DB Error, could not query the database\n";
+		//echo "DB Error, could not query the database\n";
+		throw new Exception("DB Error, could not query the database");
 		echo 'MySQL Error: ' . mysql_error();
 		exit;
 	}
@@ -178,7 +180,7 @@ function cek_tgl_rh_ada($id, $tgl) {
 	//$sql = "select tgl from rh_201311 where id='$id' and tgl>='{$downt}' and tgl<='{$upt}'";
 	$sql = "select id from rh_201311 where eq='$id' and tgl='{$tgl}'";
 	//$sql = "select count(tgl) as jml from rh_201311 where eq=54 and tgl='$tgl'";
-	//echo "sql: $sql<br/>";
+	echo "sql: $sql<br/>";
 	$q = db_query($sql);
 	
 	$adaTgl = new stdClass(); $ar = array();

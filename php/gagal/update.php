@@ -25,6 +25,8 @@ try {
 	$params->exe = '';
 	//*/
 	
+	$edit = isset($params->edit)?$params->edit:0;
+	//echo "edit: $edit-----<br/>";
 	$aw = bwaktu($params->downt, $params->downj);
 	$ak = bwaktu($params->upt, $params->upj);
 	$sw = bwaktu($params->startt, $params->startj);
@@ -41,23 +43,43 @@ try {
 	}
 	//*/
 	
-	$server = isset($params->server)?($params->server):"1";
+	$server = isset($params->server)?:"1";
 	$xid = $params->id; $idAr = array(); $catAr = array(); $idJml=0;
 	$tipeev = $params->tipeev;
 	$cc = $params->cat;
 	
 	if (intval($xid)==0) {
+		//echo "xid: $xid<br/>";
 		$level = substr($xid,0,1);
 		$id = substr($xid,1);
 		//echo "level: $level, id: $id<br/>";
 		if ($level=='e')	{	// level equipment
-			//echo "level e";
+			$idid = array_filter(explode("e",$id));	// id dari id
+			$sql = "SELECT eqid,unit_id from waktudown where id in (".implode(',',$idid).")";
+			$q = db_query($sql);
+			if (!$q)	{
+				//echo "DB Error, could not query the database\n";
+				throw new Exception("DB Error, could not query the database");
+				echo 'MySQL Error: ' . mysql_error();
+				exit;
+			}
+
+			while ($row = mysql_fetch_assoc($q)) {
+				$idAr[$idJml]  = $row['eqid'];
+				$id = $row['unit_id'];
+				$idJml++;
+			}
+			mysql_free_result($q);
+			
+			
+			//echo "level e"; print_r($idAr);
 		} else if ($level=='u')	{	// level unit
 			$sql = "SELECT id,cat from equip where unit_id = $id";
 			//echo "sql u: $sql<br/>";
 			$q = db_query($sql);
 			if (!$q)	{
-				echo "DB Error, could not query the database\n";
+				//echo "DB Error, could not query the database\n";
+				throw new Exception("DB Error, could not query the database");
 				echo 'MySQL Error: ' . mysql_error();
 				exit;
 			}
@@ -74,16 +96,19 @@ try {
 			exit;
 		}
 	}
-
+	//echo "<br/>idAr: ";print_r($idAr); echo "-------<br/><br/>";
 	// CEK WAKTU range di database
 	//$wkt = cek_waktu_range($idAr[0], $params->downt, $params->downj, $params->upt, $params->upj);
-	$wkt = cek_waktu_range($idAr[0], $params->downt, $params->downj, $params->upt, $params->upj,0, $params->event);
+	$wkt = cek_waktu_range($idAr[0], $params->downt, $params->downj, $params->upt, $params->upj,0, $params->event, $edit, $idid);
 	//$wkt = cek_waktu_range($id, $params->downt, $params->downj, $params->upt, $params->upj);
 	//echo "Cek waktu range: <br/>";	print_r($wkt); echo "<br/><br/>";
 	
 	$kw = kombinasi_waktu($wkt->dt, $wkt->dj, $wkt->ut, $wkt->uj);
 	//echo "kombinasi_waktu: ".count($kw);
 	//echo "kombinasi waktu: ".count($kw)."<br/>"; print_r($kw);	echo "<br/>";
+	
+	
+	
 	
 	if (count($kw)>0)	{
 		for ($i=0; $i<count($kw); $i++)	{
@@ -100,6 +125,13 @@ try {
 		}
 	}
 	
+	if ($edit)	{
+		echo "<br/>ubah nilainya ... kan verifikasi berhasil<br/>";
+		
+	}
+	
+	
+	//return;
 	// hitung running hour ketika TIDAK KONFLIK
 	//echo "jml: ".count($wkt->dt)."<br/>";
 	$ar=array();	$ar_av=array();	$ar_re=array();	$l=0; $m=0;
@@ -153,13 +185,13 @@ try {
 
 	//$rh = format_rh($hrh);
 	$rh = format_rh_float($hrh);
-	//echo "<br/>Format_rh RunnningHour: "; print_r($rh); echo "<br/>";
+	echo "<br/>Format_rh RunnningHour: "; print_r($rh); echo "<br/>";
 	//$rh_av = format_rh($hrh_av);
 	$rh_av = format_rh_float($hrh_av);
-	//echo "Format_rh Availability: "; print_r($rh_av); echo "<br/>";
+	echo "Format_rh Availability: "; print_r($rh_av); echo "<br/>";
 	//$rh_re = format_rh($hrh_re);
 	$rh_re = format_rh_float($hrh_re);
-	//echo "Format_rh Reliability : "; print_r($rh_re); echo "<br/><br/>";
+	echo "Format_rh Reliability : "; print_r($rh_re); echo "<br/><br/>";
 	
 	//return;
 	
@@ -180,7 +212,7 @@ try {
 		$tglx = date('Y-m-d', $u);
 		
 		$adatgl = cek_tgl_rh_ada($id, $tglx);	
-		//print_r($adatgl);
+		print_r($adatgl);
 		//$jmlTgl = count($adatgl);
 		
 		if(!isset($rh_av[$tglx]))	{
@@ -202,7 +234,7 @@ try {
 			$sql =	"INSERT INTO rh_201311 (eq,tgl,rh,rh_av, rh_re,flag,bln,thn,cat) VALUES ".
 					"('{$id}','$tglx','{$rh[$tglx]}','{$rh_av[$tglx]}','{$rh_re[$tglx]}','e".implode("e", $idAr)."',".
 					"'".bwaktu($tglx)->bln."','".bwaktu($tglx)->thn."','$cc')";
-			//echo "sql: $sql<br/>";
+			echo "sql: $sql<br/>";
 			$q = db_query($sql);
 		} else {
 			if ($adatgl->jml==1) {
@@ -210,7 +242,7 @@ try {
 				$sql =  "UPDATE rh_201311 SET rh='{$rh[$tglx]}',rh_av='{$rh_av[$tglx]}',rh_re='{$rh_re[$tglx]}', ".
 						"bln='".bwaktu($tglx)->bln."',thn='".bwaktu($tglx)->thn."' ".
 						"where id = ".$adatgl->id[0];
-				//echo "sql: $sql<br/>";
+				echo "sql: $sql<br/>";
 				$q = db_query($sql);
 			}
 		}
@@ -281,6 +313,16 @@ try {
 					mysql_free_result($q);
 				}
 		}
+	}
+	else if ($level=='e')	{
+		echo "<br/><br/>--- sampai sini sodara2<br/>";
+		$sql = "UPDATE waktudown SET (server,eqid,unit_id,downt,downj,upt,upj,event,ket,exe,nginput) ".
+				"VALUES ('$server','{$idAr[$i]}','{$id}','{$params->downt}','{$params->downj}', '{$params->upt}', '{$params->upj}', ".
+				"'{$params->event}','{$params->ket}','{$params->exe}','{$now}' )";
+		echo "sql: $sql<br/>";
+		
+		
+		
 	}
 	//return;
 

@@ -79,15 +79,16 @@ try {
 			$ax = $row['idevent'];
 			if ($ax==2) {
 				//echo "masuk 2 ".$row['namapm']."<br/>";
-				if (isset($row['namapm'])) {
-					if (strlen($isi[$jml]['fm'])>0)
+				if (isset($row['namapm']) && isset($isi[$jml]['fm'])) {
+					if ((strlen($isi[$jml]['fm'])>0))	{
 						$isi[$jml]['fm'] .= "&nbsp;&nbsp;";
+					}
 					$isi[$jml]['fm'] .= "[{$row['kode']}: {$row['namapm']}]";
 					$isi[$jml]['tipeev'] .= ",".'e'.$row['eqid'].'pm'.$row['tipeev'];
 				}
 			} else if (($ax==3) || ($ax==4)) {
 				//echo "fm: {$row['fm']}<br/>";
-				if (isset($row['fm'])) {
+				if (isset($row['fm']) && ($row['fm']!="") && (isset($isi[$jml]['fm']))) {
 					if (strlen($isi[$jml]['fm'])>0)
 						$isi[$jml]['fm'] .= "&nbsp;&nbsp;";
 					$isi[$jml]['fm'] .= "[{$row['kode']}: {$row['fm']}]";

@@ -754,11 +754,42 @@ Ext.define('rcm.controller.DataEntry', {
 			"\nds:"+o.ds+"\nts:"+o.ts+"\ndu: "+o.du+"\ntu: "+o.tu+"\nevent: "+o.event+"\ntipeev: "+o.tipeev+
 			"\nket:"+o.ket+"\nexe:"+o.exe+"\nserver: "+rcmSettings.server+"\ncat: "+rcmSettings.cat);
 		
-		/*
-		var rec = new rcm.model.DaftarGagal({
-			id:'u'+o.id,downt:dd,downj:td,startt:dm,startj:tm,endt:ds,endj:ts,upt:du,upj:tu,
-			event:event,tipeev:tipeev,ket:ket,exe:exe,server:rcmSettings.server,cat:rcmSettings.cat
+		//*
+		var rec = new rcm.model.DaftarGagal({ edit:1,
+			id:o.id,downt:o.dd,downj:o.td,startt:o.dm,startj:o.tm,endt:o.ds,endj:o.ts,upt:o.du,upj:o.tu,
+			event:o.event,tipeev:o.tipeev,ket:o.ket,exe:o.exe,server:rcmSettings.server,cat:rcmSettings.cat
         });
+        rec.save({
+            success: function(respon, operation) {
+				var resp = operation.request.scope.reader.jsonData["tasks"];
+				var recx = me.getEventStore().getRange();
+				if (event!=1)	{
+					for (var i=0, len1=resp.length; i<len1; ++i) {
+						for (var j=0,len2=recx.length; j<len2; ++j)	{
+							if (recx[j].data.ideql==resp[i].eq)	{
+								recx[j].set('iddown',resp[i].id);
+							}
+						}
+					}
+					me.getEventStore().sync();
+					//me.getEventStore().removeAll();
+				}
+				me.getDaftarGagalStore().reload();
+				me.getRunningHourStore().reload();
+            },
+            failure: function(task, operation) {
+                var error = operation.getError(),
+                    msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
+
+                Ext.MessageBox.show({
+                    title: 'Update Task Failed',
+                    msg: msg,
+                    icon: Ext.Msg.ERROR,
+                    buttons: Ext.Msg.OK
+                });
+            }
+        });
+        
         //*/
 		me.getTaskFormGagal().close();
 	},
@@ -787,7 +818,7 @@ Ext.define('rcm.controller.DataEntry', {
 			du = this.getDate(form.findField('dateup').getValue()), 
 			tu = this.getTime(form.findField('timeup').getValue());
 		
-		var rec = new rcm.model.DaftarGagal({
+		var rec = new rcm.model.DaftarGagal({ edit:0,
 			id:'u'+id,downt:dd,downj:td,startt:dm,startj:tm,endt:ds,endj:ts,upt:du,upj:tu,
 			event:event,tipeev:tipeev,ket:ket,exe:exe,server:rcmSettings.server,cat:rcmSettings.cat
         });
