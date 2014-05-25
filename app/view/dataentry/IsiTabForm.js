@@ -416,12 +416,12 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 						queryParam: 'tipe',name : 'eql',displayField: 'nama',valueField: 'nama',queryMode: 'local',
 						listConfig: { listeners: { itemclick: function(list, record) { me.pilihEquipGagal(record,list); } } }
 					} },
-					{ text: "Object Part", dataIndex: 'opart', flex:1, editor: {
+					{ text: "Object Part", dataIndex: 'opart', /*flex:1*/width:250, editor: {
 						xtype: 'combo', editable: false, emptyText: 'Pilih Object Part.. ', store: 'OPart',queryMode: 'local',
 						queryParam: 'tipe',name : 'opart',displayField: 'nama',valueField: 'nama',
 						listConfig: { listeners: { itemclick: function(list, record) { me.pilihOPartGagal(record); } } }
 					} },
-					{ text: "Failure Mode", dataIndex: 'mode', width:220,editor: {
+					{ text: "Failure Mode", dataIndex: 'mode', width:200,editor: {
 						xtype: 'combo', store: 'FMode',editable: false,	emptyText: 'Pilih Mode... ',queryMode: 'local',
 						queryParam: 'tipe',name : 'mode',displayField: 'nama',valueField: 'nama',
 						listConfig: { listeners: { itemclick: function(list, record) { me.pilihModeGagal(record,list); } } }
@@ -448,6 +448,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 					}
 				]
 			},{			// 8 KetEditor	
+				//margin: '0 5 0 0',
 				//xtype: 'htmleditor',
 				width:509,
 				xtype: 'textarea',

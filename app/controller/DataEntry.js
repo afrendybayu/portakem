@@ -750,11 +750,11 @@ Ext.define('rcm.controller.DataEntry', {
 	
 	updateGagalClick: function()	{
 		var me=this, o = me.ambilDataForm();
+		/*
 		alert("id:"+o.id+"\nevent:"+o.event+"\ndd: "+o.dd+"\ndt: "+o.td+"\ndm: "+o.dm+"\ndt: "+o.tm+
 			"\nds:"+o.ds+"\nts:"+o.ts+"\ndu: "+o.du+"\ntu: "+o.tu+"\nevent: "+o.event+"\ntipeev: "+o.tipeev+
 			"\nket:"+o.ket+"\nexe:"+o.exe+"\nserver: "+rcmSettings.server+"\ncat: "+rcmSettings.cat);
-		
-		//*
+		//*/
 		var rec = new rcm.model.DaftarGagal({ edit:1,
 			id:o.id,downt:o.dd,downj:o.td,startt:o.dm,startj:o.tm,endt:o.ds,endj:o.ts,upt:o.du,upj:o.tu,
 			event:o.event,tipeev:o.tipeev,ket:o.ket,exe:o.exe,server:rcmSettings.server,cat:rcmSettings.cat

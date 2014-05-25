@@ -34,7 +34,7 @@ try {
 			"order by downt desc, downj desc";
 			//"group by down_id "
 	//*/
-	$sql =	"SELECT waktudown.id,event as idevent,tipeev,eqid,kode,fm ".
+	$sql =	"SELECT waktudown.id,event as idevent,tipeev,eqid,kode,fm,tag ".
 			",(select pmdef.nama from pmdef where pmdef.id = (select pmlist.pm from pmlist where pmlist.id=tipeev)) as namapm ".
 			",down_id,exe,downt,downj,upt,upj,startt,startj,endt,endj ".
 			",(select hirarki.nama from hirarki where hirarki.id ".
@@ -61,7 +61,9 @@ try {
 	$jml = -1; $idd = -1; $idn = 'e';
 	$isi = array(); $dd = ''; $td = '';	$mdar = Array(); $tar = Array(); $prop=array();
 	while ($row = mysql_fetch_assoc($q)) {
-
+		
+		$prop['tag'] = '['.$row['kode'].': '.$row['tag'].'] '.$prop['tag'];
+		
 		if (($row['downt']==$dd) && ($row['downj']==$td)) {
 			//echo "SAMA: $dd - $td ";
 			//$isi[$jml]['id'] .= 'e'.$row['id'];
@@ -104,6 +106,7 @@ try {
 			$prop['id'] = 'e'.$row['id'];
 			$prop['func'] =  $row['nama']." @".$row['lok'];
 			$prop['event'] = $row['event'];
+			//$prop['tag'] = '['.$row['kode'].': '.$row['tag'].'] ';
 			
 			
 			if ($row['idevent']==1) { 		// standby
@@ -159,7 +162,7 @@ try {
 			$prop['up']   = date('d M Y H:i',strtotime("{$row['upt']} {$row["upj"]}"));
 
 			$dd = $row['downt'];	$td = $row['downj'];
-			
+			$prop['tag'] = '['.$row['kode'].': '.$row['tag'].'] ';
 			
 			$prop['exe'] = $row['exe'];
 		//} else {
@@ -174,11 +177,16 @@ try {
 
 
 	//*
-	$obj1 = new stdClass();
-	$obj1->nama = "ID";
-	$obj1->nilai = $prop['id'];
-	array_push($isi,$obj1);
+	$obj0 = new stdClass();
+	$obj0->nama = "ID";
+	$obj0->nilai = $prop['id'];
+	array_push($isi,$obj0);
 	//*/
+	$obj1 = new stdClass();
+	$obj1->nama = "TAG";
+	$obj1->nilai = $prop['tag'];
+	array_push($isi,$obj1);
+	
 	$obj2 = new stdClass();
 	$obj2->nama = "Function Location";
 	$obj2->nilai = $prop['func'];

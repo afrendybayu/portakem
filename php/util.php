@@ -180,7 +180,7 @@ function cek_tgl_rh_ada($id, $tgl) {
 	//$sql = "select tgl from rh_201311 where id='$id' and tgl>='{$downt}' and tgl<='{$upt}'";
 	$sql = "select id from rh_201311 where eq='$id' and tgl='{$tgl}'";
 	//$sql = "select count(tgl) as jml from rh_201311 where eq=54 and tgl='$tgl'";
-	echo "sql: $sql<br/>";
+	//echo "sql: $sql<br/>";
 	$q = db_query($sql);
 	
 	$adaTgl = new stdClass(); $ar = array();

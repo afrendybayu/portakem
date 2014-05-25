@@ -6,7 +6,7 @@ Ext.define('rcm.view.dataentry.DetailInfo', {
 	layout: 'border',
 	items: [{
 			region: 'west',
-			width: '26%',
+			width: '27%',
 			xtype: 'propgrid',
 			weight: 100
 		}, {

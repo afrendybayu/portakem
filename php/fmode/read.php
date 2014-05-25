@@ -39,7 +39,8 @@ try {
 	$mode = array(); $strmode; $jml=0;
 	while ($row = mysql_fetch_assoc($q)) {
 		$mode[$jml]["id"] = $row['id'];
-		$mode[$jml]["nama"] = $row['kode']." - ".$row['nama'];
+		//$mode[$jml]["nama"] = $row['kode']." - ".$row['nama'];
+		$mode[$jml]["nama"] = $row['nama'];
 		$mode[$jml]["cat"] = $row['cat'];
 		$mode[$jml]["kode"] = $row['kode'];
 		$jml++;

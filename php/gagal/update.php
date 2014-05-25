@@ -126,7 +126,7 @@ try {
 	}
 	
 	if ($edit)	{
-		echo "<br/>ubah nilainya ... kan verifikasi berhasil<br/>";
+		//echo "<br/>ubah nilainya ... kan verifikasi berhasil<br/>";
 		
 	}
 	
@@ -185,13 +185,13 @@ try {
 
 	//$rh = format_rh($hrh);
 	$rh = format_rh_float($hrh);
-	echo "<br/>Format_rh RunnningHour: "; print_r($rh); echo "<br/>";
+	//echo "<br/>Format_rh RunnningHour: "; print_r($rh); echo "<br/>";
 	//$rh_av = format_rh($hrh_av);
 	$rh_av = format_rh_float($hrh_av);
-	echo "Format_rh Availability: "; print_r($rh_av); echo "<br/>";
+	//echo "Format_rh Availability: "; print_r($rh_av); echo "<br/>";
 	//$rh_re = format_rh($hrh_re);
 	$rh_re = format_rh_float($hrh_re);
-	echo "Format_rh Reliability : "; print_r($rh_re); echo "<br/><br/>";
+	//echo "Format_rh Reliability : "; print_r($rh_re); echo "<br/><br/>";
 	
 	//return;
 	
@@ -212,7 +212,7 @@ try {
 		$tglx = date('Y-m-d', $u);
 		
 		$adatgl = cek_tgl_rh_ada($id, $tglx);	
-		print_r($adatgl);
+		//print_r($adatgl);
 		//$jmlTgl = count($adatgl);
 		
 		if(!isset($rh_av[$tglx]))	{
@@ -234,7 +234,7 @@ try {
 			$sql =	"INSERT INTO rh_201311 (eq,tgl,rh,rh_av, rh_re,flag,bln,thn,cat) VALUES ".
 					"('{$id}','$tglx','{$rh[$tglx]}','{$rh_av[$tglx]}','{$rh_re[$tglx]}','e".implode("e", $idAr)."',".
 					"'".bwaktu($tglx)->bln."','".bwaktu($tglx)->thn."','$cc')";
-			echo "sql: $sql<br/>";
+			//echo "sql: $sql<br/>";
 			$q = db_query($sql);
 		} else {
 			if ($adatgl->jml==1) {
@@ -242,7 +242,7 @@ try {
 				$sql =  "UPDATE rh_201311 SET rh='{$rh[$tglx]}',rh_av='{$rh_av[$tglx]}',rh_re='{$rh_re[$tglx]}', ".
 						"bln='".bwaktu($tglx)->bln."',thn='".bwaktu($tglx)->thn."' ".
 						"where id = ".$adatgl->id[0];
-				echo "sql: $sql<br/>";
+				//echo "sql: $sql<br/>";
 				$q = db_query($sql);
 			}
 		}
@@ -254,12 +254,10 @@ try {
 	//*
 	//echo "level: $level<br/>";
 	$pm = array();
+	//print_r($tipeev);
 	$jmlpm = count($tipeev);
 	//$tipeev = array("e34pm1", "e33pm15");
 	for($i=0; $i<$jmlpm; $i++)	{
-		
-		
-		
 		//*
 		$pmx  = explode("pm", $tipeev[$i]);
 		//print_r($pmx); echo "<br/>";
@@ -269,14 +267,14 @@ try {
 		$pm[$i][1] = $pmx[1];
 		//*/
 	}
+	//print_r($pm);
 	
-	
+	$now = date("Y-m-d H:i:s");
 	$hasil = array();
 	if ($level=='u') {
 		
 		for($i=0; $i<$idJml; $i++)	{
-				$now = date("Y-m-d H:i:s");
-				
+		
 				// INPUT data EVENT down ke tabel waktudown
 				if ($params->event==1) {		// standby
 					$sql = "INSERT INTO waktudown (server,eqid,unit_id,downt,downj,upt,upj,event,ket,exe,nginput) ".
@@ -315,14 +313,39 @@ try {
 		}
 	}
 	else if ($level=='e')	{
-		echo "<br/><br/>--- sampai sini sodara2<br/>";
-		$sql = "UPDATE waktudown SET (server,eqid,unit_id,downt,downj,upt,upj,event,ket,exe,nginput) ".
-				"VALUES ('$server','{$idAr[$i]}','{$id}','{$params->downt}','{$params->downj}', '{$params->upt}', '{$params->upj}', ".
-				"'{$params->event}','{$params->ket}','{$params->exe}','{$now}' )";
-		echo "sql: $sql<br/>";
-		
-		
-		
+		//echo "<br/><br/>--- sampai sini sodara2: jml: ".count($idid)."<br/><br/>";
+		//print_r($idAr);
+		for ($i=0; $i<count($idid); $i++)	{
+			
+			
+			
+			if ($params->event==1) {		// standby
+				//echo " STAND BY";
+				$sql = "UPDATE waktudown SET server=$server,eqid='{$idAr[$i]}',downt='{$params->downt}',downj='{$params->downj}',".
+					"upt='{$params->upt}',upj='{$params->upj}',event='{$params->event}',ket='{$params->ket}', ".
+					"exe='{$params->exe}',nginput='{$now}' ".
+					"WHERE id='{$idid[$i]}'";
+			} else {
+				for($j=0; $j<count($pm); $j++)	{
+					if ($pm[$j][0]==$idid[$i])
+						break;
+				}
+				$sql = "UPDATE waktudown SET server=$server,eqid='{$idAr[$i]}',downt='{$params->downt}',downj='{$params->downj}',".
+					"upt='{$params->upt}',upj='{$params->upj}',startt='{$params->startt}',startj='{$params->startj}',".
+					"endt='{$params->endt}',endj='{$params->endj}',".
+					"event='{$params->event}',tipeev='".$pm[$i][1]."',ket='{$params->ket}',exe='{$params->exe}',nginput='{$now}' ".
+					"WHERE id='{$idid[$i]}'";
+			}
+			//echo "<br/>_____________sql: $sql";
+			
+			$q = db_query($sql);
+			if (!$q)	{
+				//echo "DB Error, could not query the database\n";
+				throw new Exception("DB Error, could not query the database");
+				echo 'MySQL Error: ' . mysql_error();
+				exit;
+			}
+		}
 	}
 	//return;
 
