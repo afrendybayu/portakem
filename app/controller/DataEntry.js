@@ -4,11 +4,11 @@ Ext.define('rcm.controller.DataEntry', {
     extend: 'Ext.app.Controller',
 
     views: [
+		'Util',
 		'AppHeader',
 		'Navigation',
 		'Content',
 		'Tanggalan',
-		'Util',
 		'DataTip',
 
         'dataentry.DaftarGagal',
@@ -215,7 +215,7 @@ Ext.define('rcm.controller.DataEntry', {
     },
 
 	AvHomeClick: function(d, nama, id)	{
-		console.log("group: "+id);
+		//console.log("group: "+id);
 		this.getAvGroupStore().load({ params:{gr:id, tgl: d.series.name} });
 		this.getTAvGroup().setTitle('Availability & Reliability');
 		this.getTAvGroup().setSubTitle(nama+" "+d.series.name);
@@ -373,8 +373,8 @@ Ext.define('rcm.controller.DataEntry', {
 					var sttdate = field.up('form').down('#' + field.startDateField);
 					var enddate = field.up('form').down('#' + field.endDateField);
 					
-					console.log("parse st: "+Date.parse(sttdate.getValue())+", en: "+Date.parse(enddate.getValue()));
-					console.log("start date: "+sttdate.getValue()+", stopdate: "+enddate.getValue());
+					//console.log("parse st: "+Date.parse(sttdate.getValue())+", en: "+Date.parse(enddate.getValue()));
+					//console.log("start date: "+sttdate.getValue()+", stopdate: "+enddate.getValue());
 					
 
 					endtime.validate();
@@ -386,11 +386,11 @@ Ext.define('rcm.controller.DataEntry', {
 		});
 		//*/
 		this.ubahFieldRH();
-        console.log("ini muncul: onLaunch");
+        //console.log("ini muncul: onLaunch");
     },
 
     onDaftarGagalLoad: function() {
-		console.log("masuk callback onDaftarGagalLoad");
+		//console.log("masuk callback onDaftarGagalLoad");
 		
     },
     
@@ -403,7 +403,7 @@ Ext.define('rcm.controller.DataEntry', {
     },
     
     handleSpecialKey: function(field, e) {
-		console.log("masuk handleSpecialKey");
+		//console.log("masuk handleSpecialKey");
         if(e.getKey() === e.ENTER) {
 			alert("dienter"+field.value)
         }
@@ -463,7 +463,6 @@ Ext.define('rcm.controller.DataEntry', {
 	},
     
     pilihInfoDetailGagalClick: function(id, ev)	{
-		//Ext.getCmp('bgDetail').setHeight(300);
 		this.getDetailGagalStore().load({ params:{id:id} });
 		// var jD = 
 		this.getEventInfoStore().load({ 
@@ -471,7 +470,6 @@ Ext.define('rcm.controller.DataEntry', {
 			scope: this,
 			callback: function(rec, operation, success) {
 				if (success) {
-					//alert("getEventInfoStore: **************");		// + category.get('name'));
 					rcmSettings.asa = rec;
 				}
 			}
@@ -484,7 +482,6 @@ Ext.define('rcm.controller.DataEntry', {
 			callback: function(rec, operation, success) {
 				if (success) {
 					Ext.getCmp('htmleddet').setValue(rec[0].get('ket'));
-					//alert(rec[0].get('ket'));
 				}
 			}
 		});
@@ -493,14 +490,11 @@ Ext.define('rcm.controller.DataEntry', {
 		
 		
 		var html = Ext.getCmp('idinfofmea');
-		//*
 		if (ev>2)	{
 			html.expand();
-			//html.setHeight(150);
 		}
 		else 	{	//
 			html.collapse();
-			//html.setHeight(40);
 		}
 		//*/
 		/*
@@ -511,21 +505,12 @@ Ext.define('rcm.controller.DataEntry', {
 		//*/
 		
 		Ext.getCmp('bgDetail').expand();
-		//alert("tesss");
-		//Ext.suspendLayouts();
-		//Ext.resumeLayouts(true);
-		
-		//rcmSettings.asa = Ext.getCmp('save-task-fg-btn');
-		
-		//Ext.getCmp('save-task-fg-btn').setText("Update");
 	},
-    
 
-	
 	refreshRH: function()	{
-		console.log("----- mulai refreshRHr");
-		me.getRunningHourStore().reload();
-		console.log("----- selesai refreshRHr");
+		//console.log("----- mulai refreshRHr");
+		this.getRunningHourStore().reload();
+		//console.log("----- selesai refreshRHr");
 	},
 	
 	pilihHapusDGClick: function(task, successCallback)	{	// grid, row, col, column, e
@@ -539,7 +524,7 @@ Ext.define('rcm.controller.DataEntry', {
                 if(response === 'yes') {
                     task.destroy({
                         success: function(task, operation) {
-							console.log("----- mulai running hour");
+							//console.log("----- mulai running hour");
 							//me.getDaftarGagalStore().remove(task);
 							//me.refreshRH();
 							//this.getRunningHourStore().reload();
@@ -565,10 +550,11 @@ Ext.define('rcm.controller.DataEntry', {
 	},
     
     pilihEventGagalXY: function(n)	{
-		var me = this,taskFormGagal = me.getTaskFormGagal();
+		var me = this;
+		var taskFormGagal = me.getTaskFormGagal();
 		if (n=='1')	taskFormGagal.setWidth(500);
 		else if  (n=='2')		taskFormGagal.setWidth(700);
-		else	taskFormGagal.setWidth(900);
+		else	taskFormGagal.setWidth(970);
 	},
     
     pilihEqClick: function(dd, drow) {
@@ -619,13 +605,32 @@ Ext.define('rcm.controller.DataEntry', {
 		//this.getFModeStore().clearFilter(true);
 		//this.getFModeStore().filter('cat',row.data.cat);
 	},
+	
+	updateAVReDash: function()	{
+		var m = this;
+		/*
+		m.getSpAvGcUtStore().load();
+		m.getSpAvGsUtStore().load();
+		m.getSpAvPmUtStore().load();
+		m.getSpRePmUtStore().load();
+		m.getSpReGsUtStore().load();
+		m.getSpReGcUtStore().load();
+		//*/
+		
+		//var avgs = m.getSpAvGsUtStore().load();
+		//alert(avgs.getAt(0).get('av'));
+		//m.getSpAvGsUtStore().getAt(0).set('av',avgs.getAt(0).get('av'));
+		//	this.getAvSpeedoStore().getAt(0).set('av',plh.av);
+		//rcmSettings.asa = m.getSpAvGsUtStore();
+		//m.getSpReGsUtStore().load();
+	},
     
     updateGrid: function(view, e) {
         var me=this, tv=e.value; drow=this.getRunningHourStore().getAt(e.rowIdx);
         //var at=e.row;
         //rcmSettings.asa = this.getRunningHourStore().getAt(e.rowIdx).data;
         //var alertText = ' ';   for (property in e) { alertText += property + ':' + e[property]+'; ';   }
-		console.log("updateGrid isi: "+tv);
+		//console.log("updateGrid isi: "+tv);
 
 		if ((tv=='')||(tv==e.originalValue))	{		//||
 			console.log("updateGrid numpang lewat");
@@ -633,6 +638,8 @@ Ext.define('rcm.controller.DataEntry', {
 			console.log("update nilai, sudah beda");
 		} else if ((tv==24)||(tv=="24:00"))	{
 			this.simpanRH(e);
+		} else if (tv=="69be4597788ab6909cdc1159afd9512a")	{
+			
 		} else {
 			this.buildFormGagal(e);
 		}
@@ -686,9 +693,11 @@ Ext.define('rcm.controller.DataEntry', {
 	},
 	
 	simpanGagalClick: function(button, e)	{
-		console.log("simpan data FormGagal: "+rcmSettings.eqx);
+		//console.log("simpan data FormGagal: "+rcmSettings.eqx);
 		this.simpanFormGagal();
 		this.getTaskFormGagal().close();
+		
+		this.updateAVReDash();
 	},
 
 	pilihEditDGClick: function(rec)	{
@@ -792,6 +801,8 @@ Ext.define('rcm.controller.DataEntry', {
         
         //*/
 		me.getTaskFormGagal().close();
+		me.updateAVReDash();
+		console.log("skalian update depan");
 	},
 	
 	simpanFormGagal: function()	{

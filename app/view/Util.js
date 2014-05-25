@@ -153,7 +153,7 @@ Ext.define('rcm.view.Util', {
 			//alert("blnthn[0]: "+blnthn[0].header+" "+blnthn[1].header);
 			items.push({ header:'Catatan',dataIndex:'note',flex:1 });		// ganti dgn note
 			//console.log(items);
-			rcmS = items;
+			//rcmS = items;
 			
 			return items;
 		},
@@ -172,9 +172,9 @@ Ext.define('rcm.view.Util', {
 				tglbln[i+4] = "k"+(date.getYear()-100)+this.Upad((date.getMonth()+1))+this.Upad(date.getDate());
 				//tglbln[i+4] = "k"+i;
 			}
-			tglbln[i+4] = 'k140426';
+			//tglbln[i+4] = 'k140426';
 			//*/
-			console.log("item judul: "+tglbln);
+			//console.log("item judul: "+tglbln);
 			return tglbln;
 		}
     }

@@ -91,7 +91,7 @@ Ext.define('rcm.view.lapobama.SpeedoAv', {
 				text: this.subjdl,
 			},
 			yAxis : {
-					min: 0,
+					min: 50,
 					max: 100,
 					//*
 					minorTickInterval: 'auto',
@@ -100,7 +100,7 @@ Ext.define('rcm.view.lapobama.SpeedoAv', {
 					minorTickPosition: 'inside',
 					minorTickColor: '#666',
 					//*/
-					tickPixelInterval: 50,
+					tickPixelInterval: 20,
 					tickWidth: 2,
 					tickPosition: 'inside',
 					tickLength: 10,
