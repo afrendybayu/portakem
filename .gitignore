@@ -1,2 +1,4 @@
 ./ci/application/config/database.php
 ./ci/application/config/config.php
+./build/
+./modul/
