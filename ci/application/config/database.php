@@ -47,7 +47,7 @@
 
 $active_group = 'default';
 $active_record = TRUE;
-//////
+//////*************************8
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
 $db['default']['password'] = 'tentakel';
