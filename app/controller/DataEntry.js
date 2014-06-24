@@ -395,7 +395,7 @@ Ext.define('rcm.controller.DataEntry', {
     },
     
 	onRunningLoad: function() {
-		console.log("masuk callback onRunningLoad");
+		//console.log("masuk callback onRunningLoad");
 		//var stationsList = this.getDaftarGagalList();
 		//console.log("masuk callback onStationsLoad ..."+stationsList);
         //stationsList.getSelectionModel().select(0);
@@ -445,7 +445,7 @@ Ext.define('rcm.controller.DataEntry', {
 
 		sR.save({
             success: function(task, operation) {
-				console.log(" task sukses setelah sukses ");
+				//console.log(" task sukses setelah sukses ");
 				me.getRunningHourStore().reload();
             },
             failure: function(task, operation) {
@@ -546,7 +546,7 @@ Ext.define('rcm.controller.DataEntry', {
             }
         });
         me.getRunningHourStore().reload();
-        console.log("----- selesai running hour");
+        //console.log("----- selesai running hour");
 	},
     
     pilihEventGagalXY: function(n)	{
@@ -580,7 +580,8 @@ Ext.define('rcm.controller.DataEntry', {
 	pilihModeClick: function(dd, drow)	{
 		//console.log("Controller DataEntry pilihModeClick row: "+drow.row);
 		var rec = this.getEventStore().getRange()[drow.row];
-		rec.set('idmode',drow.kode);
+		rec.set('idmode',drow.id);
+		//rec.set('idmode',drow.kode);
 	},
 	
 	pilihCauseClick: function(dd, drow)	{
@@ -598,7 +599,7 @@ Ext.define('rcm.controller.DataEntry', {
 	}, 
 	
 	pilihGridFMEA: function(row)	{
-		console.log("Controller DataEntry pilihGridFMEA row: ");
+		//console.log("Controller DataEntry pilihGridFMEA row: ");
 		//var rec = this.getEventStore().getRange()[row];
 		//this.getOPartStore().clearFilter(true);
 		//this.getOPartStore().filter('cat',row.data.cat);
@@ -633,9 +634,9 @@ Ext.define('rcm.controller.DataEntry', {
 		//console.log("updateGrid isi: "+tv);
 
 		if ((tv=='')||(tv==e.originalValue))	{		//||
-			console.log("updateGrid numpang lewat");
+			//console.log("updateGrid numpang lewat");
 		} else if (tv==e.originalValue)	{
-			console.log("update nilai, sudah beda");
+			//console.log("update nilai, sudah beda");
 		} else if ((tv==24)||(tv=="24:00"))	{
 			this.simpanRH(e);
 		} else if (tv=="69be4597788ab6909cdc1159afd9512a")	{
@@ -646,7 +647,7 @@ Ext.define('rcm.controller.DataEntry', {
 	},
 	
 	equipClick: function(catx)	{
-		console.log("diklik: "+rcmSettings.cat+" tgl: "+rcmSettings.tgl);
+		//console.log("diklik: "+rcmSettings.cat+" tgl: "+rcmSettings.tgl);
 		var t;
 		if (rcmSettings.tgl.localeCompare("0")==0)	{
 			t=new Date();
@@ -802,7 +803,7 @@ Ext.define('rcm.controller.DataEntry', {
         //*/
 		me.getTaskFormGagal().close();
 		me.updateAVReDash();
-		console.log("skalian update depan");
+		//console.log("skalian update depan");
 	},
 	
 	simpanFormGagal: function()	{
@@ -829,13 +830,16 @@ Ext.define('rcm.controller.DataEntry', {
 			du = this.getDate(form.findField('dateup').getValue()), 
 			tu = this.getTime(form.findField('timeup').getValue());
 		
+		
+		//alert("fm: "+mode);
+		//*
 		var rec = new rcm.model.DaftarGagal({ edit:0,
 			id:'u'+id,downt:dd,downj:td,startt:dm,startj:tm,endt:ds,endj:ts,upt:du,upj:tu,
 			event:event,tipeev:tipeev,ket:ket,exe:exe,server:rcmSettings.server,cat:rcmSettings.cat
         });
         
         //*
-        rec.save({
+        rec.save({				// update
             success: function(respon, operation) {
 				var resp = operation.request.scope.reader.jsonData["tasks"];
 				var recx = me.getEventStore().getRange();
@@ -847,7 +851,7 @@ Ext.define('rcm.controller.DataEntry', {
 							}
 						}
 					}
-					me.getEventStore().sync();
+					me.getEventStore().sync();				// create ()
 					//me.getEventStore().removeAll();
 				}
 				me.getDaftarGagalStore().reload();
@@ -865,6 +869,7 @@ Ext.define('rcm.controller.DataEntry', {
                 });
             }
         });
+        //*/
 	},
 	
 	suksesDG: function()	{

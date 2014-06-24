@@ -32,7 +32,8 @@ try {
 	if (is_object($params))	{
 		//echo "var object !!<br/>";
 		$sql =	"INSERT INTO event (down_id, eq,opart,fm,cause,aksi) VALUES ".
-			"('{$params->iddown}','{$params->ideql}','{$params->idopart}','{$params->idmode}','{$params->idcause}','{$params->idaksi}' )";
+			"('{$params->iddown}','{$params->ideql}','{$params->idopart}',".
+			"'{$params->idmode}','{$params->idcause}','{$params->idaksi}' )";
 		//echo "sql: $sql<br/>";
 		$q = db_query($sql);
 		if ($qq)	{
