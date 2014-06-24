@@ -572,7 +572,7 @@ Ext.define('rcm.controller.DataEntry', {
 	},
 	
 	pilihOPartClick: function(dd, drow)	{
-		//console.log("Controller DataEntry pilihOPartClick row: "+drow.row);
+		//alert("Controller DataEntry pilihOPartClick row: "+drow.row);
 		var rec = this.getEventStore().getRange()[drow.row];
 		rec.set('idopart',drow.opart);
 	},
@@ -580,7 +580,8 @@ Ext.define('rcm.controller.DataEntry', {
 	pilihModeClick: function(dd, drow)	{
 		//console.log("Controller DataEntry pilihModeClick row: "+drow.row);
 		var rec = this.getEventStore().getRange()[drow.row];
-		rec.set('idmode',drow.id);
+		alert("idmode: "+drow.mode);
+		rec.set('idmode',drow.mode);
 		//rec.set('idmode',drow.kode);
 	},
 	

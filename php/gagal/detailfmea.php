@@ -16,14 +16,14 @@ try {
 	$id = implode(",",array_filter($rid));
 
 	$sql =  "SELECT distinct event.id,down_id, eq, (select concat ('[',equip.tag,'] ',equip.nama))as enama, ".
-			"opart,opart.nama as opnama, fm, 'failuremode.nama' as fnama, ".
+			"opart,opart.nama as opnama, fm, failuremode.nama as fnama, ".
 			"cause,cause.nama as cnama,aksi, aksi.nama as anama ".
 			"FROM event ".
 			"LEFT JOIN equip ON event.eq = equip.id ".
 			"LEFT JOIN opart ON event.opart = opart.id  ".
-			"LEFT JOIN failuremode ON event.fm like failuremode.kode ".
+			"LEFT JOIN failuremode ON event.fm like failuremode.id ".
 			"LEFT JOIN cause ON event.cause like cause.id ".
-			"LEFT JOIN aksi ON event.cause like aksi.id ".
+			"LEFT JOIN aksi ON event.aksi like aksi.id ".
 			"where down_id in ($id) order by enama asc;";
 	//echo "sql: $sql<br/><br/>";
 	$q = db_query($sql);

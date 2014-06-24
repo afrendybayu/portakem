@@ -552,10 +552,14 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 	},
 	
 	pilihModeGagal: function(n)	{
-		//rcmSettings.asa.mode = n.data.id;
-		//rcmSettings.asa.kode = n.data.kode;
-		//this.fireEvent('plhModeGagal', n, rcmSettings.asa);
-		this.fireEvent('plhModeGagal', n, n.data);
+		rcmSettings.asa.mode = n.data.id;
+		rcmSettings.asa.kode = n.data.kode;
+		//aaaa = n;	
+		this.fireEvent('plhModeGagal', n, rcmSettings.asa);
+		//var a;
+		//a.mode = n.data.id;		a.kode = n.data.kode;
+		//alert("id: "+n.data.id+", kode:"+n.data.kode);
+		//this.fireEvent('plhModeGagal', n, n.data);
 	},
 	
 	pilihCauseGagal: function(n)	{

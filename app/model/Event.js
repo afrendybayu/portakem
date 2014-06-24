@@ -16,7 +16,7 @@ Ext.define('rcm.model.Event', {
         },
         reader: {
             type: 'json',
-            root: 'equip',
+            root: 'event',
             messageProperty: 'message'
         }
     }
