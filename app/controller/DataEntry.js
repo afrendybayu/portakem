@@ -353,17 +353,17 @@ Ext.define('rcm.controller.DataEntry', {
 					end.validate();
 					this.dateRangeMin = date;
 				}
-				console.log("tgl tgl tgl tgl tgl ");
+				//console.log("tgl tgl tgl tgl tgl ");
 				return true;
 			},
 			daterangeText: 'Start date must be less than end date',
 			timerange: function(val, field)	{
 				var time = field.parseDate(val);
-				console.log("aaa");
+				//console.log("aaa");
 				if(!time){
 					return;
 				}
-				console.log("bbb");
+				//console.log("bbb");
 				if (field.startTimeField && (!this.timeRangeMax || (time.getTime() != this.timeRangeMax.getTime()))) {
 					var start = field.up('form').down('#' + field.startTimeField);
 					//start.maxValue = time.getHours()+":"+time.getMinutes();
@@ -812,7 +812,7 @@ Ext.define('rcm.controller.DataEntry', {
 	
 	simpanFormGagal: function()	{
 		//alert(this.getTaskIsiFormGagal().getCmp('save-task-fg-btn').getText());
-		//console.log("simpan data simpanFormGagal: "+rcmSettings.eqx);
+		console.log("simpan data simpanFormGagal: "+rcmSettings.eqx);
 		var taskFormGagal = this.getTaskFormGagal(),
             windowEl = taskFormGagal.getEl(),
             form = taskFormGagal.down('form').getForm(),
@@ -855,6 +855,7 @@ Ext.define('rcm.controller.DataEntry', {
 							}
 						}
 					}
+					console.log("masuk sini");
 					//me.getEventStore().sync();
 					//*
 					me.getEventStore().sync({
@@ -871,6 +872,10 @@ Ext.define('rcm.controller.DataEntry', {
 					});				// create ()
 					//*/
 					//me.getEventStore().removeAll();
+				}
+				else {
+					me.getDaftarGagalStore().reload();
+					me.getRunningHourStore().reload();
 				}
 				//me.getDaftarGagalStore().reload();
 				//me.getRunningHourStore().reload();
