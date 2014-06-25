@@ -28,7 +28,7 @@ try {
 	$strcat = join(" or ", $cat);
 	//print_r($cat); echo "<br/><br/>strcat: $strcat<br/><br/>";
 	
-	$s = "SELECT id, cat,kode,nama FROM failuremode where $strcat order by cat asc";
+	$s = "SELECT id, cat,kode,nama FROM failuremode where $strcat order by nama asc";
 	$q = db_query($s);
 	
 	if (!$q)	{

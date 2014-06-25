@@ -580,7 +580,7 @@ Ext.define('rcm.controller.DataEntry', {
 	pilihModeClick: function(dd, drow)	{
 		//console.log("Controller DataEntry pilihModeClick row: "+drow.row);
 		var rec = this.getEventStore().getRange()[drow.row];
-		alert("idmode: "+drow.mode);
+		//alert("idmode: "+drow.mode);
 		rec.set('idmode',drow.mode);
 		//rec.set('idmode',drow.kode);
 	},

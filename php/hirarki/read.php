@@ -44,8 +44,8 @@ try {
 		//$row['text'] = '['.$row['id'].'] '.$row['text'];
 		//$arr[] = $row;
 		$arr[$k]['id'] = $row['id'];
-		//$arr[$k]['text'] = $row['text'];
-		$arr[$k]['text'] = $row['text']. " ".$arr[$k]['id'] = $row['id'];
+		$arr[$k]['text'] = $row['text'];
+		//$arr[$k]['text'] = $row['text']. " ".$arr[$k]['id'] = $row['id'];
 		//$arr[$k]['text'] = $row['text'];	//. " ".$arr[$k]['id'] = $row['id'];
 		$arr[$k]['tipe'] = 'h';
 		$arr[$k]['unit'] = $row['unit'];
