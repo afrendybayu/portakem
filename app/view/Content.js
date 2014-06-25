@@ -50,7 +50,7 @@ Ext.define('rcm.view.Content', {
 			//layout: 'accordion',
 			xtype: 'tabpanel',
 			items: [{
-			/*
+			//*
 				title: 'Data Running Hour',
 				xtype: 'excelgrid',
 				id: 'app-runninghour',
@@ -121,12 +121,14 @@ Ext.define('rcm.view.Content', {
 				//	data: Ext.create('Extensible.example.calendar.data.Events')
 				//}),
 			//*/
+			/*
 			},{
 				title: 'Data Running Hour',
 				xtype: 'excelgrid',
-				id: 'app-runninghour',
+				id: 'app-runninghourx',
 				//iconCls: 'icon-grid',
 				icon: 'modul/icons/application_go.png'
+			//*/
 			}]
 		},{
 			id: 'tu_kf',

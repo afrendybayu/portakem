@@ -33,6 +33,11 @@ try {
 	$sk = bwaktu($params->endt, $params->endj);
 	//echo "aw: {$aw->t}, ak: {$ak->t}<br/>";
 
+	if ($aw->t > $ak->t)	{
+		throw new Exception("Waktu tidak sesuai !!<br/>Input Data Tidak disimpan");
+		//exit;
+	}
+
 	/*
 	if ($aw->t>$ak->t) exit;
 	

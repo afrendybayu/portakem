@@ -327,37 +327,100 @@ Ext.define('rcm.controller.DataEntry', {
 					return false;
 				}
 				if (field.startDateField && (!this.dateRangeMax || (date.getTime() != this.dateRangeMax.getTime()))) {
-					var start = field.up('form').down('#' + field.startDateField);
-					var enddate = field.up('form').down('#' + field.endDateField);
-					var sttime = field.up('form').down('#' + field.startTimeField);
-					var endtime = field.up('form').down('#' + field.endTimeField);
-
+					console.log("pilih tanggal up");
+					//var start = field.up('form').down('#' + field.startDateField).getValue();
+					//var enddate = field.up('form').down('#' + field.endDateField).getValue();
+					
+					
+					
+					
+					var start = Ext.getCmp('datedown').getValue();
+					var enddate = Ext.getCmp('dateup').getValue();
+					
+					console.log("startd: "+Date.parse(start)+", enddate: "+Date.parse(enddate));
+					
+					if (Date.parse(start)==Date.parse(enddate))	{
+						if (Ext.getCmp('timedown').getValue())	{
+							var sttime = field.up('form').down('#' + field.startTimeField);
+							var endtime = field.up('form').down('#' + field.endTimeField);
+							endtime.setMinValue(sttime.getSubmitValue());
+							console.log("tgl up SAMA: "+sttime.getSubmitValue());
+						}
+					}
+					
+					//start.setMaxValue(date);
+					//start.validate();
+					this.dateRangeMax = date;
+					
+					/*
 					if (Date.parse(start.getValue()) == Date.parse(enddate.getValue()))	{
-						endtime.setMinValue(sttime.getSubmitValue());
-						//console.log("tgl up SAMA");
+						//endtime.setMinValue(sttime.getSubmitValue());
+						console.log("tgl up SAMA");
 					}
 					else {
-						//console.log("tgl up BEDAAAA, st: "+start.getValue()+", stop: "+enddate.getValue());
-						endtime.setMinValue("00:00");
+						console.log("tgl up BEDAAAA, st: "+start.getValue()+", stop: "+enddate.getValue());
+						//endtime.setMinValue("00:00");
 					}
 					
 					
 					start.setMaxValue(date);
 					start.validate();
 					this.dateRangeMax = date;
+					//*/
 				}
 				else if (field.endDateField && (!this.dateRangeMin || (date.getTime() != this.dateRangeMin.getTime()))) {
+					console.log("tanggal down");
+					
+					
+					
 					var end = field.up('form').down('#' + field.endDateField);
 					
 					end.setMinValue(date);
 					end.validate();
 					this.dateRangeMin = date;
 				}
-				//console.log("tgl tgl tgl tgl tgl ");
 				return true;
 			},
 			daterangeText: 'Start date must be less than end date',
 			timerange: function(val, field)	{
+				var time = field.parseDate(val);
+				if(!time){
+					return;
+				}
+				
+				
+				if (field.startTimeField && (!this.timeRangeMax || (time.getTime() != this.timeRangeMax.getTime()))) {
+					console.log("pilih jam up");
+					//var startt = Ext.getCmp('timedown').getValue();
+					var start = field.up('form').down('#' + field.startTimeField);
+					start.maxValue = time.getHours()+":"+time.getMinutes();
+					
+					console.log("st max: "+start.maxValue);
+					start.validate();
+					this.timeRangeMax = time;
+				}
+				else if (field.endTimeField && (!this.timeRangeMin || (time.getTime() != this.timeRangeMin.getTime()))) {
+					if (Ext.getCmp('dateup').getValue())	{
+						console.log("pilih jam down");
+						
+						var startd = Ext.getCmp('datedown').getValue();
+						var endd = Ext.getCmp('dateup').getValue();
+						if (Date.parse(startd)==Date.parse(endd))	{
+							//var sttime = field.up('form').down('#' + field.startTimeField);
+							var endtime = field.up('form').down('#' + field.endTimeField);
+							//alert(Ext.getCmp('timedown').getSubmitValue());
+							//var time = Ext.getCmp('timedown').getSubmitValue();
+							endtime.setMinValue(Ext.getCmp('timedown').getSubmitValue());
+							//console.log("tgl up SAMA: "+sttime.getSubmitValue());
+						}						
+					}
+					
+					
+					//endtime.validate();
+					//this.timeRangeMin = time;
+				}
+				/*
+				//console.log("pencet: "+ val+", parse: "+field.parseDate(val));
 				var time = field.parseDate(val);
 				//console.log("aaa");
 				if(!time){
@@ -368,7 +431,7 @@ Ext.define('rcm.controller.DataEntry', {
 					var start = field.up('form').down('#' + field.startTimeField);
 					//start.maxValue = time.getHours()+":"+time.getMinutes();
 					//start.maxValue = time;
-					console.log("sebelah situ");
+					//console.log("sebelah situ");
 					start.validate();
 					this.timeRangeMax = time;
 				} 
@@ -379,11 +442,12 @@ Ext.define('rcm.controller.DataEntry', {
 					
 					//console.log("parse st: "+Date.parse(sttdate.getValue())+", en: "+Date.parse(enddate.getValue()));
 					//console.log("start date: "+sttdate.getValue()+", stopdate: "+enddate.getValue());
-					console.log("sebelah sini");
+					//console.log("sebelah sini");
 
 					endtime.validate();
 					this.timeRangeMin = time;
 				}
+				//*/
 				return true;
 			},
 			timerangeText: 'Start Time must be less than end time',
@@ -890,6 +954,8 @@ Ext.define('rcm.controller.DataEntry', {
                     icon: Ext.Msg.ERROR,
                     buttons: Ext.Msg.OK
                 });
+                me.getDaftarGagalStore().reload();
+				me.getRunningHourStore().reload();
             }
         });
         //*/
