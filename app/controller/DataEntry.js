@@ -907,7 +907,7 @@ Ext.define('rcm.controller.DataEntry', {
             success: function(respon, operation) {
 				var resp = operation.request.scope.reader.jsonData["tasks"];
 				var recx = me.getEventStore().getRange();
-				if (event!=1)	{
+				if (event>2)	{
 					for (var i=0, len1=resp.length; i<len1; ++i) {
 						for (var j=0,len2=recx.length; j<len2; ++j)	{
 							if (recx[j].data.ideql==resp[i].eq)	{
@@ -916,8 +916,6 @@ Ext.define('rcm.controller.DataEntry', {
 						}
 					}
 					console.log("masuk sini");
-					//me.getEventStore().sync();
-					//*
 					me.getEventStore().sync({
 						//*
 						success: function()	{
@@ -926,12 +924,15 @@ Ext.define('rcm.controller.DataEntry', {
 							console.log("sukses getEventStore");
 						},
 						failure: function()	{
+							me.getDaftarGagalStore().reload();
+							me.getRunningHourStore().reload();
 							console.log("gagal getEventStore");
 						}
 										
 					});				// create ()
 					//*/
 					//me.getEventStore().removeAll();
+					console.log("keluar selamat !!!");
 				}
 				else {
 					me.getDaftarGagalStore().reload();
