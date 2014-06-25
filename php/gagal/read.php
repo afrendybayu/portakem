@@ -73,7 +73,7 @@ try {
 	$isi = array(); $dd = ''; $td = '';	$mdar = Array(); $tar = Array();
 	while ($row = mysql_fetch_assoc($q)) {
 		//*
-		//echo "event: {$row['idevent']}, downt: {$row['downt']}, downj: {$row['downj']}, kode: {$row['kode']}, pm: {$row['namapm']}<br/>";
+		//echo "event: {$row['idevent']}, downt: {$row['downt']}, downj: {$row['downj']}, kode: {$row['kode']}, fm: {$row['fm']}<br/>";
 		//$idd = $row['id']; //$idn .=$idd;
 		if (($row['downt']==$dd) && ($row['downj']==$td)) {
 			//echo "SAMA: $dd - $td ";
@@ -90,9 +90,18 @@ try {
 				}
 			} else if (($ax==3) || ($ax==4)) {
 				//echo "fm: {$row['fm']}<br/>";
+				/*
 				if (isset($row['fm']) && ($row['fm']!="") && (isset($isi[$jml]['fm']))) {
 					if (strlen($isi[$jml]['fm'])>0)
 						$isi[$jml]['fm'] .= "&nbsp;&nbsp;";
+					$isi[$jml]['fm'] .= "[{$row['kode']}: {$row['fm']}]";
+					echo "masuk sini... <br/>";
+				}
+				//*/
+				if (isset($row['fm']) && ($row['fm']!=""))	{
+					if ( (isset($isi[$jml]['fm'])) && (strlen($isi[$jml]['fm'])>0) )	{
+						$isi[$jml]['fm'] .= "&nbsp;&nbsp;";
+					}
 					$isi[$jml]['fm'] .= "[{$row['kode']}: {$row['fm']}]";
 				}
 			}

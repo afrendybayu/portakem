@@ -314,6 +314,7 @@ Ext.define('rcm.controller.DataEntry', {
         //*/
         
         //Ext.QuickTips.init();
+        var me = this;
         Ext.getCmp('htmleddet').setReadOnly(true);
         
         this.getEventListStore().load();
@@ -357,25 +358,27 @@ Ext.define('rcm.controller.DataEntry', {
 			daterangeText: 'Start date must be less than end date',
 			timerange: function(val, field)	{
 				var time = field.parseDate(val);
+				console.log("aaa");
 				if(!time){
 					return;
 				}
+				console.log("bbb");
 				if (field.startTimeField && (!this.timeRangeMax || (time.getTime() != this.timeRangeMax.getTime()))) {
 					var start = field.up('form').down('#' + field.startTimeField);
 					//start.maxValue = time.getHours()+":"+time.getMinutes();
 					//start.maxValue = time;
+					console.log("sebelah situ");
 					start.validate();
 					this.timeRangeMax = time;
 				} 
 				else if (field.endTimeField && (!this.timeRangeMin || (time.getTime() != this.timeRangeMin.getTime()))) {
 					var endtime = field.up('form').down('#' + field.endTimeField);
-					
 					var sttdate = field.up('form').down('#' + field.startDateField);
 					var enddate = field.up('form').down('#' + field.endDateField);
 					
 					//console.log("parse st: "+Date.parse(sttdate.getValue())+", en: "+Date.parse(enddate.getValue()));
 					//console.log("start date: "+sttdate.getValue()+", stopdate: "+enddate.getValue());
-					
+					console.log("sebelah sini");
 
 					endtime.validate();
 					this.timeRangeMin = time;
@@ -515,6 +518,8 @@ Ext.define('rcm.controller.DataEntry', {
 	
 	pilihHapusDGClick: function(task, successCallback)	{	// grid, row, col, column, e
 		//me.getRunningHourStore().reload();
+		rcmSettings.ccc = this;
+		var de = this;
 		var ee=task.get('event')+" "+task.get('nama');
 		Ext.Msg.show({
             title: ee,
@@ -524,11 +529,10 @@ Ext.define('rcm.controller.DataEntry', {
                 if(response === 'yes') {
                     task.destroy({
                         success: function(task, operation) {
-							//console.log("----- mulai running hour");
-							//me.getDaftarGagalStore().remove(task);
-							//me.refreshRH();
-							//this.getRunningHourStore().reload();
-							
+							console.log("----- mulai running hour");
+							de.refreshRH();
+							//rcmSettings.aaa = this;
+							console.log("----- sukses cek running hour");
                         },
                         failure: function(task, operation) {
                             var error = operation.getError(),
@@ -545,8 +549,10 @@ Ext.define('rcm.controller.DataEntry', {
                 }
             }
         });
-        me.getRunningHourStore().reload();
-        //console.log("----- selesai running hour");
+        //console.log("----- cek running hour");
+		//this.getRunningHourStore().reload();
+		//this.refreshRH();
+        console.log("----- selesai running hour");
 	},
     
     pilihEventGagalXY: function(n)	{
