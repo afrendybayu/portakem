@@ -353,6 +353,7 @@ Ext.define('rcm.controller.DataEntry', {
 					end.validate();
 					this.dateRangeMin = date;
 				}
+				console.log("tgl tgl tgl tgl tgl ");
 				return true;
 			},
 			daterangeText: 'Start date must be less than end date',
@@ -529,10 +530,10 @@ Ext.define('rcm.controller.DataEntry', {
                 if(response === 'yes') {
                     task.destroy({
                         success: function(task, operation) {
-							console.log("----- mulai running hour");
+							//console.log("----- mulai running hour");
 							de.refreshRH();
 							//rcmSettings.aaa = this;
-							console.log("----- sukses cek running hour");
+							//console.log("----- sukses cek running hour");
                         },
                         failure: function(task, operation) {
                             var error = operation.getError(),
@@ -549,10 +550,6 @@ Ext.define('rcm.controller.DataEntry', {
                 }
             }
         });
-        //console.log("----- cek running hour");
-		//this.getRunningHourStore().reload();
-		//this.refreshRH();
-        console.log("----- selesai running hour");
 	},
     
     pilihEventGagalXY: function(n)	{
@@ -858,11 +855,25 @@ Ext.define('rcm.controller.DataEntry', {
 							}
 						}
 					}
-					me.getEventStore().sync();				// create ()
+					//me.getEventStore().sync();
+					//*
+					me.getEventStore().sync({
+						//*
+						success: function()	{
+							me.getDaftarGagalStore().reload();
+							me.getRunningHourStore().reload();
+							console.log("sukses getEventStore");
+						},
+						failure: function()	{
+							console.log("gagal getEventStore");
+						}
+										
+					});				// create ()
+					//*/
 					//me.getEventStore().removeAll();
 				}
-				me.getDaftarGagalStore().reload();
-				me.getRunningHourStore().reload();
+				//me.getDaftarGagalStore().reload();
+				//me.getRunningHourStore().reload();
             },
             failure: function(task, operation) {
                 var error = operation.getError(),

@@ -11,7 +11,7 @@ try {
 	
 	if (is_array($params))	{
 		//echo "var array !!<br/>";
-		$k = 1;	$hasil = array();
+		$k = 0;	$hasil = array();
 		foreach ($params as $obj)	{
 			$sql =	"INSERT INTO event (down_id,eq,opart,fm,cause,aksi) VALUES ".
 			"('{$obj->iddown}','{$obj->ideql}','{$obj->idopart}','{$obj->idmode}','{$obj->idcause}','{$obj->idaksi}' )";
@@ -22,9 +22,10 @@ try {
 				$sql = "SELECT id FROM event order by id desc limit 0,1";
 				$qq = db_query($sql);
 				if ($qq)	{
-					$row = mysql_fetch_assoc($q);
-					echo "{$row['id']} ";
-					array_push($hasil, $row['id']);
+					$row = mysql_fetch_assoc($qq);
+					//echo "{$row['id']} ";
+					//array_push($hasil, $row['id']);
+					$hasil[$k]['id'] = $row['id'];
 				}
 			}
 		}
@@ -37,8 +38,10 @@ try {
 		//echo "sql: $sql<br/>";
 		$q = db_query($sql);
 		if ($qq)	{
-			$row = mysql_fetch_assoc($q);
-			$hasil = $row['id'];
+			$sql = "SELECT id FROM event order by id desc limit 0,1";
+			$qq = db_query($sql);
+			$row = mysql_fetch_assoc($qq);
+			$hasil['id'] = $row['id'];
 		}
 	}
 	//print_r($params);
@@ -68,6 +71,7 @@ try {
 		exit;
 	}
 	//*/
+    
     $jsonResult = array(
         'success' => true,
         'event' => $hasil
