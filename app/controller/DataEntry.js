@@ -327,25 +327,21 @@ Ext.define('rcm.controller.DataEntry', {
 					return false;
 				}
 				if (field.startDateField && (!this.dateRangeMax || (date.getTime() != this.dateRangeMax.getTime()))) {
-					console.log("pilih tanggal up");
-					//var start = field.up('form').down('#' + field.startDateField).getValue();
-					//var enddate = field.up('form').down('#' + field.endDateField).getValue();
-					
-					
-					
-					
 					var start = Ext.getCmp('datedown').getValue();
 					var enddate = Ext.getCmp('dateup').getValue();
 					
-					console.log("startd: "+Date.parse(start)+", enddate: "+Date.parse(enddate));
+					//console.log("startd: "+Date.parse(start)+", enddate: "+Date.parse(enddate));
 					
+					var endtime = field.up('form').down('#' + field.endTimeField);
 					if (Date.parse(start)==Date.parse(enddate))	{
 						if (Ext.getCmp('timedown').getValue())	{
 							var sttime = field.up('form').down('#' + field.startTimeField);
-							var endtime = field.up('form').down('#' + field.endTimeField);
 							endtime.setMinValue(sttime.getSubmitValue());
-							console.log("tgl up SAMA: "+sttime.getSubmitValue());
+							//console.log("tgl up SAMA: "+sttime.getSubmitValue());
 						}
+					}
+					else {
+						endtime.setMinValue("00:00");
 					}
 					
 					//start.setMaxValue(date);
@@ -390,29 +386,29 @@ Ext.define('rcm.controller.DataEntry', {
 				
 				
 				if (field.startTimeField && (!this.timeRangeMax || (time.getTime() != this.timeRangeMax.getTime()))) {
-					console.log("pilih jam up");
+					//console.log("pilih jam up");
 					//var startt = Ext.getCmp('timedown').getValue();
 					var start = field.up('form').down('#' + field.startTimeField);
 					start.maxValue = time.getHours()+":"+time.getMinutes();
 					
-					console.log("st max: "+start.maxValue);
+					//console.log("st max: "+start.maxValue);
 					start.validate();
 					this.timeRangeMax = time;
 				}
 				else if (field.endTimeField && (!this.timeRangeMin || (time.getTime() != this.timeRangeMin.getTime()))) {
 					if (Ext.getCmp('dateup').getValue())	{
-						console.log("pilih jam down");
+						//console.log("pilih jam down");
 						
 						var startd = Ext.getCmp('datedown').getValue();
 						var endd = Ext.getCmp('dateup').getValue();
+						var endtime = field.up('form').down('#' + field.endTimeField);
 						if (Date.parse(startd)==Date.parse(endd))	{
-							//var sttime = field.up('form').down('#' + field.startTimeField);
-							var endtime = field.up('form').down('#' + field.endTimeField);
-							//alert(Ext.getCmp('timedown').getSubmitValue());
-							//var time = Ext.getCmp('timedown').getSubmitValue();
 							endtime.setMinValue(Ext.getCmp('timedown').getSubmitValue());
-							//console.log("tgl up SAMA: "+sttime.getSubmitValue());
-						}						
+							//endtime.validate();
+						}
+						else {
+							endtime.setMinValue("00:00");
+						}					
 					}
 					
 					
