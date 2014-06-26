@@ -365,9 +365,8 @@ Ext.define('rcm.controller.DataEntry', {
 					//*/
 				}
 				else if (field.endDateField && (!this.dateRangeMin || (date.getTime() != this.dateRangeMin.getTime()))) {
-					console.log("tanggal down");
-					
-					
+					//console.log("tanggal down");
+		
 					
 					var end = field.up('form').down('#' + field.endDateField);
 					
@@ -766,18 +765,37 @@ Ext.define('rcm.controller.DataEntry', {
 	},
 
 	pilihEditDGClick: function(rec)	{
-		var me = this,
+		var me = this, ev = rec.get('idevent'),
             taskFormGagal = me.getTaskFormGagal(),
 			form =  taskFormGagal.down('form').getForm(),
 			sDG = Ext.create('rcm.model.DaftarGagal');
-		this.getPMStore().load({ params:{unit:rec.get('eqid')} });
+		
 		
 		taskFormGagal.down('form').getForm().reset();
 		
 		me.getTaskIsiFormGagal().pilihEventG(rec.get('idevent'));
 		me.getTaskIsiFormGagal().setNilai(rec);
 
-		//alert(rec.get('eqid'));
+		//alert(rec.get('id'));
+		if (ev==2)	{
+			//*
+			me.getPMStore().load({ 
+				params:{unit:rec.get('eqid')},
+				scope: this,
+				/*
+				callback: function(rec, operation, success) {
+					if (success) {
+						Ext.getCmp('htmleddet').setValue(rec[0].get('ket'));
+					}
+				}
+				//*/
+			});
+			
+		}
+		
+		if (ev>2)	{
+			me.getEventStore().load({ params:{down:rec.get('id')} });
+		}
 		//Ext.getCmp('idtfket').setValue('cobacoab');
 
 		taskFormGagal.setTitle('Edit Form Notifikasi');
