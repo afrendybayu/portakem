@@ -21,6 +21,7 @@ Ext.define('rcm.controller.DataEntry', {
         'dataentry.InfoFMEA',
         'dataentry.DetailInfo',
         'dataentry.BlnGagal',
+        'dataentry.FMEAGrid',
         
         'laporan.Chart',
         'laporan.UploadFile',
@@ -126,6 +127,11 @@ Ext.define('rcm.controller.DataEntry', {
 		xtype: 'taskIsiFormGagal',
 		autoCreate: true
 	},{
+		ref: 'taskFMEAGrid',
+		selector: 'taskFMEAGrid',
+		xtype: 'taskFMEAGrid',
+		autoCreate: true
+	},{
 		ref: 'taskGridCause',
 		selector: 'taskGridCause',
 		xtype: 'taskGridCause',
@@ -164,13 +170,17 @@ Ext.define('rcm.controller.DataEntry', {
 				//specialkey: me.handleSpecialKey,
 			},
 			'taskIsiFormGagal': {
-				plhEquipGagal: me.pilihEqClick,
+				
 				plhOPartGagal: me.pilihOPartClick,
 				plhFMEA: me.pilihGridFMEA,
 				plhModeGagal: me.pilihModeClick,
 				plhCauseGagal: me.pilihCauseClick,
 				plhAksiGagal: me.pilihAksiClick,
 				plhEventGagalXY: me.pilihEventGagalXY
+			},
+			'taskFMEAGrid': {
+				plhFilterFMEA: me.pilihFMEAFilter,
+				plhEquipGagal: me.pilihEqClick,
 			},
 			'taskDaftarGagal': {
 				editDGClick: me.pilihEditDGClick,
@@ -619,21 +629,45 @@ Ext.define('rcm.controller.DataEntry', {
 		else	taskFormGagal.setWidth(970);
 	},
     
-    pilihEqClick: function(dd, drow) {
+    pilihFMEAFilter: function(n) {
+		console.log("pilihFMEAGagal r: "+n.row+", c: "+n.col+" cat: "+n.cat);
+		
+		var me=this;
+		//rcmSettings.aaaa = me.getEventStore();
+		//alert("pilihFMEAGagal "+me.getEventStore()+"<--");
+		if (n.col==2)	{		// col 2 = OPart
+			console.log("masuk Opart");
+			me.getOPartStore().clearFilter(true);
+			me.getOPartStore().filter('cat',n.cat);
+		}
+		else if (n.col==3)	{	// col 3 = FMode
+			console.log("masuk FMode");
+			me.getFModeStore().clearFilter(true);
+			me.getFModeStore().filter('cat',n.cat);
+		}
+	},
+    
+    pilihEqClick: function(drow) {
+		var me = this;
 		//console.log("Controller DataEntry pilih Eq --> cat "+dd.data.cat+" id: "+drow.ideq);
 		//this.getEventStore().set('ideql',drow.ideq);
-		this.getOPartStore().clearFilter(true);
-		this.getOPartStore().filter('cat',dd.data.cat);
+		/*
+		me.getOPartStore().clearFilter(true);
+		me.getOPartStore().filter('cat',dd.data.cat);
 		
-		this.getFModeStore().clearFilter(true);
-		this.getFModeStore().filter('cat',dd.data.cat);
-		var rec = this.getEventStore().getRange()[drow.row];
+		me.getFModeStore().clearFilter(true);
+		me.getFModeStore().filter('cat',dd.data.cat);
+		//*/
+		var rec = me.getEventStore().getRange()[drow.row];
+		
+		console.log("ideq: "+drow.ideq+", cat: "+drow.cat+", row: "+drow.row);
 		rec.set('ideql',drow.ideq);
-		rec.set('cat',dd.data.cat);
+		rec.set('cat',drow.cat);
 		//rcmSettings.bongkar = this.getEventStore().getRange();
 	},
 	
 	pilihOPartClick: function(dd, drow)	{
+		//alert(rcmSettings.asa.row);
 		//alert("Controller DataEntry pilihOPartClick row: "+drow.row);
 		var rec = this.getEventStore().getRange()[drow.row];
 		rec.set('idopart',drow.opart);
@@ -690,7 +724,7 @@ Ext.define('rcm.controller.DataEntry', {
 	},
     
     updateGrid: function(view, e) {
-        var me=this, tv=e.value; drow=this.getRunningHourStore().getAt(e.rowIdx);
+        var me=this, tv=e.value; //drow=me.getRunningHourStore().getAt(e.rowIdx);
         //var at=e.row;
         //rcmSettings.asa = this.getRunningHourStore().getAt(e.rowIdx).data;
         //var alertText = ' ';   for (property in e) { alertText += property + ':' + e[property]+'; ';   }
@@ -705,7 +739,7 @@ Ext.define('rcm.controller.DataEntry', {
 		} else if (tv=="69be4597788ab6909cdc1159afd9512a")	{
 			
 		} else {
-			this.buildFormGagal(e);
+			me.buildFormGagal(e);
 		}
 	},
 	
@@ -765,35 +799,30 @@ Ext.define('rcm.controller.DataEntry', {
 	},
 
 	pilihEditDGClick: function(rec)	{
-		var me = this, ev = rec.get('idevent'),
-            taskFormGagal = me.getTaskFormGagal(),
-			form =  taskFormGagal.down('form').getForm(),
-			sDG = Ext.create('rcm.model.DaftarGagal');
-		
+		var me = this, ev = rec.get('idevent'), un = rec.get('eqid'),
+            taskFormGagal = me.getTaskFormGagal();
 		
 		taskFormGagal.down('form').getForm().reset();
 		
 		me.getTaskIsiFormGagal().pilihEventG(rec.get('idevent'));
 		me.getTaskIsiFormGagal().setNilai(rec);
-
-		//alert(rec.get('id'));
 		if (ev==2)	{
-			//*
 			me.getPMStore().load({ 
-				params:{unit:rec.get('eqid')},
+				params:{unit:un},
 				scope: this,
-				/*
-				callback: function(rec, operation, success) {
+				callback: function(dt, operation, success) {
 					if (success) {
-						Ext.getCmp('htmleddet').setValue(rec[0].get('ket'));
+						Ext.getCmp('tipepm').setValue(rec.get('tipeev').split(","));
 					}
 				}
-				//*/
 			});
 			
 		}
 		
 		if (ev>2)	{
+			me.getEquipStore().load({ params:{unit:un} });
+			me.getOPartStore().load({ params:{unit:un} });
+			me.getFModeStore().load({ params:{unit:un} });
 			me.getEventStore().load({ params:{down:rec.get('id')} });
 		}
 		//Ext.getCmp('idtfket').setValue('cobacoab');
@@ -890,7 +919,7 @@ Ext.define('rcm.controller.DataEntry', {
 	
 	simpanFormGagal: function()	{
 		//alert(this.getTaskIsiFormGagal().getCmp('save-task-fg-btn').getText());
-		console.log("simpan data simpanFormGagal: "+rcmSettings.eqx);
+		//console.log("simpan data simpanFormGagal: "+rcmSettings.eqx);
 		var taskFormGagal = this.getTaskFormGagal(),
             windowEl = taskFormGagal.getEl(),
             form = taskFormGagal.down('form').getForm(),

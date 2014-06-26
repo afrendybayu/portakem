@@ -6,7 +6,8 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 	xtype: 'taskIsiFormGagal',
 	require: [
 		'Ext.form.TextField',
-		'Ext.grid.Panel'
+		'Ext.grid.Panel',
+		'rcm.view.dataentry.FMEAGrid'
 	],
 	
 	fieldDefaults: {
@@ -402,15 +403,17 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 						xtype: 'button',
 						id: 'tambah-fmea-btn',
 						icon: 'modul/icons/add.png',
-						margin: '0 0 0 665',
+						margin: '0 0 0 720',
 						text: 'Tambah',
 						maxWidth: 80
 				}]
 			},{			// 7 Grid FMEA
-				xtype: 'gridpanel',
+				//xtype: 'gridpanel',
 				layout: 'fit',
 				id: 'TFGrid',
 				height: 100,
+				xtype: 'taskFMEAGrid',
+				/*
 				plugins: [ed],
 				listeners: {
 					'cellclick' : me.rowFMEAclick
@@ -423,10 +426,10 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 						queryParam: 'tipe',name : 'eql',displayField: 'nama',valueField: 'nama',queryMode: 'local',
 						listConfig: { listeners: { itemclick: function(list, record) { me.pilihEquipGagal(record,list); } } }
 					} },
-					{ text: "Object Part", dataIndex: 'opart', /*flex:1*/width:250, editor: {
+					{ text: "Object Part", dataIndex: 'opart', width:250, editor: {
 						xtype: 'combo', editable: false, emptyText: 'Pilih Object Part.. ', store: 'OPart',queryMode: 'local',
 						queryParam: 'tipe',name : 'opart',displayField: 'nama',valueField: 'nama',
-						listConfig: { listeners: { itemclick: function(list, record) { me.pilihOPartGagal(record); } } }
+						listConfig: { listeners: { itemclick: function(list,record) { me.pilihOPartGagal(record, list); } } }
 					} },
 					{ text: "Failure Mode", dataIndex: 'mode', width:200,editor: {
 						xtype: 'combo', store: 'FMode',editable: false,	emptyText: 'Pilih Mode... ',queryMode: 'local',
@@ -454,6 +457,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 						}
 					}
 				]
+				//*/
 			},{			// 8 KetEditor	
 				//margin: '0 5 0 0',
 				//xtype: 'htmleditor',
@@ -542,12 +546,18 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 	
 	rowFMEAclick: function(grid, td, cellIndex, record, tr, rowIndex){
 		var asa = grid.getStore().getAt(rowIndex);
-		rcmSettings.asa = {row: rowIndex, col: cellIndex};
+		var x = {row: rowIndex, col: cellIndex, cat: asa.get('cat')};
+		
+		console.log("baris: "+x.row+", kolom: "+x.col+", cat: "+x.cat);
+		rcmSettings.asa = x;
+		this.fireEvent('plhFilterFMEA');
 	},
 
-	pilihOPartGagal: function(n) {
-		//console.log("tambahOPartGagal: "+n.data.cat+" id: "+n.data.id+" baris: "+rcmSettings.asa);
+	pilihOPartGagal: function(n, l) {
+		//rcmSettings.aaaa = n;
+		//alert(this.getView().getRow(0));
 		rcmSettings.asa.opart = n.data.id;	// w
+		//this.fireEvent('plhFilterFMEA');
 		this.fireEvent('plhOPartGagal', n, rcmSettings.asa);
 	},
 	
@@ -640,14 +650,6 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 		Ext.getCmp('timeup').setValue(rec.get('upj'));
 		Ext.getCmp('idexe').setValue(rec.get('exe'));
 		Ext.getCmp('idtfket').setValue(rec.get('ket'));
-		
-		//Ext.getCmp('idtfket').setValue('cobacoab');
-		//Ext.getCmp('tipepm').setValue('2');
-		//*
-		if (ev==2)	{
-			Ext.getCmp('tipepm').setValue(rec.get('tipeev').split(","));
-		}
-		//*/
 		Ext.getCmp('datemulai').setValue(rec.get('startt'));
 		Ext.getCmp('timemulai').setValue(rec.get('startj'));
 		Ext.getCmp('dateselesai').setValue(rec.get('endt'));
