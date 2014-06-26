@@ -868,6 +868,9 @@ Ext.define('rcm.controller.DataEntry', {
 			"\nds:"+o.ds+"\nts:"+o.ts+"\ndu: "+o.du+"\ntu: "+o.tu+"\nevent: "+o.event+"\ntipeev: "+o.tipeev+
 			"\nket:"+o.ket+"\nexe:"+o.exe+"\nserver: "+rcmSettings.server+"\ncat: "+rcmSettings.cat);
 		//*/
+		
+		me.getEventStore().sync();
+		
 		var rec = new rcm.model.DaftarGagal({ edit:1,
 			id:o.id,downt:o.dd,downj:o.td,startt:o.dm,startj:o.tm,endt:o.ds,endj:o.ts,upt:o.du,upj:o.tu,
 			event:o.event,tipeev:o.tipeev,ket:o.ket,exe:o.exe,server:rcmSettings.server,cat:rcmSettings.cat
@@ -884,7 +887,7 @@ Ext.define('rcm.controller.DataEntry', {
 							}
 						}
 					}
-					me.getEventStore().sync();
+					//me.getEventStore().sync();
 					//me.getEventStore().removeAll();
 				}
 				me.getDaftarGagalStore().reload();

@@ -55,8 +55,8 @@ Ext.define('rcm.view.dataentry.FMEAGrid', {
 			icon: 'modul/icons/delete.gif', tooltip: 'Hapus',
 			handler: function(grid, rowIndex, colIndex) {
 				var rec = grid.getStore().getAt(rowIndex);
-				alert("Hapus " + rec.get('eq'));
-				grid.getEventStore().removeAt(rowIndex);
+				alert("Hapus " + rec.get('eql'));
+				grid.getStore().removeAt(rowIndex);
 			}
 		}
 	],
@@ -107,12 +107,16 @@ Ext.define('rcm.view.dataentry.FMEAGrid', {
 	},
 
 	rowFMEAclick: function(grid, td, cellIndex, record, tr, rowIndex){
-		var asa = grid.getStore().getAt(rowIndex);
-		var x = {row: rowIndex, col: cellIndex, cat: asa.get('cat')};
-		
-		//console.log("rowFMEAclick baris: "+x.row+", kolom: "+x.col+", cat: "+x.cat);
-		rcmSettings.asa = x;
-		this.fireEvent('plhFilterFMEA', x);
+		//if (1)	{
+		if (rowIndex != grid.getStore().getCount())	{
+			alert("row: "+rowIndex+"/"+grid.getStore().getCount());
+			var asa = grid.getStore().getAt(rowIndex);
+			var x = {row: rowIndex, col: cellIndex, cat: asa.get('cat')};
+			
+			//console.log("rowFMEAclick baris: "+x.row+", kolom: "+x.col+", cat: "+x.cat);
+			rcmSettings.asa = x;
+			this.fireEvent('plhFilterFMEA', x);
+		}
 	},
 
 	
