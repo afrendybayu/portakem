@@ -487,6 +487,7 @@ Ext.define('rcm.controller.DataEntry', {
             eql:'',ideql:'',opart:'',idopart:'',mode:'',idmode:'',cause:'',idcause:'',aksi:'',idaksi:''
         });
         this.getEventStore().insert(0, rec);
+        this.getTaskFMEAGrid.getView().refresh();
 		//edit.startEditByPosition({ row: 0, column: 1 });
 	},
 
@@ -601,6 +602,7 @@ Ext.define('rcm.controller.DataEntry', {
                         success: function(task, operation) {
 							//console.log("----- mulai running hour");
 							de.refreshRH();
+							de.getTaskDaftarGagal().getView().refresh();
 							//rcmSettings.aaa = this;
 							//console.log("----- sukses cek running hour");
                         },
