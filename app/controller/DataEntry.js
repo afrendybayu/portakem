@@ -482,11 +482,12 @@ Ext.define('rcm.controller.DataEntry', {
     },
     
     tambahFMEAClick: function() {
+		alert("tambahFMEAClick ");
 		var rec = new rcm.model.Event({
             eql:'',ideql:'',opart:'',idopart:'',mode:'',idmode:'',cause:'',idcause:'',aksi:'',idaksi:''
         });
         this.getEventStore().insert(0, rec);
-        //this.getTaskFMEAGrid.getView().refresh();
+        this.getTaskFMEAGrid().getView().refresh();
 		//edit.startEditByPosition({ row: 0, column: 1 });
 	},
 
@@ -902,6 +903,12 @@ Ext.define('rcm.controller.DataEntry', {
             }
         });
         
+        
+        //*
+		if (o.event>2)	{
+			this.getEventStore().save();
+			//alert("event: "+o.event);
+		}
         //*/
 		me.getTaskFormGagal().close();
 		me.updateAVReDash();
