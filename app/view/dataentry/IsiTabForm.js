@@ -411,7 +411,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 				//xtype: 'gridpanel',
 				layout: 'fit',
 				id: 'TFGrid',
-				height: 100,
+				height: 120,
 				xtype: 'taskFMEAGrid',
 				/*
 				plugins: [ed],

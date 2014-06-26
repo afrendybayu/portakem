@@ -630,37 +630,27 @@ Ext.define('rcm.controller.DataEntry', {
 	},
     
     pilihFMEAFilter: function(n) {
-		console.log("pilihFMEAGagal r: "+n.row+", c: "+n.col+" cat: "+n.cat);
+		//console.log("pilihFMEAGagal r: "+n.row+", c: "+n.col+" cat: "+n.cat);
 		
 		var me=this;
 		//rcmSettings.aaaa = me.getEventStore();
 		//alert("pilihFMEAGagal "+me.getEventStore()+"<--");
 		if (n.col==2)	{		// col 2 = OPart
-			console.log("masuk Opart");
+			//console.log("masuk Opart");
 			me.getOPartStore().clearFilter(true);
 			me.getOPartStore().filter('cat',n.cat);
 		}
 		else if (n.col==3)	{	// col 3 = FMode
-			console.log("masuk FMode");
+			//console.log("masuk FMode");
 			me.getFModeStore().clearFilter(true);
 			me.getFModeStore().filter('cat',n.cat);
 		}
 	},
     
     pilihEqClick: function(drow) {
-		var me = this;
-		//console.log("Controller DataEntry pilih Eq --> cat "+dd.data.cat+" id: "+drow.ideq);
-		//this.getEventStore().set('ideql',drow.ideq);
-		/*
-		me.getOPartStore().clearFilter(true);
-		me.getOPartStore().filter('cat',dd.data.cat);
+		var me=this, rec=me.getEventStore().getRange()[drow.row];
 		
-		me.getFModeStore().clearFilter(true);
-		me.getFModeStore().filter('cat',dd.data.cat);
-		//*/
-		var rec = me.getEventStore().getRange()[drow.row];
-		
-		console.log("ideq: "+drow.ideq+", cat: "+drow.cat+", row: "+drow.row);
+		//console.log("ideq: "+drow.ideq+", cat: "+drow.cat+", row: "+drow.row);
 		rec.set('ideql',drow.ideq);
 		rec.set('cat',drow.cat);
 		//rcmSettings.bongkar = this.getEventStore().getRange();
