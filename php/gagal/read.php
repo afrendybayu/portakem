@@ -58,7 +58,7 @@ try {
 			"LEFT JOIN equip ON equip.id = waktudown.eqid ".
 			"LEFT JOIN event ON event.down_id = waktudown.id ".
 			"WHERE downt BETWEEN '$tglaw' AND '$tglak' ".
-			"order by downt desc, downj desc;";
+			"order by downt desc, downj desc, id desc";
 	//echo "sql: $sql<br/><br/>";
 	$q = db_query($sql);
 
@@ -70,18 +70,21 @@ try {
 	
 	
 	$jml = -1; $idd = -1; $idn = 'e';
-	$isi = array(); $dd = ''; $td = '';	$mdar = Array(); $tar = Array();
+	$isi = array(); $dd = ''; $td = '';	$un = '';
+	$mdar = Array(); $tar = Array();
 	while ($row = mysql_fetch_assoc($q)) {
 		//*
-		//echo "event: {$row['idevent']}, downt: {$row['downt']}, downj: {$row['downj']}, kode: {$row['kode']}, fm: {$row['fm']}<br/>";
+		//echo "unit: {$row['unit_id']}, event: {$row['idevent']}, downt: {$row['downt']}, downj: {$row['downj']}, kode: {$row['kode']}, fm: {$row['fm']}<br/>";
 		//$idd = $row['id']; //$idn .=$idd;
-		if (($row['downt']==$dd) && ($row['downj']==$td)) {
+		if (($row['downt']==$dd) && ($row['downj']==$td) && ($row['unit_id']==$un)) {
 			//echo "SAMA: $dd - $td ";
 			$isi[$jml]['id'] .= 'e'.$row['id'];
 			$ax = $row['idevent'];
 			if ($ax==2) {
 				//echo "masuk 2 ".$row['namapm']."<br/>";
-				if (isset($row['namapm']) && isset($isi[$jml]['fm'])) {
+				//if (isset($row['namapm']) && isset($isi[$jml]['fm'])) {
+				if (isset($row['namapm']) ) {
+					//echo "krsini <br/>";
 					if ((strlen($isi[$jml]['fm'])>0))	{
 						$isi[$jml]['fm'] .= "&nbsp;&nbsp;";
 					}
@@ -106,6 +109,7 @@ try {
 				}
 			}
 		} else {
+			//echo "_________________________________________<br/>";
 			$jml++;
 			$mdar = Array();
 		//if (($row['downt']!=$dd) && ($row['downj']!=$td)) {
@@ -154,7 +158,7 @@ try {
 			$isi[$jml]['upt'] = date('d-m-Y',	strtotime("{$row['upt']} {$row["upj"]}"));
 			$isi[$jml]['upj'] = date('H:i',	strtotime("{$row['upt']} {$row["upj"]}"));
 			
-			$dd = $row['downt'];	$td = $row['downj'];
+			$dd = $row['downt'];	$td = $row['downj']; $un = $row['unit_id'];
 		//} else {
 			//echo ($jml)." >> AWAL: $dd - $td<br/>";
 			
