@@ -170,17 +170,16 @@ Ext.define('rcm.controller.DataEntry', {
 				//specialkey: me.handleSpecialKey,
 			},
 			'taskIsiFormGagal': {
-				
-				plhOPartGagal: me.pilihOPartClick,
-				plhFMEA: me.pilihGridFMEA,
-				plhModeGagal: me.pilihModeClick,
-				plhCauseGagal: me.pilihCauseClick,
-				plhAksiGagal: me.pilihAksiClick,
+				//plhFMEA: me.pilihGridFMEA,
 				plhEventGagalXY: me.pilihEventGagalXY
 			},
 			'taskFMEAGrid': {
 				plhFilterFMEA: me.pilihFMEAFilter,
 				plhEquipGagal: me.pilihEqClick,
+				plhOPartGagal: me.pilihOPartClick,
+				plhModeGagal: me.pilihModeClick,
+				plhCauseGagal: me.pilihCauseClick,
+				plhAksiGagal: me.pilihAksiClick,
 			},
 			'taskDaftarGagal': {
 				editDGClick: me.pilihEditDGClick,
@@ -487,7 +486,7 @@ Ext.define('rcm.controller.DataEntry', {
             eql:'',ideql:'',opart:'',idopart:'',mode:'',idmode:'',cause:'',idcause:'',aksi:'',idaksi:''
         });
         this.getEventStore().insert(0, rec);
-        this.getTaskFMEAGrid.getView().refresh();
+        //this.getTaskFMEAGrid.getView().refresh();
 		//edit.startEditByPosition({ row: 0, column: 1 });
 	},
 
