@@ -21,7 +21,7 @@ try {
 		 "LEFT JOIN failuremode ON event.fm = failuremode.id ".
 		 "WHERE down_id IN ($down)";
 	
-	//echo "sql: $s<br/>";
+	//echo "sql: $s<br/><br/>";
 	$q = db_query($s);
 	if (!$q)	{
 		echo "DB Error, could not query the database\n";

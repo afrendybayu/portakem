@@ -109,7 +109,7 @@ Ext.define('rcm.view.dataentry.FMEAGrid', {
 	rowFMEAclick: function(grid, td, cellIndex, record, tr, rowIndex){
 		//if (1)	{
 		if (rowIndex != grid.getStore().getCount())	{
-			alert("row: "+rowIndex+"/"+grid.getStore().getCount());
+			//alert("row: "+rowIndex+"/"+grid.getStore().getCount());
 			var asa = grid.getStore().getAt(rowIndex);
 			var x = {row: rowIndex, col: cellIndex, cat: asa.get('cat')};
 			

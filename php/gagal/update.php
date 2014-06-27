@@ -53,6 +53,10 @@ try {
 	$tipeev = $params->tipeev;
 	$cc = $params->cat;
 	
+	/*
+	
+	//*/
+	
 	if (intval($xid)==0) {
 		//echo "xid: $xid<br/>";
 		$level = substr($xid,0,1);
@@ -60,7 +64,8 @@ try {
 		//echo "level: $level, id: $id<br/>";
 		if ($level=='e')	{	// level equipment
 			$idid = array_filter(explode("e",$id));	// id dari id
-			$sql = "SELECT eqid,unit_id from waktudown where id in (".implode(',',$idid).")";
+			//print_r($idid);
+			$sql = "SELECT eqid,unit_id,id from waktudown where id in (".implode(',',$idid).")";
 			$q = db_query($sql);
 			if (!$q)	{
 				//echo "DB Error, could not query the database\n";
@@ -70,6 +75,7 @@ try {
 			}
 
 			while ($row = mysql_fetch_assoc($q)) {
+				//$arx[] = $row;
 				$idAr[$idJml]  = $row['eqid'];
 				$id = $row['unit_id'];
 				$idJml++;
@@ -115,12 +121,14 @@ try {
 	
 	
 	
+	//if ((count($kw)>0) && (!$edit))	{
 	if (count($kw)>0)	{
 		for ($i=0; $i<count($kw); $i++)	{
 			$taw1 = bwaktu($kw[$i][0],$kw[$i][1]);	//echo "taw1 : ".$taw1->t."<br/>";
 			$taw2 = bwaktu($kw[$i][4],$kw[$i][5]);	//echo "taw2 : ".$taw2->t."<br/>";
 			$tak1 = bwaktu($kw[$i][2],$kw[$i][3]);	//echo "tak1 : ".$tak1->t."<br/>";
 			$tak2 = bwaktu($kw[$i][6],$kw[$i][7]);	//echo "tak2 : ".$tak2->t."<br/>";
+			//echo "taw1 : ".$taw1->t.", taw2 : ".$taw2->t.", tak1 : ".$tak1->t.", tak2 : ".$tak2->t."<br/>";
 			$crash = hitung_crash($tak1->t, $tak2->t, $taw1->t, $taw2->t);
 			//echo "------------------crash: $crash<br/>";
 			if ($crash>0)
@@ -255,6 +263,26 @@ try {
 		//*/
 		$k++;
 	} while($u<$s);
+	
+	
+	$idid = array_unique($idid);
+	//echo "idid: "; print_r($idid); echo "<br/>";
+	$sql = "SELECT id,eqid AS eq, unit_id FROM waktudown WHERE id IN (".implode(',',$idid).")";
+	//echo "sql: $sql<br/><br/>";
+		
+	$q = db_query($sql);
+	if (!$q)	{
+		throw new Exception("DB Error, could not query the database");
+		echo 'MySQL Error: ' . mysql_error();
+		exit;
+	}
+		
+	$arx = array();
+	while ($row = mysql_fetch_assoc($q)) {
+		$arx[] = $row;
+	}
+	//echo "ar: "; print_r($arx); echo "<br/><br/>";
+	
 	//*/
 	//*
 	//echo "level: $level<br/>";
@@ -318,12 +346,13 @@ try {
 		}
 	}
 	else if ($level=='e')	{
-		//echo "<br/><br/>--- sampai sini sodara2: jml: ".count($idid)."<br/><br/>";
-		//print_r($idAr);
-		for ($i=0; $i<count($idid); $i++)	{
-			
-			
-			
+		
+		//echo "<br/><br/>--- sampai sini sodara2: jml: ".count($arx)."<br/><br/>";
+		//echo "ar: "; print_r($arx); echo "<br/>";
+		
+		$idid = 0;
+		for ($i=0; $i<count($arx); $i++)	{
+
 			if ($params->event==1) {		// standby
 				//echo " STAND BY";
 				$sql = "UPDATE waktudown SET server=$server,eqid='{$idAr[$i]}',downt='{$params->downt}',downj='{$params->downj}',".
@@ -335,13 +364,13 @@ try {
 					if ($pm[$j][0]==$idid[$i])
 						break;
 				}
-				$sql = "UPDATE waktudown SET server=$server,eqid='{$idAr[$i]}',downt='{$params->downt}',downj='{$params->downj}',".
+				$sql = "UPDATE waktudown SET server=$server,eqid='{$arx[$i]['eq']}',downt='{$params->downt}',downj='{$params->downj}',".
 					"upt='{$params->upt}',upj='{$params->upj}',startt='{$params->startt}',startj='{$params->startj}',".
 					"endt='{$params->endt}',endj='{$params->endj}',".
 					"event='{$params->event}',tipeev='".$pm[$i][1]."',ket='{$params->ket}',exe='{$params->exe}',nginput='{$now}' ".
-					"WHERE id='{$idid[$i]}'";
+					"WHERE id='{$arx[$i]['id']}'";
 			}
-			//echo "<br/>_____________sql: $sql";
+			//echo "<br/>___edit__________sql: $sql";
 			
 			$q = db_query($sql);
 			if (!$q)	{
@@ -351,6 +380,10 @@ try {
 				exit;
 			}
 		}
+		$hasil = $arx;
+
+		mysql_free_result($q);
+		//print_r($hasil);
 	}
 	//return;
 

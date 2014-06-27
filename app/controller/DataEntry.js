@@ -482,7 +482,7 @@ Ext.define('rcm.controller.DataEntry', {
     },
     
     tambahFMEAClick: function() {
-		alert("tambahFMEAClick ");
+		//alert("tambahFMEAClick ");
 		var rec = new rcm.model.Event({
             eql:'',ideql:'',opart:'',idopart:'',mode:'',idmode:'',cause:'',idcause:'',aksi:'',idaksi:''
         });
@@ -589,7 +589,7 @@ Ext.define('rcm.controller.DataEntry', {
 	
 	pilihHapusDGClick: function(task, successCallback)	{	// grid, row, col, column, e
 		//me.getRunningHourStore().reload();
-		rcmSettings.ccc = this;
+		//rcmSettings.ccc = this;
 		var de = this;
 		var ee=task.get('event')+" "+task.get('nama');
 		Ext.Msg.show({
@@ -862,15 +862,16 @@ Ext.define('rcm.controller.DataEntry', {
 	},
 	
 	updateGagalClick: function()	{
-		var me=this, o = me.ambilDataForm();
+		var me=this;
+		var o = me.ambilDataForm();
 		/*
 		alert("id:"+o.id+"\nevent:"+o.event+"\ndd: "+o.dd+"\ndt: "+o.td+"\ndm: "+o.dm+"\ndt: "+o.tm+
 			"\nds:"+o.ds+"\nts:"+o.ts+"\ndu: "+o.du+"\ntu: "+o.tu+"\nevent: "+o.event+"\ntipeev: "+o.tipeev+
 			"\nket:"+o.ket+"\nexe:"+o.exe+"\nserver: "+rcmSettings.server+"\ncat: "+rcmSettings.cat);
 		//*/
 		
-		me.getEventStore().sync();
-		
+		//me.getEventStore().sync();
+		//*
 		var rec = new rcm.model.DaftarGagal({ edit:1,
 			id:o.id,downt:o.dd,downj:o.td,startt:o.dm,startj:o.tm,endt:o.ds,endj:o.ts,upt:o.du,upj:o.tu,
 			event:o.event,tipeev:o.tipeev,ket:o.ket,exe:o.exe,server:rcmSettings.server,cat:rcmSettings.cat
@@ -879,7 +880,7 @@ Ext.define('rcm.controller.DataEntry', {
             success: function(respon, operation) {
 				var resp = operation.request.scope.reader.jsonData["tasks"];
 				var recx = me.getEventStore().getRange();
-				if (event!=1)	{
+				if (o.event!=1)	{
 					for (var i=0, len1=resp.length; i<len1; ++i) {
 						for (var j=0,len2=recx.length; j<len2; ++j)	{
 							if (recx[j].data.ideql==resp[i].eq)	{
@@ -887,6 +888,7 @@ Ext.define('rcm.controller.DataEntry', {
 							}
 						}
 					}
+					console.log("sukses rec DaftarGagal");
 					//me.getEventStore().sync();
 					//me.getEventStore().removeAll();
 				}
@@ -903,19 +905,43 @@ Ext.define('rcm.controller.DataEntry', {
                     icon: Ext.Msg.ERROR,
                     buttons: Ext.Msg.OK
                 });
-            }
+            },
+            callback : function(respon, operation)	{
+				//console.log("apa ini callback o.event: "+o.event);
+				var resp = operation.request.scope.reader.jsonData["tasks"];
+				rcmSettings.fff = resp;
+				var recx = me.getEventStore().getRange();
+				if (o.event!=1)	{
+					//console.log("apa ini callback resp.length: "+resp.length);
+					for (var i=0, len1=resp.length; i<len1; ++i) {
+						for (var j=0,len2=recx.length; j<len2; ++j)	{
+							//console.log("apa ini callback ideql: "+recx[j].get('ideql')+", eq: "+resp[i].eq);
+							if (recx[j].get('ideql')==resp[i].eq)	{
+								recx[j].set('iddown',resp[i].id);
+							}
+						}
+					}
+					//console.log("apa ini callback 4");
+					me.getEventStore().sync();
+				}
+				me.getDaftarGagalStore().reload();
+				me.getRunningHourStore().reload();
+			}
         });
-        
+        //*/
         
         //*
 		if (o.event>2)	{
-			this.getEventStore().save();
-			//alert("event: "+o.event);
+			rcmSettings.aaaaa = me.getEventStore();
+			//me.getEventStore().save();
+			//me.getEventStore().sync();
+			alert("event: "+o.event+", jml: "+me.getEventStore().getCount());
 		}
         //*/
 		me.getTaskFormGagal().close();
 		me.updateAVReDash();
-		//console.log("skalian update depan");
+		//*/
+		console.log("skalian update depan");
 	},
 	
 	simpanFormGagal: function()	{
