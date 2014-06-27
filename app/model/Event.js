@@ -14,7 +14,7 @@ Ext.define('rcm.model.Event', {
 			create: 'php/event/create.php',
 			update: 'php/event/update.php',
 			read: 'php/event/readEv.php',
-			delete: 'php/event/delete.php'
+			destroy: 'php/event/delete.php'
         },
         reader: {
             type: 'json',

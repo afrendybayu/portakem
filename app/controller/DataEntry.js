@@ -180,8 +180,8 @@ Ext.define('rcm.controller.DataEntry', {
 				plhModeGagal: me.pilihModeClick,
 				plhCauseGagal: me.pilihCauseClick,
 				plhAksiGagal: me.pilihAksiClick,
-				//hpsFMEAGagal: me.hapusFMEAClick
-				hpsFMEAGagal: me.pilihHapusDGClick
+				hpsFMEAGagal: me.hapusFMEAClick
+				//hpsFMEAGagal: me.pilihHapusDGClick
 			},
 			'taskDaftarGagal': {
 				editDGClick: me.pilihEditDGClick,
@@ -590,11 +590,9 @@ Ext.define('rcm.controller.DataEntry', {
 	},
 	
 	pilihHapusDGClick: function(task, successCallback)	{	// grid, row, col, column, e
-		//me.getRunningHourStore().reload();
-		//rcmSettings.ccc = this;
 		var de = this;
-		var ee = '';
-		//var ee=task.get('event')+" "+task.get('nama');
+		//var ee = '';
+		var ee=task.get('event')+" "+task.get('nama');
 		Ext.Msg.show({
             title: ee,
             msg: 'Hapus Kejadian '+ee,
@@ -664,7 +662,7 @@ Ext.define('rcm.controller.DataEntry', {
 					console.log("hapus !!");
 
 					rcmSettings.aaaaa = grid;
-					 grid.destroy({
+					grid.destroy({
 						 success: function(grid, operation) {
 							 
 						 }

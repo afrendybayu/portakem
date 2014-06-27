@@ -12,8 +12,7 @@ Ext.define('rcm.view.dataentry.FMEAGrid', {
 
 	store: 'Event',
     columnLines: true,
-	//selType: 'cellmodel',
-	
+	enableColumnHide: false,
 	
 	initComponent: function() {
 		//var me=this, cellEditingPlugin = Ext.create('Ext.grid.plugin.CellEditing', { clicksToEdit: 1 });
@@ -71,7 +70,7 @@ Ext.define('rcm.view.dataentry.FMEAGrid', {
         ed.on('edit', me.handleCellEdit, this);
 	},
 	
-	hdlHapusFMEAClick: function(grid, row, col, column, e) {
+	hdlHapusFMEAClick: function(grid, row, col) {
 		var rec = grid.getStore().getAt(row);
 		//alert("hapus kejadian "+ rec.get('event')+" "+rec.get('nama'));
 		//grid.getStore().removeAt(rowIndex);

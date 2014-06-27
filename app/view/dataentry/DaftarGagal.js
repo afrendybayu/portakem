@@ -24,6 +24,7 @@ Ext.define('rcm.view.dataentry.DaftarGagal', {
 	requires: [
 		'rcm.view.dataentry.BlnGagal',
 	],
+	columnLines: true,
 	enableColumnHide: false,
 	
 	viewConfig: {
