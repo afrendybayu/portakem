@@ -64,7 +64,7 @@ try {
 		//echo "level: $level, id: $id<br/>";
 		if ($level=='e')	{	// level equipment
 			$idid = array_filter(explode("e",$id));	// id dari id
-			//print_r($idid);
+			//echo "idid: "; print_r($idid); echo "<br/><br/>";
 			$sql = "SELECT eqid,unit_id,id from waktudown where id in (".implode(',',$idid).")";
 			$q = db_query($sql);
 			if (!$q)	{
@@ -265,22 +265,7 @@ try {
 	} while($u<$s);
 	
 	
-	$idid = array_unique($idid);
-	//echo "idid: "; print_r($idid); echo "<br/>";
-	$sql = "SELECT id,eqid AS eq, unit_id FROM waktudown WHERE id IN (".implode(',',$idid).")";
-	//echo "sql: $sql<br/><br/>";
-		
-	$q = db_query($sql);
-	if (!$q)	{
-		throw new Exception("DB Error, could not query the database");
-		echo 'MySQL Error: ' . mysql_error();
-		exit;
-	}
-		
-	$arx = array();
-	while ($row = mysql_fetch_assoc($q)) {
-		$arx[] = $row;
-	}
+	
 	//echo "ar: "; print_r($arx); echo "<br/><br/>";
 	
 	//*/
@@ -305,7 +290,7 @@ try {
 	$now = date("Y-m-d H:i:s");
 	$hasil = array();
 	if ($level=='u') {
-		
+		//echo "waktudown unit insert<br/>";
 		for($i=0; $i<$idJml; $i++)	{
 		
 				// INPUT data EVENT down ke tabel waktudown
@@ -346,11 +331,26 @@ try {
 		}
 	}
 	else if ($level=='e')	{
-		
+		$idid = array_unique($idid);
+		//echo "idid: "; print_r($idid); echo "<br/>";
+		$sql = "SELECT id,eqid AS eq, unit_id FROM waktudown WHERE id IN (".implode(',',$idid).")";
+		//echo "sql: $sql<br/><br/>";
+			
+		$q = db_query($sql);
+		if (!$q)	{
+			throw new Exception("DB Error, could not query the database");
+			echo 'MySQL Error: ' . mysql_error();
+			exit;
+		}
+			
+		$arx = array();
+		while ($row = mysql_fetch_assoc($q)) {
+			$arx[] = $row;
+		}
 		//echo "<br/><br/>--- sampai sini sodara2: jml: ".count($arx)."<br/><br/>";
 		//echo "ar: "; print_r($arx); echo "<br/>";
 		
-		$idid = 0;
+		//$idid = 0;
 		for ($i=0; $i<count($arx); $i++)	{
 
 			if ($params->event==1) {		// standby

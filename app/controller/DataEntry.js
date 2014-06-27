@@ -180,6 +180,8 @@ Ext.define('rcm.controller.DataEntry', {
 				plhModeGagal: me.pilihModeClick,
 				plhCauseGagal: me.pilihCauseClick,
 				plhAksiGagal: me.pilihAksiClick,
+				//hpsFMEAGagal: me.hapusFMEAClick
+				hpsFMEAGagal: me.pilihHapusDGClick
 			},
 			'taskDaftarGagal': {
 				editDGClick: me.pilihEditDGClick,
@@ -591,7 +593,8 @@ Ext.define('rcm.controller.DataEntry', {
 		//me.getRunningHourStore().reload();
 		//rcmSettings.ccc = this;
 		var de = this;
-		var ee=task.get('event')+" "+task.get('nama');
+		var ee = '';
+		//var ee=task.get('event')+" "+task.get('nama');
 		Ext.Msg.show({
             title: ee,
             msg: 'Hapus Kejadian '+ee,
@@ -647,6 +650,55 @@ Ext.define('rcm.controller.DataEntry', {
 			me.getFModeStore().clearFilter(true);
 			me.getFModeStore().filter('cat',n.cat);
 		}
+	},
+    
+    hapusFMEAClick: function(grid, row)	{
+		var de=this;
+		var ee=grid.get('eql')+" - "+grid.get('opart');
+		Ext.Msg.show({
+            title: ee,
+            msg: 'Hapus FMEA '+ee,
+            buttons: Ext.Msg.YESNO,
+            fn: function(response) {
+                if(response === 'yes') {
+					console.log("hapus !!");
+
+					rcmSettings.aaaaa = grid;
+					 grid.destroy({
+						 success: function(grid, operation) {
+							 
+						 }
+					 });
+
+                    /*
+                    grid.destroy({
+                        success: function(grid, operation) {
+							//console.log("----- mulai running hour");
+							//de.refreshRH();
+							//de.getTaskDaftarGagal().getView().refresh();
+							//rcmSettings.aaa = this;
+							console.log("----- sukses hapus FMEA");
+                        },
+                        failure: function(grid, operation) {
+                            var error = operation.getError(),
+                                msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
+
+                            Ext.MessageBox.show({
+                                title: 'Hapus FMEA '+ee,
+                                msg: msg,
+                                icon: Ext.Msg.ERROR,
+                                buttons: Ext.Msg.OK
+                            });
+                        },
+                        callback: function()	{
+							console.log("call back");
+						}
+                    });
+                    //*/
+                    console.log("kueeluarrrrrrr !!");
+                }
+            }
+        });
 	},
     
     pilihEqClick: function(drow) {
@@ -947,7 +999,7 @@ Ext.define('rcm.controller.DataEntry', {
 	
 	simpanFormGagal: function()	{
 		//alert(this.getTaskIsiFormGagal().getCmp('save-task-fg-btn').getText());
-		//console.log("simpan data simpanFormGagal: "+rcmSettings.eqx);
+		console.log("simpan data simpanFormGagal: "+rcmSettings.eqx);
 		var taskFormGagal = this.getTaskFormGagal(),
             windowEl = taskFormGagal.getEl(),
             form = taskFormGagal.down('form').getForm(),
@@ -995,26 +1047,21 @@ Ext.define('rcm.controller.DataEntry', {
 						//*
 						success: function()	{
 							me.getDaftarGagalStore().reload();
-							me.getRunningHourStore().reload();
 							console.log("sukses getEventStore");
 						},
 						failure: function()	{
-							me.getDaftarGagalStore().reload();
-							me.getRunningHourStore().reload();
 							console.log("gagal getEventStore");
-						}
-										
+						},
+						callback: function()	{
+							console.log("callback getEventStore");
+						}										
 					});				// create ()
 					//*/
 					//me.getEventStore().removeAll();
 					console.log("keluar selamat !!!");
 				}
-				else {
-					me.getDaftarGagalStore().reload();
-					me.getRunningHourStore().reload();
-				}
-				//me.getDaftarGagalStore().reload();
-				//me.getRunningHourStore().reload();
+				me.getDaftarGagalStore().reload();
+				me.getRunningHourStore().reload();
             },
             failure: function(task, operation) {
                 var error = operation.getError(),
