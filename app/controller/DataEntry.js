@@ -907,7 +907,7 @@ Ext.define('rcm.controller.DataEntry', {
                 });
             },
             callback : function(respon, operation)	{
-				//console.log("apa ini callback o.event: "+o.event);
+				console.log("apa ini callback o.event: "+o.event);
 				var resp = operation.request.scope.reader.jsonData["tasks"];
 				rcmSettings.fff = resp;
 				var recx = me.getEventStore().getRange();
@@ -939,6 +939,7 @@ Ext.define('rcm.controller.DataEntry', {
 		}
         //*/
 		me.getTaskFormGagal().close();
+		me.getEventInfoStore().reload();
 		me.updateAVReDash();
 		//*/
 		console.log("skalian update depan");
