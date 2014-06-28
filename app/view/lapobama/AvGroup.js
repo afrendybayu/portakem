@@ -68,7 +68,7 @@ Ext.define('rcm.view.lapobama.AvGroup', {
 					point: {
 						events: {
 							click: function(evt) {
-								rcmSettings.bongkar = evt;
+								//rcmSettings.bongkar = evt;
 								//alert("x: "+this.x+" "+this.y);
 								me.fireEvent('AvGroupCl', evt, this.category);
 							}
