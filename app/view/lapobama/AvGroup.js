@@ -36,10 +36,11 @@ Ext.define('rcm.view.lapobama.AvGroup', {
 				backgroundColor: '#d9e9ef',
 			},
 			subtitle : {
-				text: me.subJdl,
+				text: me.subJdl
 			},
 			title : {
-				text: me.jdl,
+				text: "Availability & Reliability"
+				//text: me.jdl,
 			},
 			yAxis : {
 				max: 100,
@@ -70,7 +71,8 @@ Ext.define('rcm.view.lapobama.AvGroup', {
 							click: function(evt) {
 								//rcmSettings.bongkar = evt;
 								//alert("x: "+this.x+" "+this.y);
-								me.fireEvent('AvGroupCl', evt, this.category);
+								//me.fireEvent('AvGroupCl', evt, this.category);
+								me.fireEvent('AvGroupCl', evt, 1);
 							}
 						}
 					},

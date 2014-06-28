@@ -226,46 +226,24 @@ Ext.define('rcm.controller.DataEntry', {
         });
     },
 
-
-	initGroup: function()	{
-		var plh=this.getAvGroupStore().getAt(0).data,
-			wkt=this.getTAvGroup().waktu;
-		//Ext.getCmp('iflAvRe').setText(plh.nama+", id:"+plh.id+", w: "+wkt);
-		Ext.getCmp('iflAvRe').setText(plh.nama+", "+wkt);
-		this.getTAvSpeedo().chartConfig.min = rcm.view.Util.Ubb(plh.av);
-		this.getAvSpeedoStore().getAt(0).set('av',plh.av);
-		this.getReSpeedoStore().getAt(0).set('av',plh.re);
-		this.getTAvSpeedo().setTitle(plh.kode);
-		this.getTAvSpeedo().setSubTitle("Availability "+wkt);
-		this.getAvReUnitStore().load({ params:{tgl:wkt, eq:plh.id} });
-		//this.getTAvReChart().items.items[1].items.items[0].items.items[0].setTitle('Reliability '+wkt);
-		
-		Ext.getCmp('spAvR').setTitle(plh.kode);
-		Ext.getCmp('spAvR').setSubTitle("Availability "+wkt);
-		
-		Ext.getCmp('spReR').setTitle(plh.kode);
-		Ext.getCmp('spReR').setSubTitle("Reliability "+wkt);
-		
-		Ext.getCmp('Av2Thn').setTitle("Availability "+plh.kode+" Annually");
-		Ext.getCmp('Re2Thn').setTitle("Reliability "+plh.kode+" Annually");
-	},
-
 	AvHomeClick: function(d, nama, id)	{
 		//console.log("group: "+id);
 		this.getAvGroupStore().load({ params:{gr:id, tgl: d.series.name} });
-		this.getTAvGroup().setTitle('Availability & Reliability');
+		//this.getTAvGroup().setTitle('Availability & Reliability');
 		this.getTAvGroup().setSubTitle(nama+" "+d.series.name);
 		this.getTAvGroup().waktu = d.series.name;
 	},
-	AvGroupClick: function(d,nama) 	{
+	AvGroupClick: function(d,app) 	{
 		
-		rcmSettings.cccc = d;
+		//rcmSettings.cccc = d;
 		
-		var plh=this.getAvGroupStore().getAt(d.point.x).data,
-			wkt=this.getTAvGroup().waktu;
+		var me=this,plh,wkt=me.getTAvGroup().waktu;
+		
+		plh=(app==1)?me.getAvGroupStore().getAt(d.point.x).data:me.getAvGroupStore().getAt(0).data;
+			
 		
 		//console.log("AvGroupClick nama: "+nama+", x: ");
-		console.log("AvGroupClick nama: "+nama+", x: "+d.point.x);
+		//console.log("AvGroupClick nama: "+nama+", x: "+d.point.x);
 		//Ext.getCmp('iflAvRe').setText(plh.nama+", id:"+plh.id+", w: "+wkt);
 		Ext.getCmp('iflAvRe').setText(plh.nama+", "+wkt);
 		this.getTAvSpeedo().chartConfig.min = rcm.view.Util.Ubb(plh.av);
@@ -490,7 +468,7 @@ Ext.define('rcm.controller.DataEntry', {
 			scope: this,
 			callback: function(rec, operation, success) {
 				if (success) {
-					me.initGroup();
+					me.AvGroupClick(0,0);
 				}
 			}
 		});
