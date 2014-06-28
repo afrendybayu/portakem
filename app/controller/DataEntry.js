@@ -229,11 +229,24 @@ Ext.define('rcm.controller.DataEntry', {
     
     
     cariAvRe: function()	{
-		//alert("cariAvRe");
-		var me=this,tgl = Ext.getCmp("iblnAvReU").getValue();
+		var me=this, 
+			tgl=Ext.getCmp("iblnAvReU").getValue(), 
+			bln=rcm.view.Util.Ublnini(tgl),
+			av=me.getTAvHome().chart;
+		
+		me.AvGroupClick(0,0, bln);		
 		me.getAvHomeStore().load({ params:{ tgl:tgl } });
 		me.getReHomeStore().load({ params:{ tgl:tgl } });
 		me.getAvGroupStore().load({ params:{ wkt:tgl } });
+		
+		rcmSettings.bbbb = me.getTAvHome().chart;
+		rcmSettings.cccc = me.getTAvHome();
+		//alert(av[0].name);
+		av.series[0].name = "20000";
+		//av.series[0].redraw();
+		me.getTAvHome().chart.redraw();
+		//alert("--> "+av[0].name);
+		console.log("------------ nama: "+av.series[0].name);
 	},
 
 	SpeedoClick: function(id, kode)	{
@@ -249,8 +262,10 @@ Ext.define('rcm.controller.DataEntry', {
 		this.getTAvGroup().setSubTitle(nama+" "+d.series.name);
 		this.getTAvGroup().waktu = d.series.name;
 	},
-	AvGroupClick: function(d,app) 	{
-		var me=this,plh,wkt=me.getTAvGroup().waktu;		
+	AvGroupClick: function(d,app,bln) 	{
+		var me=this,plh,wkt;
+		
+		wkt=(bln)?bln:me.getTAvGroup().waktu;		
 		plh=(app==1)?me.getAvGroupStore().getAt(d.point.x).data:me.getAvGroupStore().getAt(0).data;
 
 		//Ext.getCmp('iflAvRe').setText(plh.nama+", id:"+plh.id+", w: "+wkt);
@@ -262,8 +277,7 @@ Ext.define('rcm.controller.DataEntry', {
 		me.getTAvSpeedo().setSubTitle("Availability "+wkt);
 		me.getAvReUnitStore().load({ params:{tgl:wkt, eq:plh.id} });
 		
-		Ext.getCmp('spAvR').kode = plh.id+'@'+wkt;
-		Ext.getCmp('spReR').kode = plh.id+'@'+wkt;
+		Ext.getCmp('spAvR').kode = Ext.getCmp('spReR').kode = plh.id+'@'+wkt;
 		//alert(me.getTAvSpeedo().kode);
 		
 		Ext.getCmp('spAvR').setTitle(plh.kode);
