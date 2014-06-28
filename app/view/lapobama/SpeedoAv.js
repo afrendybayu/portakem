@@ -1,12 +1,12 @@
 // afrendyBayu,26Jan2014 //
 Ext.define('rcm.view.lapobama.SpeedoAv', {
-    //xtype: 'tAvSpeedo',
+    xtype: 'tAvSpeedo',
     alias: 'widget.tAvSpeedo',
 	extend: 'Chart.ux.Highcharts',
 	jdl: '-',
-	subjdl: '-',
+	//subjdl: '-',
 	dstore: 'AvSpeedo',
-
+	//kode: 'xx',
 	ukur: 15,
 	loadMask: true,
 	
@@ -152,6 +152,17 @@ Ext.define('rcm.view.lapobama.SpeedoAv', {
 						animation : {
 							duration : 1000,
 							easing : 'swing'
+						},
+						cursor: 'pointer',
+						point: {
+							events: {
+								click: function(evt) {
+									//rcmSettings.bbbb = evt;
+									//rcmSettings.cccc = me;
+									//alert("id: "+me.id+", kode: "+me.kode);		// me.id
+									me.fireEvent('SpeedoCl', me.id, me.kode);
+								}
+							}
 						}
 					},
 					column: {

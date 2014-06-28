@@ -149,11 +149,8 @@ Ext.define('rcm.controller.DataEntry', {
 			'taskNav': {
 				hirUAvRe: me.hirUnitAvRe,
 			},
-			
-			/*
-			'taskNavK': {
-				listdrop: me.hirListDrop,
-				delListDrop: me.delListDrop
+			'tAvSpeedo': {
+				SpeedoCl: me.SpeedoClick
 			},
 			//*/
 			'tAvHome': {
@@ -226,6 +223,12 @@ Ext.define('rcm.controller.DataEntry', {
         });
     },
 
+	SpeedoClick: function(id, kode)	{
+		if (!id.localeCompare("spAvR") || !id.localeCompare("spReR"))	{
+			alert("SpeedoClick "+id+", kode: "+kode);
+		}
+	},
+
 	AvHomeClick: function(d, nama, id)	{
 		//console.log("group: "+id);
 		this.getAvGroupStore().load({ params:{gr:id, tgl: d.series.name} });
@@ -246,13 +249,16 @@ Ext.define('rcm.controller.DataEntry', {
 		//console.log("AvGroupClick nama: "+nama+", x: "+d.point.x);
 		//Ext.getCmp('iflAvRe').setText(plh.nama+", id:"+plh.id+", w: "+wkt);
 		Ext.getCmp('iflAvRe').setText(plh.nama+", "+wkt);
-		this.getTAvSpeedo().chartConfig.min = rcm.view.Util.Ubb(plh.av);
-		this.getAvSpeedoStore().getAt(0).set('av',plh.av);
-		this.getReSpeedoStore().getAt(0).set('av',plh.re);
-		this.getTAvSpeedo().setTitle(plh.kode);
-		this.getTAvSpeedo().setSubTitle("Availability "+wkt);
-		this.getAvReUnitStore().load({ params:{tgl:wkt, eq:plh.id} });
-		//this.getTAvReChart().items.items[1].items.items[0].items.items[0].setTitle('Reliability '+wkt);
+		me.getTAvSpeedo().chartConfig.min = rcm.view.Util.Ubb(plh.av);
+		me.getAvSpeedoStore().getAt(0).set('av',plh.av);
+		me.getReSpeedoStore().getAt(0).set('av',plh.re);
+		me.getTAvSpeedo().setTitle(plh.kode);
+		me.getTAvSpeedo().setSubTitle("Availability "+wkt);
+		me.getAvReUnitStore().load({ params:{tgl:wkt, eq:plh.id} });
+		
+		Ext.getCmp('spAvR').kode = plh.id+'@'+wkt;
+		Ext.getCmp('spReR').kode = plh.id+'@'+wkt;
+		//alert(me.getTAvSpeedo().kode);
 		
 		Ext.getCmp('spAvR').setTitle(plh.kode);
 		Ext.getCmp('spAvR').setSubTitle("Availability "+wkt);

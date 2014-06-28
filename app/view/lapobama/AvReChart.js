@@ -88,14 +88,16 @@ Ext.define('rcm.view.lapobama.AvReChart', {
 					width: '50%',
 					xtype: 'tAvSpeedo',
 					fldY: ['av2014'],
-					jdl: 'Availability',
+					//jdl: 'Availability',
+					kode: '',
 					dstore: 'AvSpeedo'
 				},{
 					id:'spReR',
 					width: '50%',
 					xtype: 'tAvSpeedo',
 					fldY: ['re2014'],
-					jdl: 'Reliability',
+					//jdl: 'Reliability',
+					kode: '',
 					dstore: 'ReSpeedo'
 				}]
 			},{
