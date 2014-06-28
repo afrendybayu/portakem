@@ -48,6 +48,18 @@ if (isset($_GET['tgl']))	{
 	$bln = date("n");
 }
 
+if (isset($_GET['wkt']))	{
+	$wkt = $_GET['wkt'];
+	if (strtotime($wkt)>=strtotime("now"))	{
+		$thn = date("Y");
+		$bln = date("n");
+	}
+	else {
+		$thn = date("Y",strtotime($wkt));
+		$bln = date("n",strtotime($wkt));
+	}
+}
+
 try {
 	//$tgl = "2014-2";
 	//$flag = 0;

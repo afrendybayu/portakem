@@ -40,6 +40,7 @@ Ext.define('rcm.controller.DataEntry', {
         'lapobama.SpeedoAv',
         'lapobama.AvGroup',
         'lapobama.ReHome',
+        'lapobama.BlnAv',
         
         'utama.HoChart','utama.HoSpeedo',
         'utama.HoPie','utama.HoHistori',
@@ -213,6 +214,9 @@ Ext.define('rcm.controller.DataEntry', {
 			'#btnCariDGx': {
 				click: me.cariDaftarGagal
 			},
+			'#btnCariAVx': {
+				click: me.cariAvRe
+			},
 			'taskGridCause': {
 				gridCauseFilter: me.grafikCauseClick,
 				clrChartCause: me.grafikCauseClear
@@ -222,6 +226,15 @@ Ext.define('rcm.controller.DataEntry', {
 			}
         });
     },
+    
+    
+    cariAvRe: function()	{
+		//alert("cariAvRe");
+		var me=this,tgl = Ext.getCmp("iblnAvReU").getValue();
+		me.getAvHomeStore().load({ params:{ tgl:tgl } });
+		me.getReHomeStore().load({ params:{ tgl:tgl } });
+		me.getAvGroupStore().load({ params:{ wkt:tgl } });
+	},
 
 	SpeedoClick: function(id, kode)	{
 		if (!id.localeCompare("spAvR") || !id.localeCompare("spReR"))	{
@@ -237,16 +250,9 @@ Ext.define('rcm.controller.DataEntry', {
 		this.getTAvGroup().waktu = d.series.name;
 	},
 	AvGroupClick: function(d,app) 	{
-		
-		//rcmSettings.cccc = d;
-		
-		var me=this,plh,wkt=me.getTAvGroup().waktu;
-		
+		var me=this,plh,wkt=me.getTAvGroup().waktu;		
 		plh=(app==1)?me.getAvGroupStore().getAt(d.point.x).data:me.getAvGroupStore().getAt(0).data;
-			
-		
-		//console.log("AvGroupClick nama: "+nama+", x: ");
-		//console.log("AvGroupClick nama: "+nama+", x: "+d.point.x);
+
 		//Ext.getCmp('iflAvRe').setText(plh.nama+", id:"+plh.id+", w: "+wkt);
 		Ext.getCmp('iflAvRe').setText(plh.nama+", "+wkt);
 		me.getTAvSpeedo().chartConfig.min = rcm.view.Util.Ubb(plh.av);
@@ -268,19 +274,7 @@ Ext.define('rcm.controller.DataEntry', {
 		
 		Ext.getCmp('Av2Thn').setTitle("Availability "+plh.kode+" Annually");
 		Ext.getCmp('Re2Thn').setTitle("Reliability "+plh.kode+" Annually");
-		
-		/*
-		var sp  = this.getTAvReChart().items.items[0].items.items[1],
-			sp2 = sp.items.items[1].items.items[1],
-			sp3 = sp.items.items[2];
-		//sp2.setTitle(plh.kode);
-		//sp2.setSubTitle('Reliability '+wkt);
-		
-		var jdl2 = rcm.view.Util.Ujdl2(wkt); alert("jdl2: "+jdl2);
-		//Ext.getCmp('spAvR').setTitle("Availability "+jdl2);
-		sp3.items.items[0].setTitle("Availability "+jdl2);
-		sp3.items.items[1].setTitle("Reliability "+jdl2);
-		//*/
+
 	},
 	
 	cariDaftarGagal: function()	{
@@ -478,7 +472,7 @@ Ext.define('rcm.controller.DataEntry', {
 				}
 			}
 		});
-        console.log("ini muncul: onLaunch 2");
+        //console.log("ini muncul: onLaunch 2");
     },
 
     onDaftarGagalLoad: function() {
