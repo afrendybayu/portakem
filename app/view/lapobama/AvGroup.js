@@ -2,8 +2,10 @@
 Ext.define('rcm.view.lapobama.AvGroup', {
     xtype: 'tAvGroup',
 	extend: 'Chart.ux.Highcharts',
-	waktu: 'MEi 2014444',
-	jdl: 'dqwdwqd',
+	requires: [
+		'rcm.view.Util'
+	],
+	
 	loadMask: true,
 
 	series : [{
@@ -13,6 +15,10 @@ Ext.define('rcm.view.lapobama.AvGroup', {
 		dataIndex: 're',
 		name: 'Reliability',		
 	}],
+	
+	jdl: 'dqwdwqd',
+	subJdl: 'Gas Comp '+this.waktu,
+	waktu: rcm.view.Util.Ublnini(),
 	store: 'AvGroup',
 	xField: 'kode',
 
@@ -29,7 +35,9 @@ Ext.define('rcm.view.lapobama.AvGroup', {
 				},
 				backgroundColor: '#d9e9ef',
 			},
-			
+			subtitle : {
+				text: me.subJdl,
+			},
 			title : {
 				text: me.jdl,
 			},

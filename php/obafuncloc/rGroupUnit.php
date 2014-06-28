@@ -122,8 +122,8 @@ try {
 	
 	$datax = array();
 	while ($row = mysql_fetch_assoc($q)) {
-		$data[$row['eq']]['av'] = number_format(($row['av']*100)/(24*$row['jml']), 3);
-		$data[$row['eq']]['re'] = number_format(($row['re']*100)/(24*$row['jml']), 3);
+		$data[$row['eq']]['av'] = number_format(($row['av']*100)/(24*$row['jml']), 2);
+		$data[$row['eq']]['re'] = number_format(($row['re']*100)/(24*$row['jml']), 2);
 		//$data[$row['eq']]['eq'] = $row['eq'];
 	};
 	//	echo "sql: $s<br/>";

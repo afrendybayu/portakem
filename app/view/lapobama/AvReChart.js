@@ -5,7 +5,8 @@ Ext.define('rcm.view.lapobama.AvReChart', {
 	//extend: 'Ext.container.Container',
 	requires: [
 		'rcm.view.MonthYear',
-		'rcm.view.lapobama.BlnAv'
+		'rcm.view.lapobama.BlnAv',
+		//'rcm.view'
 	],
 	
 	dockedItems: [{
@@ -42,7 +43,8 @@ Ext.define('rcm.view.lapobama.AvReChart', {
 			xtype: 'tAvGroup',
 			flex: 1,
 			fldY: ['av2014'],
-			jdl: 'Availability',
+			jdl: 'Availability & Reliability',
+			subJdl: 'Gas Comp '+rcm.view.Util.Ublnini()
 		},{
 			width: '60%',
 			layout: {
