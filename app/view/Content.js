@@ -185,8 +185,8 @@ Ext.define('rcm.view.Content', {
 			this.setActiveTab(this.items.length-2);
 		}
 		
-		console.log("tab: "+tab.title+", id: "+this.getActiveTab().getId()+" view/Content.js");
-		console.log("tab: "+rcmSettings.tab);
+		//console.log("tab: "+tab.title+", id: "+this.getActiveTab().getId()+" view/Content.js");
+		//console.log("tab: "+rcmSettings.tab);
 		
 	},
 	

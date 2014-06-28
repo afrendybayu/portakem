@@ -362,10 +362,10 @@ Ext.define('rcm.controller.DataEntry', {
 					/*
 					if (Date.parse(start.getValue()) == Date.parse(enddate.getValue()))	{
 						//endtime.setMinValue(sttime.getSubmitValue());
-						console.log("tgl up SAMA");
+						//console.log("tgl up SAMA");
 					}
 					else {
-						console.log("tgl up BEDAAAA, st: "+start.getValue()+", stop: "+enddate.getValue());
+						//console.log("tgl up BEDAAAA, st: "+start.getValue()+", stop: "+enddate.getValue());
 						//endtime.setMinValue("00:00");
 					}
 					
@@ -675,7 +675,7 @@ Ext.define('rcm.controller.DataEntry', {
 							//de.refreshRH();
 							//de.getTaskDaftarGagal().getView().refresh();
 							//rcmSettings.aaa = this;
-							console.log("----- sukses hapus FMEA");
+							//console.log("----- sukses hapus FMEA");
                         },
                         failure: function(grid, operation) {
                             var error = operation.getError(),
@@ -689,11 +689,11 @@ Ext.define('rcm.controller.DataEntry', {
                             });
                         },
                         callback: function()	{
-							console.log("call back");
+							//console.log("call back");
 						}
                     });
                     //*/
-                    console.log("kueeluarrrrrrr !!");
+                    //console.log("kueeluarrrrrrr !!");
                 }
             }
         });
@@ -938,7 +938,7 @@ Ext.define('rcm.controller.DataEntry', {
 							}
 						}
 					}
-					console.log("sukses rec DaftarGagal");
+					//console.log("sukses rec DaftarGagal");
 					//me.getEventStore().sync();
 					//me.getEventStore().removeAll();
 				}
@@ -957,7 +957,7 @@ Ext.define('rcm.controller.DataEntry', {
                 });
             },
             callback : function(respon, operation)	{
-				console.log("apa ini callback o.event: "+o.event);
+				//console.log("apa ini callback o.event: "+o.event);
 				var resp = operation.request.scope.reader.jsonData["tasks"];
 				rcmSettings.fff = resp;
 				var recx = me.getEventStore().getRange();
@@ -984,12 +984,12 @@ Ext.define('rcm.controller.DataEntry', {
 		me.getEventInfoStore().reload();
 		me.updateAVReDash();
 		//*/
-		console.log("skalian update depan");
+		//console.log("skalian update depan");
 	},
 	
 	simpanFormGagal: function()	{
 		//alert(this.getTaskIsiFormGagal().getCmp('save-task-fg-btn').getText());
-		console.log("simpan data simpanFormGagal: "+rcmSettings.eqx);
+		//console.log("simpan data simpanFormGagal: "+rcmSettings.eqx);
 		var taskFormGagal = this.getTaskFormGagal(),
             windowEl = taskFormGagal.getEl(),
             form = taskFormGagal.down('form').getForm(),
@@ -1032,23 +1032,23 @@ Ext.define('rcm.controller.DataEntry', {
 							}
 						}
 					}
-					console.log("masuk sini");
+					//console.log("masuk sini");
 					me.getEventStore().sync({
 						//*
 						success: function()	{
 							me.getDaftarGagalStore().reload();
-							console.log("sukses getEventStore");
+							//console.log("sukses getEventStore");
 						},
 						failure: function()	{
-							console.log("gagal getEventStore");
+							//console.log("gagal getEventStore");
 						},
 						callback: function()	{
-							console.log("callback getEventStore");
+							//console.log("callback getEventStore");
 						}										
 					});				// create ()
 					//*/
 					//me.getEventStore().removeAll();
-					console.log("keluar selamat !!!");
+					//console.log("keluar selamat !!!");
 				}
 				me.getDaftarGagalStore().reload();
 				me.getRunningHourStore().reload();

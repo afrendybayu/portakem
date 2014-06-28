@@ -116,8 +116,8 @@ Ext.define('rcm.view.dataentry.ExcelGrid', {
 	//*/
 	
 	renderer: function(value, metadata, record, rowIndex, colIndex, store) {
-		alert("jos renderer");
-		console.log("value: "+value+", rowIx: "+rowIndex+", colIx: "+colIndex);
+		//alert("jos renderer");
+		//console.log("value: "+value+", rowIx: "+rowIndex+", colIx: "+colIndex);
 		if(value.localeCompare("24:00")) {
 			meta.style = "background-color:green;";
 		} else {
@@ -132,7 +132,7 @@ Ext.define('rcm.view.dataentry.ExcelGrid', {
         var rec = e.grid.getStore().getAt(e.rowIdx), tt=e.field;
 		rcmSettings.eqx = rec.get('id');
 		rcmSettings.tgl =  "20"+tt.substring(1,3)+"-"+tt.substring(3,5)+"-"+tt.substring(5);
-		console.log("handleCellEdit ExcelGrid tgl: "+rcmSettings.tgl);
+		//console.log("handleCellEdit ExcelGrid tgl: "+rcmSettings.tgl);
         this.fireEvent('recordedit', gridView, e);
     },
     

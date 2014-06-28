@@ -31,13 +31,13 @@ Ext.define('rcm.view.dataentry.TabForm', {
 				icon: 'modul/icons/savedisk.png',
 				id: 'save-task-fg-btn',
 				handler: function() {
-					console.log("tombol simpan ...Respon LELET hapus tab !!: "+me.items.length);
+					//console.log("tombol simpan ...Respon LELET hapus tab !!: "+me.items.length);
 					var i, dd;
 					var tabx = Ext.getCmp('remove-this-tab');
 					for(i=1; i<me.items.length; i++)	{
 						//dd = me.remove();	//me.getId()
 						rcmSettings.grid = me.getComponent("TF"+i);
-						console.log("dihapus: "+dd+ ", id: ");
+						//console.log("dihapus: "+dd+ ", id: ");
 					}
 				}
 		}];
@@ -59,7 +59,7 @@ Ext.define('rcm.view.dataentry.TabForm', {
 			this.setActiveTab(this.items.length-2);
 		}
 		
-		console.log("tab: "+tab.title+", id: "+this.getId());
+		//console.log("tab: "+tab.title+", id: "+this.getId());
 		
 	}
 });

@@ -548,7 +548,7 @@ Ext.define('rcm.view.dataentry.IsiTabForm', {
 		var asa = grid.getStore().getAt(rowIndex);
 		var x = {row: rowIndex, col: cellIndex, cat: asa.get('cat')};
 		
-		console.log("baris: "+x.row+", kolom: "+x.col+", cat: "+x.cat);
+		//console.log("baris: "+x.row+", kolom: "+x.col+", cat: "+x.cat);
 		rcmSettings.asa = x;
 		this.fireEvent('plhFilterFMEA');
 	},
