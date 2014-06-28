@@ -652,14 +652,14 @@ Ext.define('rcm.controller.DataEntry', {
     
     hapusFMEAClick: function(grid, row)	{
 		var de=this;
-		var ee=grid.get('eql')+" - "+grid.get('opart');
+		var ee=grid.get('eql')+"\nObject Part "+grid.get('opart');
 		Ext.Msg.show({
             title: ee,
             msg: 'Hapus FMEA '+ee,
             buttons: Ext.Msg.YESNO,
             fn: function(response) {
                 if(response === 'yes') {
-					console.log("hapus !!");
+					//console.log("hapus !!");
 
 					rcmSettings.aaaaa = grid;
 					grid.destroy({
@@ -979,15 +979,7 @@ Ext.define('rcm.controller.DataEntry', {
 			}
         });
         //*/
-        
-        //*
-		if (o.event>2)	{
-			rcmSettings.aaaaa = me.getEventStore();
-			//me.getEventStore().save();
-			//me.getEventStore().sync();
-			alert("event: "+o.event+", jml: "+me.getEventStore().getCount());
-		}
-        //*/
+
 		me.getTaskFormGagal().close();
 		me.getEventInfoStore().reload();
 		me.updateAVReDash();

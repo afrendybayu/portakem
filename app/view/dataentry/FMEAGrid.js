@@ -12,7 +12,7 @@ Ext.define('rcm.view.dataentry.FMEAGrid', {
 
 	store: 'Event',
     columnLines: true,
-	//enableColumnHide: false,
+	enableColumnHide: false,
 	
 	initComponent: function() {
 		//var me=this, cellEditingPlugin = Ext.create('Ext.grid.plugin.CellEditing', { clicksToEdit: 1 });
