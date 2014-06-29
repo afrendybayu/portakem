@@ -46,7 +46,7 @@ Ext.define('rcm.view.lapobama.AvHome', {
 				}],
 				yAxis : {
 					max: 100,
-					//min: 60,
+					min: 70,
 					title : {
 						text : 'Persen [%]'
 					},

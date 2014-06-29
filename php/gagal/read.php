@@ -46,7 +46,7 @@ try {
 	$sql =  "SELECT waktudown.id,event as idevent,tipeev ".
 			",(select pmdef.nama from pmdef where pmdef.id = (select pmlist.pm from pmlist where pmlist.id=tipeev)) as namapm ".
 			",eqid,waktudown.unit_id,kode".
-			",(select kode from failuremode where failuremode.id = event.fm) as fm".
+			",(select nama from failuremode where failuremode.id = event.fm) as fm".
 			",downt,downj,upt,upj,startt,startj,endt,endj,waktudown.ket,exe ".
 			",(select hirarki.nama from hirarki where hirarki.id ".
 			"	= (select hirarki.parent from hirarki where hirarki.id ".
