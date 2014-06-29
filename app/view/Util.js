@@ -56,8 +56,8 @@ Ext.define('rcm.view.Util', {
 			return d.getFullYear();
 		},
 		
-		Uthm1: function()	{
-			var d = new Date();
+		Uthm1: function(w)	{
+			var d = new Date(w);
 			return (d.getFullYear()-1);
 		},
 		

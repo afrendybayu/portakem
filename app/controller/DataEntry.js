@@ -230,9 +230,12 @@ Ext.define('rcm.controller.DataEntry', {
     
     cariAvRe: function()	{
 		var me=this, 
-			tgl=Ext.getCmp("iblnAvReU").getValue(), 
+			tgl=Ext.getCmp("iblnAvReU").getValue(),
+			thn="YTD/Avg "+rcm.view.Util.U1th(tgl),
+			thnm1=rcm.view.Util.Uthm1(tgl),
 			bln=rcm.view.Util.Ublnini(tgl),
-			av=me.getTAvHome().chart;
+			av=me.getTAvHome().series,
+			re=me.getTReHome().series;
 		
 		me.AvGroupClick(0,0, bln);		
 		me.getAvHomeStore().load({ params:{ tgl:tgl } });
@@ -241,12 +244,19 @@ Ext.define('rcm.controller.DataEntry', {
 		
 		rcmSettings.bbbb = me.getTAvHome().chart;
 		rcmSettings.cccc = me.getTAvHome();
-		//alert(av[0].name);
-		av.series[0].name = "20000";
-		//av.series[0].redraw();
-		me.getTAvHome().chart.redraw();
+
+		av[0].config.name = thnm1;
+		av[1].config.name = thn;
+		av[2].config.name = bln;
+		me.getTAvHome().draw();
+		
+		re[0].config.name = thnm1;
+		re[1].config.name = thn;
+		re[2].config.name = bln;
+		me.getTReHome().draw();
+		//av[0].chart.draw();
 		//alert("--> "+av[0].name);
-		console.log("------------ nama: "+av.series[0].name);
+		//console.log("------------ nama: "+av.series[0].name);
 	},
 
 	SpeedoClick: function(id, kode)	{
