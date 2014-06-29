@@ -242,8 +242,7 @@ Ext.define('rcm.controller.DataEntry', {
 		me.getReHomeStore().load({ params:{ tgl:tgl } });
 		me.getAvGroupStore().load({ params:{ wkt:tgl } });
 		
-		rcmSettings.bbbb = me.getTAvHome().chart;
-		rcmSettings.cccc = me.getTAvHome();
+		me.getTAvGroup().setSubTitle("Gas Comp "+bln);
 
 		av[0].config.name = thnm1;
 		av[1].config.name = thn;
@@ -254,9 +253,6 @@ Ext.define('rcm.controller.DataEntry', {
 		re[1].config.name = thn;
 		re[2].config.name = bln;
 		me.getTReHome().draw();
-		//av[0].chart.draw();
-		//alert("--> "+av[0].name);
-		//console.log("------------ nama: "+av.series[0].name);
 	},
 
 	SpeedoClick: function(id, kode)	{
@@ -272,6 +268,7 @@ Ext.define('rcm.controller.DataEntry', {
 		this.getTAvGroup().setSubTitle(nama+" "+d.series.name);
 		this.getTAvGroup().waktu = d.series.name;
 	},
+
 	AvGroupClick: function(d,app,bln) 	{
 		var me=this,plh,wkt;
 		

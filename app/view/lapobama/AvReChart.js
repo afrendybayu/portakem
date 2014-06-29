@@ -66,8 +66,7 @@ Ext.define('rcm.view.lapobama.AvReChart', {
 					xtype: 'tAvHome',
 					fldY: ['av2014'],
 					jdl: 'Summary Availability ',
-					subJdl: 'Gas Compressor',
-					bln: rcm.view.Util.Ublnini()
+					subJdl: 'Gas Compressor'
 				},{
 					//*
 					id: 'ReBar3',
@@ -75,7 +74,6 @@ Ext.define('rcm.view.lapobama.AvReChart', {
 					width: '50%',
 					height: '33.3%',
 					jdl: 'Summary Reliability',
-					bln: rcm.view.Util.Ublnini()
 				}]
 			},{
 				//height: '23.3%',
@@ -91,7 +89,7 @@ Ext.define('rcm.view.lapobama.AvReChart', {
 					xtype: 'tAvSpeedo',
 					fldY: ['av2014'],
 					//jdl: 'Availability',
-					kode: '',
+					nama: 'Av',
 					dstore: 'AvSpeedo'
 				},{
 					id:'spReR',
@@ -99,7 +97,7 @@ Ext.define('rcm.view.lapobama.AvReChart', {
 					xtype: 'tAvSpeedo',
 					fldY: ['re2014'],
 					//jdl: 'Reliability',
-					kode: '',
+					nama: 'Re',
 					dstore: 'ReSpeedo'
 				}]
 			},{

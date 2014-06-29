@@ -8,16 +8,18 @@ Ext.define('rcm.view.lapobama.SpeedoAv', {
 	dstore: 'AvSpeedo',
 	//kode: 'xx',
 	ukur: 15,
+	//nama: 'av',
 	loadMask: true,
-	
+	/*
 	series : [{
 		type: 'gauge',
-		name: 'av',
+		name: 'xx',
 		tooltip: {
 			valueSuffix: 'Persen'
 		},
 		//store: 'AvSpeedo',
 		dataIndex: 'av',
+		//dataIndex: this.nama,
 
 		dataLabels: {
 			//color: '#E58964',
@@ -38,10 +40,40 @@ Ext.define('rcm.view.lapobama.SpeedoAv', {
 			radius: '0'
 		},
 	}],
-	
+	//*/
 	initComponent: function() {
 		var me=this;
 		me.store=me.dstore;
+		me.series= [{
+			type: 'gauge',
+			//name: 'xx',
+			name: me.nama,
+			tooltip: {
+				valueSuffix: 'Persen'
+			},
+			//store: 'AvSpeedo',
+			dataIndex: 'av',
+			//dataIndex: this.nama,
+
+			dataLabels: {
+				//color: '#E58964',
+				borderWidth: 0,
+				y: -40,
+				x: 5,
+				style: {
+					fontSize: '24px',
+					fontFamily: 'digital',
+					//fontStyle: 'italic'
+				},
+				formatter: function() {
+					return (this.y+ '%')
+				}
+			},
+			zIndex: 1,
+			pivot: {
+				radius: '0'
+			},
+		}],
 		me.chartConfig={
 			chart: {
 				type: 'gauge',
