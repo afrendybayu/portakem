@@ -275,7 +275,7 @@ Ext.define('rcm.controller.DataEntry', {
 
 	SpeedoClick: function(id, kode)	{
 		if (!id.localeCompare("spAvR") || !id.localeCompare("spReR"))	{
-			alert("SpeedoClick "+id+", kode: "+kode);
+			alert("Tampilin ini dulu\nSpeedoClick "+id+", kode: "+kode+"\nProses berikutnya masih panjang");
 		}
 	},
 
@@ -298,8 +298,8 @@ Ext.define('rcm.controller.DataEntry', {
 		me.getTAvSpeedo().chartConfig.min = rcm.view.Util.Ubb(plh.av);
 		me.getAvSpeedoStore().getAt(0).set('av',plh.av);
 		me.getReSpeedoStore().getAt(0).set('av',plh.re);
-		me.getTAvSpeedo().setTitle(plh.kode);
-		me.getTAvSpeedo().setSubTitle("Availability "+wkt);
+		//me.getTAvSpeedo().setTitle(plh.kode);
+		//me.getTAvSpeedo().setSubTitle("Availability "+wkt);
 		me.getAvReUnitStore().load({ params:{tgl:wkt, eq:plh.id} });
 		
 		Ext.getCmp('spAvR').kode = Ext.getCmp('spReR').kode = plh.id+'@'+wkt;
