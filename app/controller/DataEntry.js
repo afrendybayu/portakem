@@ -231,11 +231,15 @@ Ext.define('rcm.controller.DataEntry', {
     cariAvRe: function()	{
 		var me=this, 
 			tgl=Ext.getCmp("iblnAvReU").getValue(),
-			thn="YTD/Avg "+rcm.view.Util.U1th(tgl),
+			th = rcm.view.Util.U1th(tgl),
+			thn="YTD/Avg "+th,			
 			thnm1=rcm.view.Util.Uthm1(tgl),
 			bln=rcm.view.Util.Ublnini(tgl),
 			av=me.getTAvHome().series,
-			re=me.getTReHome().series;
+			re=me.getTReHome().series,
+			ar=me.getTAv2Thn().series,
+			av2=Ext.getCmp('Av2Thn').series,
+			re2=Ext.getCmp('Re2Thn').series;
 		
 		me.AvGroupClick(0,0, bln);		
 		me.getAvHomeStore().load({ params:{ tgl:tgl } });
@@ -244,6 +248,7 @@ Ext.define('rcm.controller.DataEntry', {
 		
 		me.getTAvGroup().setSubTitle("Gas Comp "+bln);
 
+		// Mending masukkan ke View //
 		av[0].config.name = thnm1;
 		av[1].config.name = thn;
 		av[2].config.name = bln;
@@ -253,6 +258,19 @@ Ext.define('rcm.controller.DataEntry', {
 		re[1].config.name = thn;
 		re[2].config.name = bln;
 		me.getTReHome().draw();
+
+		av2[0].config.name = "Av"+thnm1;
+		av2[1].config.name = "Av"+thnm1;
+		av2[2].config.name = "Av"+th;
+		av2[3].config.name = "Av"+th;
+		Ext.getCmp('Av2Thn').draw();
+		
+		re2[0].config.name = "Re"+thnm1;
+		re2[1].config.name = "Re"+thnm1;
+		re2[2].config.name = "Re"+th;
+		re2[3].config.name = "Re"+th;
+		Ext.getCmp('Re2Thn').draw();
+		//*/
 	},
 
 	SpeedoClick: function(id, kode)	{
