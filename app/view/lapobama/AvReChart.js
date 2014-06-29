@@ -77,7 +77,8 @@ Ext.define('rcm.view.lapobama.AvReChart', {
 				}]
 			},{
 				//height: '23.3%',
-				flex: 3,
+				height: 140,
+				//flex: 3,
 				layout: {
 					type: 'hbox',
 					align: 'stretch',
