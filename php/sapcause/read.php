@@ -14,7 +14,7 @@ try {
 		 "FROM sap ".
 		 "LEFT JOIN cause on cause.kode = sap.cause ".
 		 "GROUP BY cause ORDER BY jml DESC;";
-	$q = db_query($s);
+	$q = db_query($sql);
 	if (!$q)	{
 		echo "DB Error, could not query the database\n";
 		echo 'MySQL Error: ' . mysql_error();
