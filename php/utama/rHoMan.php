@@ -7,6 +7,50 @@ include '../util.php';
 
 
 try {
+	$sql =	"SELECT manwork,count(teco) as jml, (select (if (teco>0,'teco','open'))) as st ".
+			"FROM medco.sap group by manwork, st order by manwork";
+	
+	$q = db_query($sql);
+	if (!$q)	{
+		echo "DB Error, could not query the database\n";
+		echo 'MySQL Error: ' . mysql_error();
+		exit;
+	}
+	
+	$teko = array();	$cr = ''; $kk=0;	$jmlwo=0; $jmlwom = 0;
+	while ($row = mysql_fetch_assoc($q)) {
+		if (strlen($row['manwork'])>3)	{
+			if ($cr!=$row['manwork'])	{
+				$cr = $row['manwork'];
+				//echo "cr: $cr, manwork: {$row['manwork']}<br/>";
+				
+				$teko[$kk]['nama'] = $row['manwork'];
+				$teko[$kk]['open'] = (strcmp($teko[$kk]['st'],"open"))?$row['jml']:0;
+				$jmlwom = $row['jml'];
+				//print_r($row); echo "<br/>";
+				
+			}
+			else {
+				//$cr = $row['manwork'];
+				//$jmlwom += $row['jml'];
+				$teko[$kk]['teco'] = (strcmp($teko[$kk]['st'],"teco"))?$row['jml']:0;
+				$teko[$kk]['tot'] = $jmlwom + $row['jml'];
+				$teko[$kk]['woo'] = number_format(($teko[$kk]['open']*100)/$teko[$kk]['tot'],2);
+				$teko[$kk]['woc'] = number_format(($teko[$kk]['teco']*100)/$teko[$kk]['tot'],2);
+				
+				//echo "sama !! ------> ";	print_r($row); echo "<br/>"; 
+				$kk++;
+			}
+			$jmlwo=$jmlwo+$row['jml'];
+		}
+	}
+	/*
+	foreach($teko as $aa)	{
+		print_r($aa);	echo "<br/>";
+	}
+	print_r($teko);
+	//*/
+/*
 	$arTeco = array();
 	$obj1 = new stdClass();
 	$obj1->woc = '99.71';
@@ -70,10 +114,10 @@ try {
 	$obj7->tot = '72';
 	$obj7->nama = "SAFETY";
 	array_push($arTeco,$obj7);
-
+//*/
 	$jsonResult = array(
         'success' => true,
-        'homan' => $arTeco
+        'homan' => $teko
     );
 	
 } catch(Exception $e) {

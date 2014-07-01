@@ -5,7 +5,7 @@
 include '../connection.php';
 
 try {
-	$sql = "select count(teco) as jml, (select (if (teco>0,'1','0'))) as teko from sap group by teko";
+	$sql = "select count(teco) as jml, (select (if (teco>0,'teko','open'))) as st from sap group by st";
 	//echo "sql: $sql<br/>";
 
 	$q = db_query($sql);
@@ -19,6 +19,10 @@ try {
 	while ($row = mysql_fetch_assoc($q)) {
 		$teko[] = $row;
 	}
+	print_r($teko);
+	$jml = $teko[0]['jml']+$teko[1]['jml'];
+	$teko[0]['persen'] = number_format(($teko[0]['jml']*100)/$jml,3);
+	$teko[1]['persen'] = number_format(($teko[1]['jml']*100)/$jml,3);
 	
 	mysql_free_result($q);
 	//*/
