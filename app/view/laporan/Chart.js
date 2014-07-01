@@ -40,7 +40,7 @@ Ext.define('rcm.view.laporan.Chart', {
 				jdlGr: 'Grafik Cause Frequent',
 				jdlTb: 'Tabel Cause Frequent',
 				jdlDet: 'Info Detail Chart Cause Frequent',
-				param: 'cause',
+				param: 'Cause',
 				dstore: 'SapCause',
 				dstoreD:'SapCauseInfo',
 				btnFilter: 'cau'
@@ -51,7 +51,7 @@ Ext.define('rcm.view.laporan.Chart', {
 				jdlGr: 'Grafik Damage Frequent',
 				jdlTb: 'Tabel Damage Frequent',
 				jdlDet: 'Info Detail Chart Damage Frequent',
-				param: 'damage',
+				param: 'Damage',
 				dstore: 'SapDamage',
 				dstoreD:'SapDamageInfo',
 				btnFilter: 'dam'
@@ -62,10 +62,21 @@ Ext.define('rcm.view.laporan.Chart', {
 				jdlGr: 'Grafik Object Part Frequent',
 				jdlTb: 'Tabel Object Part Frequent',
 				jdlDet: 'Info Detail Chart Object Part Frequent',
-				param: 'object part',
+				param: 'Object part',
 				dstore: 'SapOPart',
 				dstoreD:'SapOPartInfo',
 				btnFilter: 'opt'
+			},{
+				id: 'ts_sm',
+				title: 'Symptom',
+				xtype: 'tSapDet',
+				jdlGr: 'Grafik Symptom Frequent',
+				jdlTb: 'Tabel Symptom Frequent',
+				jdlDet: 'Info Detail Chart Symptom Frequent',
+				param: 'Symptom',
+				dstore: 'SapSymptom',
+				dstoreD:'SapSymptomInfo',
+				btnFilter: 'sym'
 		}];
 
 		me.callParent(arguments);
