@@ -26,8 +26,9 @@ Ext.define('rcm.view.laporan.EPO', {
         },
 		items:[{
 			xtype: 'panel',
-			flex: 1,
-			layout: {
+			//flex: 1,
+			height: 150,
+			layout: {				
 				type: 'hbox',
 				align: 'stretch'
 			},

@@ -8,7 +8,10 @@ Ext.define('rcm.view.dataentry.ExcelGrid', {
 	requires: [
 		'rcm.view.Util',
 	],
-	features: [{ftype:'grouping',startCollapsed:true,hideGroupedHeader:true}],
+	features: [{ftype:'grouping',
+		id:'grRH',
+		hideGroupedHeader:true,
+		startCollapsed:true}],
 
 	store: 'RunningHour',
     columnLines: true,

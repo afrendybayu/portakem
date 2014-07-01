@@ -21,7 +21,7 @@ Ext.define('rcm.view.utama.GridOrderC', {
 			{ header:'Order Costing (Object Type)',flex:3,
 				columns: [{ 
 					header: 'Object Type',dataIndex:'otipe',
-				},{ header: 'Description',dataIndex:'desc',flex:2
+				},{ header: 'Description',dataIndex:'desc',width: 180
 				}]
 			},
 			{ header:'Planned Cost',flex:1,

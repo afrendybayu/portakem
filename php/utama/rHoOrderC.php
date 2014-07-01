@@ -7,6 +7,26 @@ include '../util.php';
 
 
 try {
+	$sql =	"SELECT objid AS otipe, objtype AS `desc`, count(*) AS jml ".
+			",ROUND(sum(totescost),2) AS plstcost,ROUND(sum(intcost),2) AS plincost,ROUND(sum(totplancost),2) AS tplcost ".
+			",ROUND(sum(totmatcost),2) AS acstcost,ROUND(sum(intcost),2) AS acincost ".
+			",ROUND(sum(totservcost),2) AS srvcost,ROUND(sum(actcost),2) AS taccost ".
+			"FROM sap WHERE totplancost>0 GROUP BY otipe";
+	//echo "sql: $sql<br/>";
+	$q = db_query($sql);
+	if (!$q)	{
+		echo "DB Error, could not query the database\n";
+		echo 'MySQL Error: ' . mysql_error();
+		exit;
+	}
+	
+	$teko = array();	$kk=0;
+	while ($row = mysql_fetch_assoc($q)) {
+		if (strlen($row['otipe'])>0)
+			$teko[] = $row;
+	}
+	/*
+	
 	$arTeco = array();
 	$obj1 = new stdClass();
 	$obj1->otipe = 'AIRCOMPRES';
@@ -69,10 +89,11 @@ try {
 	$obj6->woc = '97.22';
 	$obj6->nama = "SAFETY";
 	array_push($arTeco,$obj6);
-
+	//*/
+	
 	$jsonResult = array(
         'success' => true,
-        'hoorderc' => $arTeco
+        'hoorderc' => $teko
     );
 	
 } catch(Exception $e) {

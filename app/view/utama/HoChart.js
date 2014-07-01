@@ -42,11 +42,11 @@ Ext.define('rcm.view.utama.HoChart', {
 				flex: 3,
 				jdl: 'Histori'
 			}],
-			flex: 1
+			flex: 5
 		},{
 			icon: 'modul/icons/dollar.png',
 			xtype: 'tGridOrderC',
-			flex: 1,
+			flex: 4,
 			title: 'Order Costing'
 		}]
 	}]
