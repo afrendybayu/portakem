@@ -12,17 +12,23 @@ Ext.define('rcm.view.laporan.GridWork', {
 		me.columns = {	
 			items: [
 			{ xtype:'rownumberer',width:25 },
-			{ header:'Work Centre',dataIndex:'nama',flex:1, 
+			{ text:'Work Centre',dataIndex:'nama',flex:1, 
 				summaryRenderer: function() {
 					return Ext.String.format('TOTAL ALL WO'); 
 				} 
 			},
-			{ header:'Open',dataIndex:'open',flex:1,summaryType:'sum' },
-			{ header:'Teco',dataIndex:'teco',flex:1,summaryType:'sum' },
-			{ header:'Total Work Order<br/>Per Work Centre',dataIndex:'tot',flex:1,summaryType:'sum' },
-			{ header:'WO Compliance',dataIndex:'woc',width:110,xtype:'templatecolumn',tpl:'{woc} %',
-				summaryRenderer: function() {
-					return Ext.String.format('diitung saja %'); 
+			{ text:'Open',dataIndex:'open',flex:1,summaryType:'sum' },
+			{ text:'Teco',dataIndex:'teco',flex:1,summaryType:'sum' },
+			{ text:'Total Work Order<br/>Per Work Centre',dataIndex:'tot',flex:1,summaryType:'sum' },
+			{ text:'WO Compliance',dataIndex:'woc',width:110,xtype:'templatecolumn',tpl:'{woc} %',
+				summaryType: function(rec){
+					var tot = rec.reduce(function(sums, rec){
+						return [sums[0] + rec.data.teco, 
+								sums[1] + rec.data.tot ];
+					}, [0,0]);
+					//alert("tot0: "+tot[0]+"tot1: "+tot[1]);
+					var p = (tot[0]*100)/tot[1];
+					return parseFloat(Math.round(p * 100) / 100).toFixed(3);
 				}
 			}
 		]};

@@ -44,6 +44,20 @@ try {
 			$jmlwo=$jmlwo+$row['jml'];
 		}
 	}
+	
+	$kk=0;
+	while($teko[$kk])	{
+		if (strcmp($teko[$kk]['nama'],"ELECTECH")==0)		$teko[$kk]['nama']="ELECTRICAL";
+		if (strcmp($teko[$kk]['nama'],"MECHTECH")==0)		$teko[$kk]['nama']="MECHANICAL";
+		if (strcmp($teko[$kk]['nama'],"PIPETECH")==0)		$teko[$kk]['nama']="PIPELINE";
+		if (strcmp($teko[$kk]['nama'],"PRODTECH")==0)		$teko[$kk]['nama']="PRODUCTION";
+		if (strcmp($teko[$kk]['nama'],"PUMPMECH")==0)		$teko[$kk]['nama']="PUMP";
+		if (strcmp($teko[$kk]['nama'],"SFTYTECH")==0)		$teko[$kk]['nama']="SAFETY";
+		if (strcmp($teko[$kk]['nama'],"INSTTECH")==0)		$teko[$kk]['nama']="INSTRUMENTATION";
+		if (strcmp($teko[$kk]['nama'],"DRILTECH")==0)		$teko[$kk]['nama']="DRILLING";
+		//print_r($teko[$kk]); echo "<br/>";
+		$kk++;
+	}
 	/*
 	foreach($teko as $aa)	{
 		print_r($aa);	echo "<br/>";
