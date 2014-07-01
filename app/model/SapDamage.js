@@ -11,7 +11,7 @@ Ext.define('rcm.model.SapDamage', {
     proxy: {
 		type: 'ajax',
 		api: {
-			read: 'php/sapdamage/read.php'
+			read: 'php/sapfmea/rDamage.php'
         },
         reader: {
             type: 'json',

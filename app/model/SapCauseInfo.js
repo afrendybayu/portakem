@@ -9,7 +9,7 @@ Ext.define('rcm.model.SapCauseInfo', {
     proxy: {
 		type: 'ajax',
 		api: {
-			read: 'php/sapcause/readinfo.php'
+			read: 'php/sapfmea/rCauseInfo.php'
         },
         reader: {
             type: 'json',

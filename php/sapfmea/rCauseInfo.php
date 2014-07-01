@@ -7,14 +7,20 @@ try {
 	$eq = 0; $jml = 0;
 	$tisi = array();
 	
-	if (isset($_GET['unit']))	{ $unit = $_GET['unit']; } else { $unit = 3;	}
+	if (isset($_GET['cause']))	{ $cause = $_GET['cause']; } else { $cause = '';	}
 	
-	$s = "SELECT cause.nama,cause as kode,count(*) AS jml, ".
-		 "TRUNCATE((100*count(*)/(select count(*) from sap)),2) as persen ".
-		 "FROM sap ".
-		 "LEFT JOIN cause on cause.kode = sap.cause ".
-		 "GROUP BY cause ORDER BY jml DESC;";
-	$q = db_query($sql);
+	$s = "SELECT sap.pid AS noorder,damage,cause,manwork AS mainwork,opart,eqkode AS equip,".
+		 "notiftype AS tipe,ordertype,downstart ".
+		 "FROM sapfmea ".
+		 "LEFT JOIN sap ON sap.pid = sapfmea.pid";
+	
+	if (strlen($cause)>0)	{
+		$s .= "WHERE cause LIKE '%$cause%'";
+	}
+	//echo "sql: $s";
+	
+	//return;
+	$q = db_query($s);
 	if (!$q)	{
 		echo "DB Error, could not query the database\n";
 		echo 'MySQL Error: ' . mysql_error();
@@ -22,7 +28,6 @@ try {
 	}
 	$sap = array(); $strcat;
 	while ($row = mysql_fetch_assoc($q)) {
-		$row['param'] = 'cau';
 		$sap[] = $row;
 	}
 	
