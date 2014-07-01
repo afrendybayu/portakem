@@ -64,7 +64,7 @@ Ext.define('rcm.controller.DataEntry', {
 		'DaftarGagal','RunningHour','Hirarki',
 		'Cause','FMode','OPart','Equip','Event','Aksi','PM',
 		'SapCause','SapDamage','SapOPart',
-		'SapCauseInfo','SapDamageInfo',
+		'SapCauseInfo','SapDamageInfo','SapOPartInfo',
 		'AvReUnit','AvHome','ReHome','AvGroup','AvSpeedo','ReSpeedo',
 		'HoTeco','HoMan','HoOrderC','SapEPO',
 		'ConMon','ConMonUnit',
@@ -218,7 +218,12 @@ Ext.define('rcm.controller.DataEntry', {
 				click: me.cariAvRe
 			},
 			'taskGridCause': {
-				gridCauseFilter: me.grafikCauseClick,
+				sapFilter: me.grafikFilter,
+				/*
+				causeFilter: me.grafikCauseFilter,
+				damageFilter: me.grafikDamageFilter,
+				opartFilter: me.grafikOPartFilter,
+				//*/
 				clrChartCause: me.grafikCauseClear
 			},
 			'causechart': {
@@ -349,13 +354,16 @@ Ext.define('rcm.controller.DataEntry', {
 		
 	},
 	
-    grafikCauseClick: function(n)	{
-		if (n.param=="dam")	{
+    grafikFilter: function(n, d)	{
+		if (n.localeCompare("dam")==0)	{
 			this.getSapDamageInfoStore().clearFilter(true);
-			this.getSapDamageInfoStore().filter('damage',n.kode);
-		} else if (n.param=="cau")	{
+			this.getSapDamageInfoStore().filter('damage',d.kode);
+		} else if (n.localeCompare("cau")==0)	{
 			this.getSapCauseInfoStore().clearFilter(true);
-			this.getSapCauseInfoStore().filter('cause',n.kode);
+			this.getSapCauseInfoStore().filter('cause',d.kode);
+		} else if (n.localeCompare("opt")==0)	{
+			this.getSapOPartInfoStore().clearFilter(true);
+			this.getSapOPartInfoStore().filter('opart',d.kode);
 		}
 		//*/
 	},

@@ -7,11 +7,17 @@ try {
 	$eq = 0; $jml = 0;
 	$tisi = array();
 	
-	if (isset($_GET['unit']))	{ $unit = $_GET['unit']; } else { $unit = 3;	}
-	
-	$s = "SELECT opart.nama,opart,count(*) AS jml FROM sap ".
-		 "LEFT JOIN opart on opart.kode like sap.opart ".
-		 "GROUP BY opart ORDER BY opart DESC;";
+	$s = "select count(*) as jml, opart as kode, ".
+		 "(select nama from opart where opart.kode = sapfmea.opart limit 0,1) as nama, ".
+		 "ROUND((100*count(*)/(select count(*) from sapfmea)),2) as persen ".
+		 "from sapfmea ".
+		 "group by opart order by jml desc";
+	/*
+	$s = "select sapfmea.opart as kode,opart.nama, count(*) as jml,".
+		 "ROUND((100*count(*)/(select count(*) from sapfmea)),2) as persen ".
+		 "from sapfmea ".
+		 "left join opart on sapfmea.opart = opart.kode ".
+		 "group by opart order by jml desc";
 	//*/
 	$q = db_query($s);
 	if (!$q)	{
@@ -21,6 +27,7 @@ try {
 	}
 	$sap = array();
 	while ($row = mysql_fetch_assoc($q)) {
+		//$row['param'] = 'dam';
 		$sap[] = $row;
 	}
 	

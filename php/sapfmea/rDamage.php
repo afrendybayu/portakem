@@ -21,7 +21,7 @@ try {
 	}
 	$sap = array();
 	while ($row = mysql_fetch_assoc($q)) {
-		$row['param'] = 'dam';
+		//$row['param'] = 'dam';
 		$sap[] = $row;
 	}
 	

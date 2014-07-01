@@ -5,11 +5,13 @@ Ext.define('rcm.model.SapOPart', {
 		'Ext.data.proxy.Ajax'
 	],
 
-	fields: [ 'nama', 'opart','jml' ],
+	fields: ['nama','param', 'kode',
+		{ name:'jml',type:'int' },
+		{ name:'persen',type:'float' }],
     proxy: {
 		type: 'ajax',
 		api: {
-			read: 'php/sapopart/read.php'
+			read: 'php/sapfmea/rOPart.php'
         },
         reader: {
             type: 'json',

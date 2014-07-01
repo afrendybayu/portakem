@@ -26,8 +26,9 @@ Ext.define('rcm.view.laporan.GridCause', {
 		]};
 		me.listeners = {
 			selectionchange: function(model, records) {
-				//alert("pilih: "+records[0].data.kode+" param: "+records[0].data.param);
-				me.fireEvent('gridCauseFilter',records[0].data);	// .kode
+				//alert("pilih: "+records[0].data.kode+" param: "+me.btnFilter);
+				//me.fireEvent('sapFilter',records[0].data,);	// .kode
+				me.fireEvent('sapFilter',me.btnFilter,records[0].data);	// .kode
 			}
 		};
 		me.bbar = [{

@@ -6,6 +6,7 @@ Ext.define('rcm.view.laporan.SapCause', {
 	dstore: 'SapCause',
 	jdl: 'Grafik',
 	param: 'Cause',
+	loadMask: true,
 
 	xField: 'nama',
 

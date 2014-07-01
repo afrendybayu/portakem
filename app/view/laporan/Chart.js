@@ -42,7 +42,8 @@ Ext.define('rcm.view.laporan.Chart', {
 				jdlDet: 'Info Detail Chart Cause Frequent',
 				param: 'cause',
 				dstore: 'SapCause',
-				dstoreD:'SapCauseInfo'
+				dstoreD:'SapCauseInfo',
+				btnFilter: 'cau'
 			},{
 				id: 'ts_da',
 				title: 'Damage',
@@ -52,7 +53,8 @@ Ext.define('rcm.view.laporan.Chart', {
 				jdlDet: 'Info Detail Chart Damage Frequent',
 				param: 'damage',
 				dstore: 'SapDamage',
-				dstoreD:'SapDamageInfo'
+				dstoreD:'SapDamageInfo',
+				btnFilter: 'dam'
 			},{
 				id: 'ts_ob',
 				title: 'Object Part',
@@ -61,8 +63,9 @@ Ext.define('rcm.view.laporan.Chart', {
 				jdlTb: 'Tabel Object Part Frequent',
 				jdlDet: 'Info Detail Chart Object Part Frequent',
 				param: 'object part',
-				dstore: 'SapCause',
-				dstoreD:'SapCauseInfo'
+				dstore: 'SapOPart',
+				dstoreD:'SapOPartInfo',
+				btnFilter: 'opt'
 		}];
 
 		me.callParent(arguments);

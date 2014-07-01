@@ -7,7 +7,7 @@ try {
 	$eq = 0; $jml = 0;
 	$tisi = array();
 
-	$s = "select sapfmea.cause,cause.nama, count(*) as jml,".
+	$s = "select sapfmea.cause AS kode,cause.nama, count(*) as jml,".
 		 "ROUND((100*count(*)/(select count(*) from sapfmea )),2) as persen ".
 		 "from sapfmea ".
 		 "left join cause on sapfmea.cause= cause.kode ".
@@ -21,7 +21,7 @@ try {
 	}
 	$sap = array(); $strcat;
 	while ($row = mysql_fetch_assoc($q)) {
-		$row['param'] = 'cau';
+		//$row['param'] = 'cau';
 		$sap[] = $row;
 	}
 	

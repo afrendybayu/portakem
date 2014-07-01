@@ -31,6 +31,7 @@ Ext.define('rcm.view.laporan.SapChartDet', {
 			collapsible: true,
 			split: true,
 			icon: 'modul/icons/edit1.png',
+			btnFilter: me.btnFilter
 		},{
 			collapsible: true,
 			split: true,
