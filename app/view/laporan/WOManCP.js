@@ -13,11 +13,11 @@ Ext.define('rcm.view.laporan.WOManCP', {
 			defaultSerieType: 'column',
 
 			series : [{
-				dataIndex: 'th1',
-				name: '2013',
+				dataIndex: 'woc',
+				name: 'Persen Teco',
 			}],
-			store: 'AvHome',
-			xField: 'm',
+			store: 'HoMan',
+			xField: 'nama',
 
 			chartConfig: {
 				chart: {

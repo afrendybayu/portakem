@@ -9,8 +9,8 @@ include '../util.php';
 try {
 	$sql =	"SELECT objid AS otipe, objtype AS `desc`, count(*) AS jml ".
 			",ROUND(sum(totescost),2) AS plstcost,ROUND(sum(intcost),2) AS plincost,ROUND(sum(totplancost),2) AS tplcost ".
-			",ROUND(sum(totmatcost),2) AS acstcost,ROUND(sum(intcost),2) AS acincost ".
-			",ROUND(sum(totservcost),2) AS srvcost,ROUND(sum(actcost),2) AS taccost ".
+			",ROUND(sum(totmatcost),2) AS taccost,ROUND(sum(intcost),2) AS acincost ".
+			",ROUND(sum(totservcost),2) AS srvcost,ROUND(sum(actcost),2) AS acstcost ".
 			"FROM sap WHERE totplancost>0 GROUP BY otipe";
 	//echo "sql: $sql<br/>";
 	$q = db_query($sql);
