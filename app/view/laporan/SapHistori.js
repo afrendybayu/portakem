@@ -100,7 +100,16 @@ Ext.define('rcm.view.laporan.SapHistori', {
 						duration : 1000,
 						easing : 'swing'
 					}
-				}
+				},
+				column: {
+					dataLabels: {
+						enabled: true,
+						formatter : function() {
+							return this.y;
+							//return this.y;
+						}
+					}
+				},
 			},
 			tooltip : {
 				formatter : function() {

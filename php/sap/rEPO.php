@@ -25,11 +25,26 @@ try {
 	$sap = array();
 	while ($row = mysql_fetch_assoc($q)) {
 		//*
-		if (strcmp($row['kode'],"EP01")==0)	$row['nama'] = 'EP01 Corrective Order';
-		if (strcmp($row['kode'],"EP02")==0)	$row['nama'] = 'EP02 Breakdown Order';
-		if (strcmp($row['kode'],"EP03")==0)	$row['nama'] = 'EP03 Scheduled Order';
-		if (strcmp($row['kode'],"EP04")==0)	$row['nama'] = 'EP04 General Order';
-		if (strcmp($row['kode'],"EP05")==0)	$row['nama'] = 'EP05 Modification Order';
+		if (strcmp($row['kode'],"EP01")==0)	{
+			$row['nama'] = 'EP01 Corrective Order';
+			$row['color'] = '#2f7ed8';
+		}
+		if (strcmp($row['kode'],"EP02")==0)	{
+			$row['nama'] = 'EP02 Breakdown Order';
+			$row['color'] = '#0d233a';
+		}
+		if (strcmp($row['kode'],"EP03")==0)	{
+			$row['nama'] = 'EP03 Scheduled Order';
+			$row['color'] = '#8bbc21';
+		}
+		if (strcmp($row['kode'],"EP04")==0)	{
+			$row['nama'] = 'EP04 General Order';
+			$row['color'] = '#910000';
+		}
+		if (strcmp($row['kode'],"EP05")==0)	{
+			$row['nama'] = 'EP05 Modification Order';
+			$row['color'] = '#ffa81f';
+		}
 		//if (strcmp($row['kode'],"EP05")!=0)	{
 			$sap[] = $row;
 		//}

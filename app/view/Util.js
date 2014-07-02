@@ -61,7 +61,7 @@ Ext.define('rcm.view.Util', {
 		},
 		
 		Uthm1: function(w)	{
-			var w;
+			var d;
 			if (w)
 				d = new Date(w);
 			else

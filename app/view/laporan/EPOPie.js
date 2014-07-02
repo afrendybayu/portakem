@@ -15,6 +15,7 @@ Ext.define('rcm.view.laporan.EPOPie', {
 	},
 	series: [{
 		type: 'pie',
+		colorField: 'color',
 		categorieField: 'nama',
 		dataField: 'persen',
 		name: 'Persen Order',

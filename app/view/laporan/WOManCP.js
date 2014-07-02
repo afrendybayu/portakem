@@ -59,7 +59,15 @@ Ext.define('rcm.view.laporan.WOManCP', {
 								}
 							}
 						}
-					}
+					},
+					column: {
+						dataLabels: {
+							enabled: true,
+							formatter : function() {
+								return this.y+'%';
+							}
+						}
+					},
 				},
 				tooltip : {
 					formatter : function() {
