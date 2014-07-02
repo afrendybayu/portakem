@@ -34,24 +34,28 @@ Ext.define('rcm.view.laporan.EPO', {
 			},
 			items: [{
 					xtype: 'tAvSpeedo',
-					subjdl: 'Availability ',
+					subjdl: "WO's Open/In Progress",
 					flex: 1,
-					jdl: '3 < n < 7 hari'
+					jdl: '3 <= n < 7 hari',
+					min: 0
 				},{
 					xtype: 'tAvSpeedo',
-					subjdl: 'Availability ',
+					subjdl: "WO's Open/In Progress",
 					flex: 1,
-					jdl: '7 < n < 30 hari'
+					jdl: '7 <= n < 30 hari',
+					min: 0
 				},{
 					xtype: 'tAvSpeedo',
-					subjdl: 'Availability ',
+					subjdl: "WO's Open/In Progress",
 					flex: 1,
-					jdl: '30 < n < 59 hari'
+					jdl: '30 <= n < 60 hari',
+					min: 0
 				},{
 					xtype: 'tAvSpeedo',
-					subjdl: 'Availability ',
+					subjdl: "WO's Open/In Progress",
 					flex: 1,
-					jdl: 'n > 60 hari'
+					jdl: 'n >= 60 hari',
+					min: 0
 			}]
 		},{
 			xtype: 'panel',

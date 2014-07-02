@@ -91,7 +91,8 @@ Ext.define('rcm.view.lapobama.AvReChart', {
 					fldY: ['av2014'],
 					//jdl: 'Availability',
 					nama: 'Av',
-					dstore: 'AvSpeedo'
+					dstore: 'AvSpeedo',
+					min: 50
 				},{
 					id:'spReR',
 					width: '50%',
@@ -99,7 +100,8 @@ Ext.define('rcm.view.lapobama.AvReChart', {
 					fldY: ['re2014'],
 					//jdl: 'Reliability',
 					nama: 'Re',
-					dstore: 'ReSpeedo'
+					dstore: 'ReSpeedo',
+					min: 50
 				}]
 			},{
 				//height: '43.3%',

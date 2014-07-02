@@ -123,7 +123,7 @@ Ext.define('rcm.view.lapobama.SpeedoAv', {
 				text: this.subjdl,
 			},
 			yAxis : {
-					min: 50,
+					min: me.min,
 					max: 100,
 					//*
 					minorTickInterval: 'auto',

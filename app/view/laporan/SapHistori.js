@@ -2,16 +2,8 @@
 Ext.define('rcm.view.laporan.SapHistori', {
     xtype: 'tHistori',
 	extend: 'Chart.ux.Highcharts',
-	
-	require: [
-	
-	],
 
 	loadMask: true,
-	dockedItems: [{
-		xtype: 'taskBlnAv',
-		dock: 'top'
-    }],
 	
 	series : [{
 			type: 'column',
