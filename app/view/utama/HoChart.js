@@ -38,7 +38,8 @@ Ext.define('rcm.view.utama.HoChart', {
 				flex: 2,
 				jdl: 'WO Compliance'
 			},{
-				xtype: 'tHoHistori',
+				//xtype: 'tHoHistori',
+				xtype: 'tHistori',
 				flex: 3,
 				jdl: 'Histori'
 			}],

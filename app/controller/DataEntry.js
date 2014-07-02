@@ -32,7 +32,7 @@ Ext.define('rcm.controller.DataEntry', {
         'laporan.GridCauseInfo',
         'laporan.WOComp',
         'laporan.EPO',
-		'laporan.Histori',
+		'laporan.SapHistori',
 
         'lapobama.AvReUnit',
         'lapobama.AvReChart',
@@ -69,7 +69,7 @@ Ext.define('rcm.controller.DataEntry', {
 		'AvReUnit','AvHome','ReHome','AvGroup','AvSpeedo','ReSpeedo',
 		'HoTeco','HoMan','HoOrderC','SapEPO',
 		'ConMon','ConMonUnit',
-		'DetailGagal','EventInfo','Note','EventList'
+		'DetailGagal','EventInfo','Note','EventList','SapHistori'
 		
     ],
 

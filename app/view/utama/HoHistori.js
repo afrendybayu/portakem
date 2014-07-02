@@ -5,29 +5,7 @@ Ext.define('rcm.view.utama.HoHistori', {
 
 	loadMask: true,
 	
-	series : [{
-			type: 'column',
-			dataIndex: 'av2013',
-			name: 'Within',
-			marker: {
-               	lineWidth: 2,
-               	lineColor: Highcharts.getOptions().colors[2],
-               	fillColor: 'white'
-			}
-		},{
-			type: 'column',
-			dataIndex: 'av2014',
-			name: 'Overdue',
-			marker: {
-               	lineWidth: 2,
-               	lineColor: Highcharts.getOptions().colors[3],
-               	fillColor: 'white'
-			}
-		},{
-			type: 'spline',
-			dataIndex: 'av2014',
-			name: '% Past Due',
-	}],
+	
 	
 	store: 'AvReUnit',
 	xField: 'm',
@@ -48,6 +26,30 @@ Ext.define('rcm.view.utama.HoHistori', {
 				text: 'Histori',
 				x: -50
 			},
+			series : [{
+					type: 'column',
+					dataIndex: 'av2013',
+					name: 'Within',
+					marker: {
+						lineWidth: 2,
+						lineColor: Highcharts.getOptions().colors[2],
+						fillColor: 'white'
+					}
+				},{
+					type: 'column',
+					dataIndex: 'av2014',
+					name: 'Overdue',
+					marker: {
+						lineWidth: 2,
+						lineColor: Highcharts.getOptions().colors[3],
+						fillColor: 'white'
+					}
+				},{
+					type: 'spline',
+					dataIndex: 'av2014',
+					name: '% Past Due',
+					yAxis: 1
+			}],
 			xAxis : [{
 				title : {
 					text : 'Waktu',
@@ -69,11 +71,17 @@ Ext.define('rcm.view.utama.HoHistori', {
 				title : {
 					text : 'Persen [%]'
 				},
+				labels: {
+                    format: '{value}%',
+                    style: {
+                        color: '#4572A7'
+                    }
+                },
 				
 				plotLines : [{
 					value : 0,
 					width : 1,
-					color : '#808080'
+					//color : '#808080'
 				}],
 				opposite: true
 			}],

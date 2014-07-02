@@ -1,36 +1,44 @@
 // afrendyBayu,15Feb2014 //
-Ext.define('rcm.view.laporan.Histori', {
+Ext.define('rcm.view.laporan.SapHistori', {
     xtype: 'tHistori',
 	extend: 'Chart.ux.Highcharts',
+	
+	require: [
+	
+	],
 
 	loadMask: true,
+	dockedItems: [{
+		xtype: 'taskBlnAv',
+		dock: 'top'
+    }],
 	
 	series : [{
 			type: 'column',
-			dataIndex: 'av2013',
+			dataIndex: 'teco',
 			name: 'Within',
 			marker: {
                	lineWidth: 2,
-               	lineColor: Highcharts.getOptions().colors[2],
-               	fillColor: 'white'
+               	lineColor: 'green',
 			}
 		},{
 			type: 'column',
-			dataIndex: 'av2014',
+			dataIndex: 'open',
 			name: 'Overdue',
 			marker: {
                	lineWidth: 2,
-               	lineColor: Highcharts.getOptions().colors[3],
-               	fillColor: 'white'
+               	lineColor: 'white',
+               	//fillColor: 'white'
 			}
 		},{
 			type: 'spline',
-			dataIndex: 'av2014',
+			dataIndex: 'persen',
 			name: '% Past Due',
+			yAxis: 1
 	}],
 	
-	store: 'AvReUnit',
-	xField: 'm',
+	store: 'SapHistori',
+	xField: 'bulan',
 	
 	initComponent: function() {
 		var me=this;
@@ -44,8 +52,9 @@ Ext.define('rcm.view.laporan.Histori', {
 				},
 				backgroundColor: '#d9e9ef'
 			},
+			colors: ['#10ae3d', '#f32727', '#0000FF'],
 			title : {
-				text: 'Histori',
+				text: 'Histori '+rcm.view.Util.U1th(),
 				x: -50
 			},
 			xAxis : [{
@@ -58,23 +67,31 @@ Ext.define('rcm.view.laporan.Histori', {
 				title : {
 					text : '# Work Orders'
 				},
-				
+				/*
 				plotLines : [{
 					value : 0,
 					width : 1,
 					color : '#808080'
 				}]
+				//*/
 			},{
 				max: 100,
+				min: 0,
 				title : {
 					text : 'Persen [%]'
 				},
-				
+				/*
 				plotLines : [{
-					value : 0,
-					width : 1,
-					color : '#808080'
+					value : 98,
+					color : 'red',
+					dashStyle: 'ShortDash',
+					width : 2,
+					zIndex: 100,
+					label : {
+						text : 'Compliance Target >95%'
+					}
 				}],
+				//*/
 				opposite: true
 			}],
 			plotOptions : {
@@ -87,7 +104,7 @@ Ext.define('rcm.view.laporan.Histori', {
 			},
 			tooltip : {
 				formatter : function() {
-					return '<b>' + this.series.name + '</b><br/>' + this.x + ': ' + this.y+'%';
+					return '<b>' + this.series.name + '</b><br/>' + this.x + ': ' + this.y;
 				}
 			},
 			legend : {
