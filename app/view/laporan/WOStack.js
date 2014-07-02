@@ -15,7 +15,6 @@ Ext.define('rcm.view.laporan.WOStack', {
 	
 	store: 'HoMan',
 	xField: 'nama',
-	//colors:['#FF0000', '#00FF00'],
 
 	initComponent: function() {
 		var me=this;

@@ -32,15 +32,15 @@ Ext.define('rcm.view.utama.HoChart', {
 			items: [{
 				xtype: 'tGridWO',
 				//text: 'label HoChart',
-				flex: 2
+				flex: 3
 			},{
 				xtype: 'tHoPie',
-				flex: 2,
+				flex: 4,
 				jdl: 'WO Compliance'
 			},{
 				//xtype: 'tHoHistori',
 				xtype: 'tHistori',
-				flex: 3,
+				flex: 6,
 				jdl: 'Histori'
 			}],
 			flex: 5

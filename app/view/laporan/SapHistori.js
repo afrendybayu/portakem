@@ -63,20 +63,12 @@ Ext.define('rcm.view.laporan.SapHistori', {
 				},
 			}],
 			yAxis : [{
-				//max: 100,
 				title : {
 					text : '# Work Orders'
-				},
-				/*
-				plotLines : [{
-					value : 0,
-					width : 1,
-					color : '#808080'
-				}]
-				//*/
+				}
 			},{
-				max: 100,
 				min: 0,
+				max: 100,				
 				title : {
 					text : 'Persen [%]'
 				},
@@ -116,6 +108,7 @@ Ext.define('rcm.view.laporan.SapHistori', {
 					return '<b>' + this.series.name + '</b><br/>' + this.x + ': ' + this.y;
 				}
 			},
+			/*
 			legend : {
                     layout : 'vertical',
                     align : 'right',
@@ -124,6 +117,7 @@ Ext.define('rcm.view.laporan.SapHistori', {
                     y : 10,
 				borderWidth : 0
 			},
+			//*/
 			credits : {
 				text : 'hc'
 			}
