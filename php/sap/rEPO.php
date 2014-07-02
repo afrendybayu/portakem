@@ -36,37 +36,7 @@ try {
 	}
 	//*/
 	mysql_free_result($q);
-	/*
-	$sap = array();
-	$obj1 = new stdClass();
-	$obj1->wo = '475';
-	$obj1->persen = '13.27';
-	$obj1->kode = 'EP01';
-	$obj1->nama = "EP01 Corrective Order";
-	array_push($sap,$obj1);
 	
-	$obj = new stdClass();
-	$obj->wo = '45';
-	$obj->persen = '1.25';
-	$obj->kode = 'EP02';
-	$obj->nama = "EP02 Breakdown Order";
-	array_push($sap,$obj);
-	
-	$obj2 = new stdClass();
-	$obj2->wo = '2979';
-	$obj2->persen = '83.24';
-	$obj2->kode = 'EP03';
-	$obj2->nama = "EP03 Scheduled Order";
-	array_push($sap,$obj2);
-	
-	$obj3 = new stdClass();
-	$obj3->wo = '80';
-	$obj3->persen = '2.24';
-	$obj3->kode = 'EP04';
-	$obj3->nama = "EP04 General Order";
-	array_push($sap,$obj3);
-	//*/
-
     $jsonResult = array(
         'success' => true,
         'sap' => $sap

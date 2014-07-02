@@ -31,7 +31,7 @@ Ext.define('rcm.view.laporan.Chart', {
 			},{
 				id: 'ts_pdm',
 				title: 'Histori',
-				xtype:'tHoHistori'
+				xtype:'tHistori'
 			},{
 				id: 'ts_ca',
 				title: 'Cause',

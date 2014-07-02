@@ -26,24 +26,7 @@ Ext.define('rcm.view.Content', {
 			title: 'Dashboard Home',
 			icon: 'modul/icons/Dashboard.png',
 			xtype: 'tHoChart',
-		},{
-			id: 'tu_re',
-			title: 'Reliability',
-			icon: 'modul/icons/report.png',
-			xtype: 'tAvReChart',
-		},{
-			id: 'tu_sap',
-			title: 'SAP Report',
-			icon: 'modul/icons/report_check.png',
-			xtype: 'tabChart',
-		/*
-		},{
-			id: 'tu_pr',
-			title: 'Prestasi Mesin',
-			icon: 'modul/icons/perform.png',
-			xtype: 'detailInfo'
-		//*/
-		},{
+},{
 			id: 'tu_rh',
 			title: 'Runnning Hour',
 			icon: 'modul/icons/edit1.png',
@@ -84,30 +67,6 @@ Ext.define('rcm.view.Content', {
 						icon: 'modul/icons/more.png',
 						//html: 'detailInfo'
 						xtype: 'detailInfo'
-						/*
-						layout: 'border',
-						items: [{
-								region: 'west',
-								width: '26%',
-								xtype: 'propgrid',
-								weight: 100
-							}, {
-								collapsible: true,
-								//collapsed: true,
-								id: 'idinfofmea',
-								title: 'Unit Failure List',
-								region: 'center',
-								flex: 1,
-								xtype: 'infofmea'
-							},{
-								//title: 'Note',
-								
-								region: 'south',
-								//xtype: 'htmleditor',
-								xtype: 'detailInfo',
-								flex: 1
-						}]
-						//*/
 					}]
 				//*/
 			/*
@@ -121,15 +80,25 @@ Ext.define('rcm.view.Content', {
 				//	data: Ext.create('Extensible.example.calendar.data.Events')
 				//}),
 			//*/
-			/*
-			},{
-				title: 'Data Running Hour',
-				xtype: 'excelgrid',
-				id: 'app-runninghourx',
-				//iconCls: 'icon-grid',
-				icon: 'modul/icons/application_go.png'
-			//*/
 			}]
+		},{
+			id: 'tu_re',
+			title: 'Reliability',
+			icon: 'modul/icons/report.png',
+			xtype: 'tAvReChart',
+		},{
+			id: 'tu_sap',
+			title: 'SAP Report',
+			icon: 'modul/icons/report_check.png',
+			xtype: 'tabChart',
+		/*
+		},{
+			id: 'tu_pr',
+			title: 'Prestasi Mesin',
+			icon: 'modul/icons/perform.png',
+			xtype: 'detailInfo'
+		//*/
+		
 		},{
 			id: 'tu_kf',
 			title: 'Konfigurasi',

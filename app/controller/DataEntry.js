@@ -32,6 +32,7 @@ Ext.define('rcm.controller.DataEntry', {
         'laporan.GridCauseInfo',
         'laporan.WOComp',
         'laporan.EPO',
+		'laporan.Histori',
 
         'lapobama.AvReUnit',
         'lapobama.AvReChart',
