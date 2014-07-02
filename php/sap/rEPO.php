@@ -9,26 +9,34 @@ try {
 	
 	if (isset($_GET['unit']))	{ $unit = $_GET['unit']; } else { $unit = 3;	}
 	
-	$s = "SELECT cause.nama,cause as kode,count(*) AS jml, ".
-		 "TRUNCATE((100*count(*)/(select count(*) from sap)),2) as persen ".
+	$s = "SELECT ordertype AS kode,pmtype,count(*) AS wo ".
+		 ",ROUND((100*count(*)/(select count(*) from sap )),2) as persen ".
 		 "FROM sap ".
-		 "LEFT JOIN cause on cause.kode = sap.cause ".
-		 "GROUP BY cause ORDER BY jml DESC;";
+		 "GROUP BY ordertype ".
+		 "ORDER BY ordertype ASC,pmtype ASC";
+
 	$q = db_query($s);
 	if (!$q)	{
 		echo "DB Error, could not query the database\n";
 		echo 'MySQL Error: ' . mysql_error();
 		exit;
 	}
-	/*
+	//*
 	$sap = array();
 	while ($row = mysql_fetch_assoc($q)) {
-		$row['param'] = 'cau';
-		$sap[] = $row;
+		//*
+		if (strcmp($row['kode'],"EP01")==0)	$row['nama'] = 'EP01 Corrective Order';
+		if (strcmp($row['kode'],"EP02")==0)	$row['nama'] = 'EP02 Breakdown Order';
+		if (strcmp($row['kode'],"EP03")==0)	$row['nama'] = 'EP03 Scheduled Order';
+		if (strcmp($row['kode'],"EP04")==0)	$row['nama'] = 'EP04 General Order';
+		if (strcmp($row['kode'],"EP05")==0)	$row['nama'] = 'EP05 Modification Order';
+		//if (strcmp($row['kode'],"EP05")!=0)	{
+			$sap[] = $row;
+		//}
 	}
 	//*/
 	mysql_free_result($q);
-	
+	/*
 	$sap = array();
 	$obj1 = new stdClass();
 	$obj1->wo = '475';
@@ -57,7 +65,7 @@ try {
 	$obj3->kode = 'EP04';
 	$obj3->nama = "EP04 General Order";
 	array_push($sap,$obj3);
-	
+	//*/
 
     $jsonResult = array(
         'success' => true,

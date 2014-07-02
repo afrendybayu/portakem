@@ -36,10 +36,10 @@ Ext.define('rcm.view.laporan.EPOCol', {
 					}
 				}],
 				yAxis : {
-					max: 100,
+					//max: 100,
 					//min: 60,
 					title : {
-						text : 'Persen [%]'
+						text : 'Number of WO'
 					}
 				},
 				plotOptions : {
@@ -62,7 +62,7 @@ Ext.define('rcm.view.laporan.EPOCol', {
 				},
 				tooltip : {
 					formatter : function() {
-						return '<b>' + this.series.name + '</b><br/>' + this.x + ': ' + this.y+'%';
+						return '<b>' + this.series.name + '</b><br/>' + this.x + ': ' + this.y;
 					}
 				},
 				credits : {

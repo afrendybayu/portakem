@@ -20,7 +20,6 @@ Ext.define('rcm.view.laporan.Chart', {
 				id: 'ts_mo',
 				title: 'Maintenance Order',
 				xtype:'tEPO',
-				//icon: 'modul/icons/add.gif',
 			},{
 				id: 'ts_wo',
 				title: 'WO Compliance',
